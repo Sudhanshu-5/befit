@@ -1,0 +1,98 @@
+<%- include ("../partials/mealHeader") %>
+    <link rel="stylesheet" href="/stylesheets/autocomplete.css">
+    <link rel="stylesheet" href="/stylesheets/instantSearchFood.css">
+     <link rel="stylesheet" href="/stylesheets/nutritionalFacts.css">
+<div class="container">                              
+  <div id="instant-search">
+      <input id="search" type="text" class="form-control d-inline p-0" placeholder="search from database" required>
+      <button type="button" class="btn" id="instant-search-btn">Submit</button>
+        <div id="cb-toggle" class="btn-group btn-group-toggle d-flex justify-content-around" data-toggle="buttons">
+                                              
+                                                  <label class="btn btn-light ">
+                                                      <input type="radio" class="form-control" name="choice" value="common" id="common-instant" checked> Common
+                                                  </label>
+
+                                                  <label class="btn btn-light ">
+                                                      <input type="radio"class="form-control" name="choice"value="branded" id="branded-instant"> Branded
+                                                  </label>
+        </div>
+  </div>
+    <div id="results">
+    </div>
+  
+</div>
+<script>
+  $(document).ready(function(){
+  $("#common-instant").click();
+
+  })
+  $("#search").on('click',function(){
+  
+    $('#cb-toggle').attr('style','display:flex !important');
+      $("#cb-toggle").css({
+    'width': ($("#search").width() + 'px')
+  });
+  
+  $("#results .ui-menu").css({
+      'max-width': ($("#search").width() + 'px')
+    })
+
+    
+  })
+  let carbs_obj={};
+  let fats_obj={};
+  let general_obj={};
+  let minerals_obj={};
+  let protiens_obj={};
+  let vitamins_obj={};
+   let i_options_measure; 
+   let qty,measure,weight;
+                                $("#common-instant").click(function(){
+                                console.log("common clicked");
+                                searchInstant("common","branded");
+                                });
+                                $("#branded-instant").click(function(){
+                                console.log("branded clicked");
+                                searchInstant("branded","common");
+                                });
+                  function showNutritionalFacts(){
+                   
+                  }              
+   $(document).bind('keypress', function(e) {
+            if(e.keyCode==13){
+                 $('#instant-search-btn').trigger('click');
+             }
+        });
+
+    $("#instant-search-btn").on('click',function(){
+      if(!$("#search").val().length){
+        alert("enter a food")
+      }
+      else{
+      let item=$("#search").val();
+      //alert(item)
+      $("#results").html("<img id='gif' src='images/load.gif'>")
+      $.ajax({
+                url: "/searchNutrients",
+                type: "post",
+                data:{"query":item},
+           
+            
+                success:function (result) {
+                  $("#results").html(result)
+                },
+                 error: function (xhr, status) {
+                        alert("Sorry, there was a problem :("+status);
+                    },
+    })
+  }
+  })
+                          
+</script>
+
+
+  <script src="/script/searchInstant.js"></script>
+
+
+<%- include ("../partials/footer") %>
+

@@ -1,0 +1,462 @@
+<%- include ("../partials/header")%>
+
+ <link rel="stylesheet" href="/stylesheets/register.css"/>
+  <p class="register-here">Registeration</p>
+
+<form class="container" action="/register" method="POST" >
+<div class="main-form row form-group container">
+    <div class="profile d-flex flex-column  align-items-center col-5">
+        <input id="username"class="input-group"  data-content="Username already exists, choose a unique one." type="text" placeholder="username" name="username" autocomplete="given-name" required>
+        <span id="username-err"class="alert alert-danger" role="alert">Username already taken</span><br>
+        <input class="input-group" type="text" placeholder="First name" name="firstName" autocomplete="given-name" required><br>
+        <input class="input-group" type="text" placeholder="Last name" name="lastName" autocomplete="family-name"><br>
+        <input id="email"class="input-group" type="email"    placeholder="your e-mail address" name="email" autocomplete="email" required>
+        <span id="email-err"class="alert alert-danger" role="alert">Email id is already in use</span><br>
+        <input class="input-group" type="password" placeholder="password" name="password"required><br>
+        <input class="input-group" type="password" placeholder="confirm password" name="confirmPass" required><br>
+        <lable for="date">Date Of Birth</lable>
+        <input type="date" id="date" name="date" onchange="getAge()" required><br>
+        <label for="age">Age</label> 
+        <input type="number" id="age" name="age" readonly="readonly">
+    </div>
+<div class="col"></div>
+    <div class="body-info d-flex  flex-column  align-items-between col-5">
+            <p >Body Info</p>
+            <div>
+            <lable>Gender:</lable>
+            <label>
+            <input type="radio" name="gender" id="maleradio" value="male">
+            Male
+            </label>
+            <label>
+            <input type="radio" name="gender" id="femaleradio" value="female">
+            Female
+            <select class="d-inline" name="bodyType" id="female-type">
+            <option>Normal</option>
+            <option>pregnant</option>
+            <option>Breastfeading</option>
+          </select>
+          </label>
+          </div>
+              
+              <div class="divheight">
+            <lable>Height:</lable>
+            <input class="input cms" id="height" name="height" type="number" onkeyup="toFeetAndInches(0)"   onChange="toFeetAndInches(0)" max="272" placeholder="0" required >
+              cms  /
+            
+        <select  class="feets"  name="height-feets" onChange="toCMS(0)" placeholder="0">
+            <option >0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option  >5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            
+          </select>
+            &nbsp;'&nbsp;
+          <select class="inches" name="height-inches" onChange="toCMS(0)" placeholder=0>
+            <option >0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option  >5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+          </select>
+                &nbsp;" &nbsp;
+
+          </div>
+              
+          
+          <div class="divweight">
+            <lable>Weight:</lable>
+            <input type="number" id="kgs" class="input"name="kgs" min="10" max="500"onkeyup="toLbs()"   onchange="toLbs()" step="0.01" placeholder="0" required>
+            &nbsp;Kgs /&nbsp;
+              <input type="number" id="lbs" class="input"name="lbs" onkeyup="toKgs()"   onchange="toKgs()" step="0.01" placeholder="0">
+            &nbsp;lbs&nbsp; 
+          </div>
+            <div>
+              <lable >Body Type:</lable>
+            
+            <select id="body" name="body" required>
+            <option value="select" >Select...</option>
+            <option value="normal">Normal body</option>
+            <option value="muscular">Muscular body</option>
+            <option  value="lean">lean body</option>
+            </select>
+            </div>
+            
+            <div class="bmi">
+              <label>
+                <button type="button" onclick="KnowBmi()">Bmi</button>
+                <input name="bmi" id="bmi" type="number" step="0.01">
+              </label>
+                <div class="container" id="modal">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+          learn here
+        </button>
+        <div class="modal fade" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+        
+              <div class="modal-header">
+                <h4 class="modal-title">BMI here....</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                Underweight = < 18.5<br>
+                Normal weight = 18.5–24.9<br>
+                Overweight = 25–29.9<br>
+                Obesity = BMI of 30 or greater 
+                
+              </div>
+              <div id="note">
+              <p>*if u have lean or muscular body/ if u r sportsman or bodybuilder BMI will not help</p>
+            </div>  
+      </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="leanModal" tabindex="-1" role="dialog" aria-labelledby="leanModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="leanModalLongTitle">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body row">
+                <div class="leanBody">
+                    <div>
+                      <label>Neck</label> 
+                      <input type="number" class="cms input" id="neck" name="neck" onkeyup="toFeetAndInches(1)" onchange="toFeetAndInches(1)" value="0" required >
+                          cms / 
+                          <select  class="feets"  name="neck-feets" onchange="toCMS(1)">
+                    <option selected="selected">0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option >5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    
+                  </select>
+                        
+                        &nbsp;'&nbsp;
+                        <select class="inches" name="neck-inches" onchange="toCMS(1)" >
+                    <option selected="selected">0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                  </select>
+                        
+                                  &nbsp;"&nbsp;
+
+              </div>
+                <div>
+                    <label>Waist</label> 
+                    <input type="number" class="cms input" id="waist"name="waist" onkeyup="toFeetAndInches(2)" onchange="toFeetAndInches(2)" value="0"   required >
+                        cms / 
+                        <select  class="feets"  name="waist-feets" onchange="toCMS(2)">
+                  <option selected="selected">0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  
+                </select>
+                      
+                      &nbsp;'&nbsp;
+                      <select class="inches input" name="waist-inches" onchange="toCMS(2)" >
+                  <option selected="selected">0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                  <option>11</option>
+                </select>
+                      
+                                &nbsp;"&nbsp;
+              </div> 
+              <div>
+                  <label>Hip</label> 
+                  <input type="number" class="cms input" id="hip" name="hip" onkeyup="toFeetAndInches(3)" onchange="toFeetAndInches(3)"value="0"  required>
+                      cms / 
+                      <select  class="feets"  name="hip-feets" onchange="toCMS(3)">
+                <option selected="selected">0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                
+              </select>
+                    
+                    &nbsp;'&nbsp;
+                    <select class="inches" name="hip-inches" onchange="toCMS(3)" >
+                <option selected="selected" >0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+              </select>
+                    
+                              &nbsp;"&nbsp;
+              </div> 
+              <div id="bodyFat">
+                  <label>
+                    <button type="button" onclick="knowBodyFat()">Know body fat percentage</button>
+                  <input name="bodyfat"class="input"id="bodyfat" type="number" step="0.01">
+                  </label>
+              </div>
+          </div>
+        </div>
+            
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="save" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+   </div>
+
+<div id="submit">
+  <button  class="btn btn-success btn-submit justify-content-center">Submit</button> 
+</div> 
+</form>
+<script>
+$(document).ready(function(){
+  $("#username-err,#email-err").each(function () {
+  $(this).hide();
+})
+  
+  $('[data-toggle="popover"]').popover();   
+});
+
+  $("#username").on('blur',function(){
+    let username=$("#username").val();
+    let email="";
+    validate(username,email)
+  })
+    $("#email").on('blur',function(){
+    let username="";
+    let email=$("#email").val();
+    validate(username,email)
+  })
+  function validate(username,email){
+ $.ajax({
+                type: "Get", 
+                url: "/validate",
+                data:{Username:username,Email:email},
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result, status, xhr) {
+                    if(result && email.length>0){
+                    $("#email-err").show();
+                     }
+                  else if(result && username.length>0){
+                     $("#username-err").show();
+                     }
+                  },
+                error: function (xhr, status, error) {
+                }
+            });    
+  }
+    $('#body').change(function() { 
+        var val = $(this).val();
+        if(val=="lean"||val=="muscular"){ 
+            $('#leanModal').modal("show"); 
+        }
+    });
+function getAge() {
+   var dateString=document.getElementById("date").value;
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    console.log("Age " +
+        age);
+    document.getElementById("age").value=age;
+}
+
+
+              function toCMS(n){
+               console.log("cms index"+n);
+               var cms=Math.round(parseFloat(document.getElementsByClassName('feets')[n].value)*30.48)
+               +Math.round(parseFloat(document.getElementsByClassName('inches')[n].value)*2.54);
+                document.getElementsByClassName('cms')[n].value=cms;
+              }
+
+             function toFeetAndInches(n){
+  
+               if(document.getElementsByClassName('cms')[n].value<273){
+               var feet=parseFloat(document.getElementsByClassName('cms')[n].value)*0.032808;
+               console.log(Math.round((feet%1)*12));
+               var inch=Math.round((feet%1)*12);
+               document.getElementsByClassName('feets')[n].value=Math.floor(feet);
+               document.getElementsByClassName('inches')[n].value=inch;
+               }
+               else{
+                  document.getElementsByClassName('feets')[n].value=0;z 
+                  document.getElementsByClassName('inches')[n].value=0;
+                
+               }
+               }
+               function toLbs(){ 
+                 
+                var lbs = (parseFloat(document.getElementById('kgs').value)*2.2).toFixed(2) ;
+                 document.getElementById('lbs').value=lbs;
+               }
+               function toKgs(){
+                  
+                var kgs = (parseFloat(document.getElementById('lbs').value)*0.453592).toFixed(2) ;
+                 document.getElementById('kgs').value=kgs;
+               }
+
+               function KnowBmi(){
+                       var bmi = (document.getElementById('kgs').value) /
+              ((document.getElementsByClassName('cms')[0].value / 100) *
+                  (document.getElementsByClassName('cms')[0].value / 100));
+                  console.log("bmmi"+bmi);
+          document.getElementById('bmi').value = bmi.toFixed(2);
+                     }
+         $(document).ready(function(){
+            var data= $("#body").val();
+          if(data==="select"){
+            $(".bmi").hide();
+            $(".leanBody").hide();
+
+          }
+
+             $('#body').on("change",function (){
+
+                    var data= $(this).val();
+                       if(data==="select"){
+                          $(".bmi").hide();
+                         $(".leanBody").hide();
+                       }
+                        if (data === "normal") {
+                          $(".leanBody").hide();
+                            $(".bmi").show();
+                            KnowBmi();
+                          
+                             } 
+if(data==="muscular" || data==="lean"){
+  $(".bmi").hide();
+   $(".leanBody").show();
+}
+          })
+       })
+
+var gender;
+  $(function(){
+  $('input[type="radio"]').click(function(){
+    gender=$(this).val();
+    //console.log(gender);
+  })
+})
+function knowBodyFat(){
+  if(gender=="male"){
+    var height=parseFloat($("#height").val());
+   var w= parseFloat($("#waist").val());
+    var n= parseFloat($("#neck").val());
+    if(w==n){
+      alert("Enter real and proper values");
+    }
+    if(height==0 || w==0 || n==0){
+      alert("enter properly ur nek height waist values")
+    }
+    else{
+      
+    var fLog=calculateLog(10,(w-n));
+    
+   
+    var sLog=calculateLog(10,parseFloat(height));
+
+   var denominator=1.0324 - (0.19077*fLog)  + (0.15456*sLog);
+   var bfp=(495/denominator)-450;
+   $("#bodyfat").val(bfp.toFixed(2));
+    }
+  }
+     if(gender=="female"){
+    var height=parseFloat($("#height").val());
+   var w= parseFloat($("#waist").val());
+    var h= parseFloat($("#hip").val());
+    var n= parseFloat($("#neck").val());
+    if(w==n){
+      alert("Enter real and proper values");
+    }
+    if(height==0 || w==0 || n==0 || h==0){
+      alert("enter properly ur nek height waist values")
+    }
+    else{
+      
+    var fLog=calculateLog(10,(w+h-n));
+     var sLog=calculateLog(10,parseFloat(height));
+    var denominator=1.29579 - 0.35004*fLog + 0.22100*sLog
+   var bfp=(495/denominator)-450;
+   $("#bodyfat").val(bfp.toFixed(1));
+    }
+
+ }
+ function calculateLog(x,y){
+   console.log("y="+Math.log(y)+" "+"x"+Math.log(x) )
+   return Math.log(y) / Math.log(x)
+ }
+ }
+
+</script>
+
+
+<%- include ("../partials/footer")%>

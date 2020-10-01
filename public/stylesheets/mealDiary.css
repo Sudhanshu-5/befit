@@ -1,0 +1,93 @@
+#contents {
+    width: 100%;
+
+    font-size: 1rem;
+}
+
+
+
+#meal-info {
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+#diary {
+    border: .1rem solid gray;
+}
+
+#meal-info .nutrients {
+    margin-left: 50%;
+    width: 50%;
+}
+
+.nutrients div {
+    padding: 0;
+    text-align: center;
+
+}
+
+#b-nutrients,
+#l-nutrients,
+#s-nutrients,
+#d-nutrients {
+    text-align: center;
+}
+
+#b-foods i,
+#l-foods i,
+#d-foods i,
+#s-foods i {
+    background-color: white;
+    color: red;
+    text-align: center;
+    display: inline-block;
+
+    opacity: 0;
+
+    transition: 0.1s linear;
+    margin-right: .3rem
+}
+
+
+#b-foods div:hover i,
+#l-foods div:hover i,
+#d-foods div:hover i,
+#s-foods div:hover i {
+
+    opacity: 1;
+    margin-right: .3rem
+}
+
+.strip {
+    padding: 10px 0;
+    width: 100%;
+    margin: 0;
+}
+
+.nucalcho {
+    max-width: 100%;
+    width: 100%;
+
+}
+
+.nucalcho div {
+
+    padding: 0px;
+    width: calc(100%/6);
+    height: 24px;
+}
+
+.food-info div {
+    cursor: pointer;
+}
+
+#meta-data .col-8 {
+    background-clip: padding-box;
+}
+
+#showresults {
+    min-width: 50%;
+
+
+}

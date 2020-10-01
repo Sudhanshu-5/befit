@@ -1,0 +1,14 @@
+.container {
+    margin: 0 auto;
+
+}
+
+#profile {
+    text-align: center;
+}
+
+.container .form-control {
+    border: none;
+    outline: none;
+    background: transparent;
+}

@@ -1,0 +1,17 @@
+<%- include ("../partials/header") %>
+ <link rel="stylesheet" href="/stylesheets/forgot.css"/>
+
+<div class="container row ">
+	<div class="col-md-12 d-flex justify-content-center align-item-center">
+		<form action="/forgotPass" method="POST">
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input id="forgot-email"type="email" name="email" autofocus class="form-control">
+			</div>
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary" value="Reset Password">
+			</div>
+		</form>
+	</div>
+</div>
+<%- include ("../partials/footer") %>

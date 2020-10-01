@@ -1,0 +1,143 @@
+<!-- <%=calorieinfo.macroNutrientInfo%> -->
+<p id="date-absence">
+  No record is added for this date !!
+</p>
+<div class="container">
+<canvas id="calorieChart"></canvas>
+</div>
+<script>
+  <% let fromIndex=0;%>
+          <% let toIndex=0; %>
+         
+     consumedArray=[];
+
+    burnedArray=[];
+ dates=[];
+  $("#date-absence").hide();
+		length = <%-calorieinfo.macroNutrientInfo.length%>;
+
+
+ 
+// console.log("yesterdaytttttttttttttt "+yesterday.toLocaleDateString())
+// console.log("todayyyyyyyyyyyyyy "+today.toLocaleDateString());
+var ctx = document.getElementById("calorieChart").getContext("2d");
+
+
+	if(<%-JSON.stringify(selected)%> == "today"){
+            let today_dates  ;
+            let info_date;
+            let count=0;
+
+      <%calorieinfo.macroNutrientInfo.forEach(function(info){%>
+        today_dates=today.toLocaleDateString();
+        info_date=<%-JSON.stringify((new Date(info.createdAt)).toLocaleDateString())%>;
+                  if(  today_dates === info_date){
+                    // console.log(typeof(today.toLocaleDateString())+"   "+typeof(<%-JSON.stringify((new Date(info.createdAt)).toLocaleDateString())%>)
+                        dates.push('<%-(new Date(info.createdAt)).toLocaleDateString()%>');
+                        consumedArray.push('<%-info.totalCaloriesConsumed%>');
+                        burnedArray.push('<%-info.totalCaloriesBurned%>')
+                        
+                        count++;
+                   }
+                 
+                   
+             <%})%>
+             if(!count){
+               $("#date-absence").show();
+             }
+		}
+	
+
+		else if(<%-JSON.stringify(selected)%> == "yesterday"){           
+            let count=0;
+            <%calorieinfo.macroNutrientInfo.forEach(function(info){%>
+                   if( yesterday.toLocaleDateString() == '<%-(new Date(info.createdAt)).toLocaleDateString()%>'){
+			        dates.push('<%-(new Date(info.createdAt)).toLocaleDateString()%>');
+		        	consumedArray.push('<%-info.totalCaloriesConsumed%>');
+              burnedArray.push('<%-info.totalCaloriesBurned%>')
+              count++;
+                   }
+                  
+             <%})%>
+            if(!count){
+               $("#date-absence").show();
+             }
+			      
+      }
+      else if(<%-JSON.stringify(selected)%> == "custom" && <%-JSON.stringify(from)%> && <%-JSON.stringify(to)%>){
+         console.log("inside custpm")
+        <% for(let i=0 ; i<calorieinfo.macroNutrientInfo.length  ; i++){ %>
+          //  console.log("andar"+<%-fromIndex%>)
+
+            <%if(JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString()) === JSON.stringify(from)){%> 
+              <%-fromIndex=i%>;
+              valid_from=<%-i%>;
+              // console.log(<%-fromIndex%>+"fromIndex"+typeof(<%-fromIndex%>))
+            <% }%>
+
+          <%if(JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString()) === JSON.stringify(to)){%>
+            <%-toIndex=i%>
+            valid_to=<%-i%>;
+            // console.log(<%-toIndex%>+"toindex")
+            <%}%>
+
+        <%}%>
+        console.log("nkjndankds "+valid_to+"   "+valid_from);
+            if(!valid_to){
+              $("#date-absence").show();
+             
+            }else{
+               <% for(let i=fromIndex;i<=toIndex; i++){%>
+                           
+              dates.push(<%-JSON.stringify((new Date(calorieinfo.macroNutrientInfo[i]["createdAt"]).toLocaleDateString()))%>);
+		        	consumedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesConsumed"])%>);
+              burnedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesBurned"])%>)
+               <% }%>
+            }
+
+
+              
+      	}
+
+else{
+    <%calorieinfo.macroNutrientInfo.forEach(function(info){%>
+              console.log("date "+'<%-(new Date(info.createdAt)).toLocaleDateString()%>')
+			        dates.push('<%-(new Date(info.createdAt)).toLocaleDateString()%>');
+		        	consumedArray.push('<%-info.totalCaloriesConsumed%>');
+              burnedArray.push('<%-info.totalCaloriesBurned%>')
+                 
+		<%})%>
+    }
+var data = {
+  labels:dates,
+  datasets: [{
+    label: "calories consumed",
+    backgroundColor: "blue",
+    data:consumedArray
+  }, {
+    label: "Burned calories",
+    backgroundColor: "red",
+    data: burnedArray
+  }]
+};
+var myBarChart = new Chart(ctx, {
+  type: 'bar',
+  data: data,
+  options: {
+    maintainAspectRatio: false,
+    scales: {
+       xAxes: [{
+            barThickness : 73
+        }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max:3500
+        }
+      }]
+    }
+  }
+});
+</script>
+
+

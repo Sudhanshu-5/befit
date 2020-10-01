@@ -1,0 +1,152 @@
+<%- include ("../partials/mealHeader") %>
+<link rel="stylesheet" href="/stylesheets/userFoods.css"/>
+
+
+<div class="container row">
+  <div class="col-9">
+    <div id="add">
+    <h3>Fill  with your own custom foods and recipies </h3>
+    <form  action="/customFoods" method="POST">
+      <div class="row">
+       <div class="col-6">
+        <div class="form-group row">
+           <label for="food_name" class="col-sm-3 col-form-label">Food Name</label>
+           <div class="col-sm-9">
+           <input type="text"  name="info[food_name]" class="form-control" id="food_name" placeholder="jhunka/bhakar/thecha" required  >
+           </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="calories" class="col-sm-3 col-form-label">Energy</label>
+           <div class="col-sm-9">
+          <input type="number" name="info[calories]" class="form-control" id="calories"placeholder="kcal" step=".1" required  >
+           </div>
+        </div>
+        
+        <div class="form-group row">
+          <label for="protiens"class="col-sm-3 col-form-label">Protiens</label>
+          <div class="col-sm-9">
+          <input type="number" id="protiens"  class="form-control" name="info[protiens]" placeholder="grams"step="0.01" required  >
+          </div>
+        </div>
+
+        <div class="form-group row">
+           <label for="carbohydrates" class="col-sm-3 col-form-label">Carbohydrates</label>
+           <div class="col-sm-9">
+               <input type="number" id="carbohydrates" class="form-control" name="info[carbs]" placeholder="grams"step="0.01" required >
+           </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="fibre" class="col-sm-3 col-form-label">Fibre</label>
+          <div class="col-sm-9">
+              <input type="number" id="fibre" name="info[fibres]" class="form-control" placeholder="grams"step="0.01" required >
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="fat" class="col-sm-3 col-form-label">Fat</label>
+          <div class="col-sm-9">
+                <input type="number" id="fat" name="info[fats]" class="form-control" placeholder="grams"step="0.01" required >
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="cholestrol" class="col-sm-3 col-form-label">Cholestrol</label>
+          <div class="col-sm-9">
+             <input type="number" id="cholestrol" name="info[cholestrol]" class="form-control" placeholder="in mg"step="0.01"required >
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div id="icon" class="my-2"class="d-flex justify-content-between">
+       
+        <i class="fas fa-plus-circle" style="cursor:pointer;" id="add-icon"></i>
+           <span>Add serving sizes</span>
+        <i class="fas fa-minus-circle" style="cursor:pointer;" id="remove-icon"></i>
+      </div>  
+        <div id="servingDiv" class="d-flex flex-wrap justify-content start">
+           <label for="qty">Qty
+              <div id="qty"class="qty d-flex-column">
+              </div>
+           </label>
+            <label for="measure">Measure
+              <div id="measure"class="measure  d-flex-column">
+              </div>
+            </label>
+            <label for="weight">Weight
+              <div id="weight"class="weight d-flex-column">
+              </div>
+            </label>
+        </div>
+      </div>
+      </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+
+    </form>
+  </div>
+</div>
+  <div class="col-3">
+          <%myfoods.userfood.forEach(function(food){%>
+     <ul>
+        <li class="food-name">
+            <%=food.food_name%>
+        </li>
+     </ul>
+    <%})%>
+  </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+    let i = 0;
+
+    $("#add").on('click','#add-icon',function () {
+      let qInputField = $(document.createElement('div'))
+       .attr("id", "qinput");
+       let mInputField = $(document.createElement('div'))
+       .attr("id", "minput");
+       let wInputField = $(document.createElement('div'))
+	     .attr("id", "winput");
+
+	qInputField.after().html(
+       '<input type="number"  class="input'+i+'" name="qty[]" placeholder="qty">'
+       );
+
+    qInputField.appendTo("#qty");
+
+	mInputField.after().html(
+       '<input type="text"  class="input'+i+'"name="serving_unit[]" placeholder="cup/tbps.pieces">'
+       );
+
+    mInputField.appendTo("#measure");
+   
+  wInputField.after().html(
+       '<input  type="number" class="input'+i+'"name="serving_weight[]" placeholder="g/unit">'
+       );
+    wInputField.appendTo("#weight");
+    i++;
+     });
+
+     $("#remove-icon").on('click',(function () {
+	if(i==0){
+          alert("No more textbox to remove");
+          return false;
+       }
+       let selector="#qty .input" + (i-1)
+      $("#qty .input" + (i-1)).remove();
+      $("#measure .input" + (i-1)).remove();
+      $("#weight .input" + (i-1)).remove();
+
+        	i--;
+
+     }));
+  });
+</script>    
+ 
+ <%- include ("../partials/footer") %>
+ 

@@ -1,0 +1,20 @@
+#instant-search {
+
+    max-width: 50%;
+    margin: 1rem auto;
+
+}
+
+#results .ui-menu {
+    margin-top: 0;
+    max-width: 50%;
+}
+
+#search {
+    width: 70%;
+}
+
+#cb-toggle {
+    display: none !important;
+    height: 5vh
+}

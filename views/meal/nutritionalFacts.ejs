@@ -1,0 +1,243 @@
+ <div class="container">
+      
+    &nbsp;For &nbsp;
+    <input type="number" class="form-control w-25" id="x-qty" value="<%=data.serving_qty%>">
+    <select id="x-measure" class="form-control w-25"></select>
+
+<div id="kaccha-chittha" class="row" style="background-color:rgba(227, 125, 95, .2);"> 
+     <div id="carbs" class="row p-2">
+          <div>carbs</div><br>
+     </div>
+     <div id="fats" class="row p-2">
+          <h3>fats_obj</h3>
+     </div>
+     <div id="general"class="row p-2">
+          <h3>general</h3>
+     </div>
+     <div id="minerals"class="row p-2">
+          <h3>minerals</h3>
+     </div>
+     <div id="protiens"class="row p-2">
+          <h3>protiens</h3>
+     </div>
+     <div id="vitamins"class="row p-2">
+          <h3>vitamins</h3>
+     </div>
+</div>
+ </div>
+<script>
+//Carbs
+carbs_obj={
+205:"Carbohydrate",
+287:"Galactose",
+211:"Glucose ,dextrose",
+291:"Fiber, total dietary",
+212:"Fructose",
+213:"Lactose",
+214:"Maltose",
+210:"Sucrose",
+269:"Sugars, total",
+539:"Sugars, added",
+209:"Starch",
+}
+
+//fats'
+ fats_obj={
+606:"total saturated",
+204:"total lipid",
+605:"total trans",
+645:"total monounsaturated",
+646:"total polyunsaturated",
+
+638:"Stigmasterol",
+693:"total trans-monoenoic",
+695:"total trans-polyenoic",
+636:"Phytosterols",
+}
+
+//minerals
+ minerals_obj={
+312:"Copper",
+301:"Calcium",
+303:"Iron",
+307:"Sodium",
+313:"Fluoride",
+304:"Magnesium",
+315:"Manganese ",
+305:"Phosphorus",
+306:"Potassium",
+317:"Selenium",
+}
+
+//protiens
+ protiens_obj={
+513:"Alanine",
+511:"Arginine",
+514:"Aspartic acid",
+257:"Adjusted Protein",
+515:"Glutamic acid",
+516:"Glycine",
+512:"Histidine",
+521:"Hydroxyproline",
+504:"Leucine",
+505:"Lysine",
+506:"Methionine",
+510:"Valine",
+508:"Phenylalanine",
+517:"Proline",
+501:"Tryptophan",
+509:"Tyrosine",
+502:"Threonine",
+518:"Serine",
+}
+
+ general_obj={
+221:"Alcohol",
+207:"Ash",
+601:"Cholesterol",
+262:"Caffeine",
+639:"Campesterol",
+255:"Water",
+309:"Zinc, Zn"
+}
+
+//vitamins
+vitamins_obj={
+404:"Tiamin",
+323:"Vitamin E, alpha-tocopherol",
+343:"Tocopherol, delta",
+342:"Tocopherol, gamma",
+417:"Folate, total",
+337:"Lycopene",
+406:"Niacin",
+410:"Pantothenic acid",
+344:"Tocotrienol, alpha",
+345:"Tocotrienol, beta",
+346:"Tocotrienol, gamma",
+347:"Tocotrienol, delta",
+431:"Folic acid",
+435:"Folate, DFE",
+432:"Folate, food",
+428:"Menaquinone-4",
+319:"Retinol",
+405:"Riboflavin",
+318:"Vitamin A, IU",
+320:"Vitamin A, RAE",
+418:"Vitamin B-12",
+415:"itamin B-6",
+401:"Vitamin C, total ascorbic acid",
+328:"Vitamin D , D2 + D3",
+430:"Vitamin K ,phylloquinone",
+325:"Vitamin D2 ,ergocalciferol",
+573:"Vitamin E, added",
+578:"Vitamin B-12, added",
+326:"Vitamin D3, cholecalciferol",
+324:"Vitamin D",
+322:"Carotene, alpha",
+321:"Carotene, beta",
+421:"Cryptoxanthin, beta",
+429:"Dihydrophylloquinone",
+}
+
+//get val() default
+$(document).ready(function(){
+      qty=$("#x-qty").val();
+      measure=$("#x-measure").val();
+      weight;
+     //alert(measure)
+})
+
+//set weight on change and keypress
+ $("#x-qty").on('keyup change', function() {
+          //alert($(this).val())   
+       qty= $(this).val();  
+       weight=Number(qty)*Number(measure); 
+       console.log("qty"+weight)   
+       nutrientForParticularWeight(weight); 
+             
+        });
+
+  $("#x-measure").on('change', function() {
+          //alert($(this).val())
+          console.log("m-qty"+qty)
+          measure=$(this).val();
+        weight=Number(measure)*Number(qty);    
+        console.log("measure"+weight)   
+       nutrientForParticularWeight(weight); 
+             
+        });
+
+var carbs=" ",fats=" ",general=" ",minerals=" ",protiens=" ",vitamins=" ";
+
+  i_options_measure="<option id='first' value='' disabled selected hidden>Choose a measure</option>"; 
+
+//serving option
+ <% data.alt_measures.forEach(function (item) {%>
+     if(<%-JSON.stringify(item.measure)%>===<%-JSON.stringify(data.serving_unit)%>){
+           i_options_measure+="<option class='measure' selected value="+<%-JSON.stringify(item.serving_weight)%>+">"+<%-JSON.stringify(item.measure)%>+" , "+<%-JSON.stringify(item.serving_weight)%>+"grams</option>";
+     }
+     else{
+       i_options_measure+="<option class='measure' value="+<%-JSON.stringify(item.serving_weight)%>+" >"+<%-JSON.stringify(item.measure)%>+" , "+<%-JSON.stringify(item.serving_weight)%>+"g</option>";
+     }
+ <%})%>   
+    $("#x-measure").html(i_options_measure);
+
+   let factor;
+
+   nutrientForParticularWeight(<%-data.serving_weight_grams%>);    
+ 
+    function nutrientForParticularWeight(weight){
+      carbs=" ",fats=" ",general=" ",minerals=" ",protiens=" ",vitamins=" ";
+           factor = weight / <%-data.serving_weight_grams %>;
+          
+     <% data.full_nutrients.forEach(function(item){%>
+     if(carbs_obj['<%-item.attr_id%>']){
+       carbs+="<div class='col-6'>"+carbs_obj['<%-item.attr_id%>']+"</div>"+
+              "<div class='col-6'>"+<%-item.value%>*factor+"</div>"     
+      }
+      
+     else if(fats_obj['<%-item.attr_id%>']){
+           
+       fats+="<div class='col-6'>"+fats_obj['<%-item.attr_id%>']+"</div>"+
+              "<div class='col-6'>"+<%-item.value%>*factor+"</div>" 
+     
+     }
+
+      else if(general_obj['<%-item.attr_id%>']){
+
+       general+="<div class='col-6'>"+general_obj['<%-item.attr_id%>']+"</div>"+
+              "<div class='col-6'>"+<%-item.value%>*factor+"</div>"
+     
+     }
+ 
+      else if(protiens_obj['<%-item.attr_id%>']){
+          
+       protiens+="<div class='col-6'>"+protiens_obj['<%-item.attr_id%>']+"</div>"+
+              "<div class='col-6'>"+<%-item.value%>*factor+"</div>" 
+     
+     }
+      else if(vitamins_obj['<%-item.attr_id%>']){
+
+       vitamins+="<div class='col-6'>"+vitamins_obj['<%-item.attr_id%>']+"</div>"+
+              "<div class='col-6'>"+<%-item.value%>*factor+"</div>" 
+     
+     }
+      else if(minerals_obj['<%-item.attr_id%>']){
+
+       minerals+="<div class='col-6'>"+minerals_obj['<%-item.attr_id%>']+"</div>"+
+              "<div class='col-6'>"+<%-item.value%>*factor+"</div>" 
+     
+     }
+     <% })%>
+          $("#carbs").empty().append(carbs);
+          $("#fats").empty().append(fats);
+          $("#general").empty().append(general);
+          $("#minerals").empty().append(minerals);
+          $("#protiens").empty().append(protiens);
+          $("#vitamins").empty().append(vitamins);
+    }  
+
+       
+</script>
+
+

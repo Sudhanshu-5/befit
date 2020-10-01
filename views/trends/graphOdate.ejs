@@ -1,0 +1,64 @@
+<p id="graphOdate-absence">
+  No record is added for this date !!
+</p>
+
+<div class="conatiner">
+  <canvas  id="graphOdateChart" ></canvas>
+</div>
+
+<script>
+ dataset=[];
+ dates=[];
+
+// type = weight/ height
+ type=<%-JSON.stringify(type)%> 
+
+  $("#graphOdate-absence").hide();
+
+	length = <%-ondateinfo.ondate.length%>;
+
+
+var ctx_weight = document.getElementById("graphOdateChart").getContext("2d");
+
+	<%ondateinfo.ondate.forEach(function(info){%>
+              console.log("date "+'<%-(new Date(info.createdAt)).toLocaleDateString()%>')
+			        dates.push('<%-(new Date(info.createdAt)).toLocaleDateString()%>');
+		        	dataset.push(<%-JSON.stringify(info)%>[type]);
+         
+    <%})%>
+    console.log("beleive it "+dataset.length)
+    if(!dataset[0]){
+      console.log("nsdnsjn")
+        $("#graphOdate-absence").show();
+    }
+    
+var data = {
+  labels:dates,
+  datasets: [{
+    label: "weight",
+    backgroundColor: "blue",
+    data:dataset
+  }]
+};
+var myBarChart = new Chart(ctx_weight, {
+  type: 'bar',
+  data: data,
+  options: {
+
+    maintainAspectRatio: false,
+    scales: {
+         xAxes: [{
+            barThickness : 73
+        }],
+    
+      yAxes: [{
+        ticks: {
+          min: 0,
+        }
+      }]
+    }
+  }
+});
+</script>
+
+

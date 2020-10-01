@@ -1,0 +1,92 @@
+<%- include ("../partials/profileHeader") %>
+<div class="container">
+<h1>Edit profile</h1>
+  <form action="/viewProfile?_method=PUT" method="POST"> 
+
+  <div class="form-group row">
+      <label for="username" class="col-sm-3 col-form-label">Username</label>
+      <div class="col-sm-9">
+      <input type="text"class="form-control" id="username"  name="founduser[username]" value="<%=founduser.username%>"  >
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="email" class="col-sm-3 col-form-label">Email</label>
+      <div class="col-sm-9">
+      <input type="email" id="email"class="form-control" name="founduser[email]" value="<%=currentUser.email%>"  >
+      </div>
+    </div> 
+
+     <div class="form-group row">
+       <label for="date" class="col-sm-3 col-form-label">Date of birth</label>
+       <div class="col-sm-9">
+       <input type="text" id="date"class="form-control" name="founduser[date]" value="<%=founduser.DOB%>"  >
+      </div>
+     </div> 
+
+     <div class="form-group row">
+      <label for="height" class="col-sm-3 col-form-label">Height</label>
+      <div class="col-sm-9">
+      <input type="number" id="height"class="form-control" name="founduser[height]" value="<%=founduser.height%>"  >
+      </div>
+     </div>
+
+     <div class="form-group row">
+        <label for="weight" class="col-sm-3 col-form-label">weight</label>
+        <div class="col-sm-9">
+        <input type="number" id="weight" class="form-control" name="founduser[weight]" value="<%=founduser.weight%>"  >
+        </div>
+     </div>
+
+     <div class="form-group row">
+      <label for="bmi" class="col-sm-3 col-form-label">BMI</label>
+      <div class="col-sm-9">
+      <input type="number" id="bmi" class="form-control" name="founduser[bmi]" value="<%=founduser.bmi%>"  >
+      </div>
+     </div>
+      <!-- <label>Username:
+      <input type="text"  name="founduser[username]" value="<%=founduser.username%>">
+      </label>
+    </div>
+    <div>
+      <label>Email:
+      <input type="email" name="founduser[email]" value="<%=founduser.email%>">
+      </label>
+    </div>
+     <div>
+      <label>Date of birth:
+     <input type="text" id="dob" name="founduser[DOB]" value="<%=founduser.DOB%>">
+      </label>
+    </div>
+     <div>
+      <label>height:
+     <input type="number" id="cms" name="founduser[height]" value="<%=founduser.height%>">
+      </label>
+    </div>
+     <div>
+      <label>weight:
+     <input type="number" id="kgs" name="founduser[weight]" value="<%=founduser.weight%>">
+      </label>
+    </div> -->
+     <!-- <div> -->
+      
+      <!-- <label>
+               <input type="number" id="bmi" name="founduser[bmi]" step=0.01  >
+
+          <
+      </label> -->
+    <!-- </div> -->
+  <button class="btn" onclick="window.location.href='/viewProfile';">save</button>
+ 
+<script>
+  function knowBmi(){
+    var bmi=(document.getElementById('kgs').value)/
+    ((document.getElementById('cms').value/100)*
+    (document.getElementById('cms').value/100));
+    document.getElementById('bmi').value=bmi.toFixed(2);
+  };
+
+</script>
+</form>
+</div>
+<%- include ("../partials/footer") %>

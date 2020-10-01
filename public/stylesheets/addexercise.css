@@ -1,0 +1,54 @@
+.exercise-description {
+    font-size: 1em;
+    color: #2e3033;
+    font-family: 'Oxygen',
+        sans-serif;
+}
+
+#exercise-desc textarea {
+    width: 60%;
+    height: 20vh;
+}
+
+#selectedExercise-div {}
+
+#selectedExercise-div li {
+    list-style: none;
+}
+
+#selectedExercise-div li input {
+    width: 50%;
+    display: inline;
+}
+
+#selectedExercise-div #u-duration {
+    width: 25%;
+
+}
+
+#exercise-desc select {
+    width: 35%;
+}
+
+#body-info p {
+    font-size: 1.5rem;
+    margin-bottom: .1rem;
+    margin-top: .1rem;
+
+}
+
+#body-info input {
+    width: 10%;
+    display: inline
+}
+
+#exercise-list p {
+    font-size: 1.5rem;
+    font-weight: lighter;
+    text-align: center
+}
+
+#exercise-list ul {
+    list-style: none;
+    text-align: center;
+}

@@ -1,0 +1,59 @@
+.register-here {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.profile {
+
+    border: .2rem solid gray;
+    box-sizing: border-box;
+    padding: 2% 0;
+
+}
+
+.body-info {
+    box-sizing: border-box;
+    border: .2rem solid gray;
+    padding: 2%;
+}
+
+
+
+.profile input:not(#date):not(#age) {
+
+
+    max-width: 70%;
+
+}
+
+
+
+.profile #age {
+
+    max-width: 15%;
+
+}
+
+.profile #date {
+    max-width: 35%
+}
+
+.body-info p {
+    font-size: 2rem;
+    margin: 0 auto;
+
+}
+
+.body-info div {
+    padding: 1.2rem;
+
+}
+
+.input {
+
+    max-width: 20%;
+}
+
+#submit {
+    margin-left: 45.7%;
+}

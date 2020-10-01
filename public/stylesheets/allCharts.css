@@ -1,0 +1,14 @@
+.container {
+    margin-top: 2%;
+}
+
+.container canvas {
+    max-width: 70%;
+    height: 70vh;
+
+}
+
+select {
+    max-width: 20%;
+
+}

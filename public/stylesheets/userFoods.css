@@ -1,0 +1,40 @@
+.container {
+    margin: 0 auto
+}
+
+#add input {
+    max-width: 90%;
+}
+
+#icon {
+    max-width: 70%;
+}
+
+#add-icon,
+#remove-icon {
+    color: #E27D60;
+    font-size: larger;
+}
+
+#servingDiv {
+    width: 70%;
+}
+
+#servingDiv label[for="qty"] {
+    width: 20%;
+
+}
+
+#servingDiv label[for="measure"] {
+    width: 60%;
+
+}
+
+#servingDiv label[for="weight"] {
+    width: 20%;
+
+}
+
+#servingDiv input {
+    width: 100%
+}

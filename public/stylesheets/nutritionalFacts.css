@@ -1,0 +1,9 @@
+#carbs,
+#fats,
+#general,
+#protiens,
+#minerals,
+#vitamins {
+    max-width: 30%;
+    font-size: .8rem;
+}
