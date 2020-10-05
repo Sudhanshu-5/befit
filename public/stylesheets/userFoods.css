@@ -6,9 +6,6 @@
     max-width: 90%;
 }
 
-#icon {
-    max-width: 70%;
-}
 
 #add-icon,
 #remove-icon {
@@ -16,8 +13,8 @@
     font-size: larger;
 }
 
-#servingDiv {
-    width: 70%;
+#icon {
+    background-color: rgba(227, 125, 95, .2);
 }
 
 #servingDiv label[for="qty"] {
@@ -36,5 +33,17 @@
 }
 
 #servingDiv input {
-    width: 100%
+    width: 100%;
+    outline: none;
+    border: none;
+}
+
+#add-btn {
+    background-color: #E27D60;
+    color: white;
+}
+
+#kitchen-list {
+    background-clip: content-box;
+    background-color: rgba(227, 125, 95, .2);
 }

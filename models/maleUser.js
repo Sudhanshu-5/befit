@@ -68,6 +68,9 @@ var maleUserSchema = new mongoose.Schema({
         type: Number,
         default: 45
     },
+    p_target: Number,//protien target
+    c_target: Number,
+    f_target:Number,
 
     mealinfo: [{
         type: mongoose.Schema.Types.ObjectId,

@@ -1,12 +1,12 @@
 
-<label for="calProgress">Energy</label><div id="calProgress" class="progress"></div>
-<label for="carbProgress">Carbs</label><div id="carbProgress" class="progress"></div>
-<label for="fatsProgress">Fats</label><div id="fatsProgress" class="progress"></div>
-<label for="protiensProgress">Protiens</label> <div id="protiensProgress" class="progress"></div>
+<label for="calProgress" class="my-1">Energy</label><div id="calProgress" class="progress"></div>
+<label for="carbProgress" class="my-1">Carbs</label><div id="carbProgress" class="progress bg-success" style="color:black;"></div>
+<label for="fatsProgress" class="my-1">Fats</label><div id="fatsProgress" class="progress"></div>
+<label for="protiensProgress" class="my-1">Protiens</label> <div id="protiensProgress" class="progress"></div>
 
 <script>
  
-
+console.log("asmdsaaaaaaaaaaaaaaa " + <%-totals['totalCarbs']%>+" "+<%-targets['cTarget']%>)
        caloriePer = ( (<%-totals['totalCaloriesConsumed']%>/<%-bmr%> )*100).toFixed(2);
        carbPer=( (<%-totals['totalCarbs']%>/<%-targets['cTarget']%> )*100).toFixed(2);
        fatsPer=( (<%-totals['totalFats']%>/<%-targets['fTarget']%>)*100).toFixed(2);
@@ -15,13 +15,13 @@
             //console.log(caloriePer+" "+protienPer+" "+fatsPer+" "+carbPer)
 
    calp="<div class='progress-bar bg-success' role='progressbar' aria-valuenow=" +caloriePer+ " aria-valuemin='0' aria-valuemax='100'"+ 
-   "style='width:"+caloriePer+"%'>"+(<%-totals['totalCaloriesConsumed']%>).toFixed(2)+" kcal"+" / "+(<%-bmr%>).toFixed(2)+" kcal"+" ("+caloriePer+"%"+")"+
+   "style='width:"+caloriePer+"%;color:black'>"+(<%-totals['totalCaloriesConsumed']%>).toFixed(2)+" kcal"+" / "+(<%-bmr%>).toFixed(2)+" kcal"+" ("+caloriePer+"%"+")"+
    "</div>";
     carbp= "<div class='progress-bar bg-warning' role='progressbar' aria-valuenow="+carbPer+" aria-valuemin='0' aria-valuemax='100'"+ 
-   "style='width:"+carbPer+"%'>"+(<%- totals['totalCarbs'] %>).toFixed(2)+" g "+" / " +(<%- targets['cTarget'] %> ).toFixed(2)+" g "+" ("+carbPer+"%"+")"+
+   "style='width:"+carbPer+"%;background-color: rgba(227, 125, 95,0.4);'>"+(<%- totals['totalCarbs'] %>).toFixed(2)+" g "+" / " +(<%-targets['cTarget'] %> ).toFixed(2)+" g "+" ("+carbPer+"%"+")"+
    "</div>";
     fatsp= "<div class='progress-bar bg-info' role='progressbar' aria-valuenow="+fatsPer+" aria-valuemin='0' aria-valuemax='100'"+
-    "style='width:"+fatsPer+"%'>"+(<%- totals['totalFats'] %>).toFixed(2)+" g "+" / "+(<%- targets['fTarget'] %> ).toFixed(2)+" g "+" ("+fatsPer+"%"+")"+
+    "style='width:"+fatsPer+"%'>"+(<%- totals['totalFats'] %>).toFixed(2)+" g "+" / "+(<%-targets['fTarget'] %> ).toFixed(2)+" g "+" ("+fatsPer+"%"+")"+
     "</div>";
     protiensp="<div class='progress-bar bg-danger' role='progressbar' aria-valuenow="+protienPer+" aria-valuemin='0' aria-valuemax='100'"+
    "style='width:"+protienPer+"%'>"+(<%- totals['totalProtiens']%>).toFixed(2)+" g "+" / "+(<%-targets['pTarget']%>).toFixed(2)+" g "+" ("+protienPer+"%"+")"+

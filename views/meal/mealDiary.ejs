@@ -9,9 +9,10 @@
 
 
 <div class="container p-0">
+  <div id="del-mssg"></div>
  <div id="contents" class="row">
    <!-- Calendar -->
-      <div class="col-4">
+      <div class="col-4 ">
         <div class=" calender px-0">
               <div class="date d-flex justify-content-between align-items-center ">
                       <i class="prev-date fa fa-angle-left  ml-3" aria-hidden="true"></i>
@@ -50,123 +51,149 @@
                   
               </div>
           </div>
-           <div id="showresults" class="d-flex flex-column justify-content-around"> 
-
+           <div id="showresults" class="d-flex flex-column justify-content-around mt-5" > 
+                <img src="images/spinner.gif" width="20%" height="20%" class="mx-auto my-5">
            </div>
       </div>  
          <!-- diary -->
-          <div id="meal-info"class="col-8" >
+          <div id="meal-info"class="col-8 pl-5" >
             <div id="diary">
-            <div class="row nutrients">
-                          <div class="col">
-                            Cal
-                          </div>
-                          <div class="col">
-                            Carbs
-                          </div>
-                          <div class="col">
-                            Cho
-                          </div>
-                          <div class="col">
-                            Fats
-                          </div>
-                           <div class="col">
-                            Fibres
-                          </div>
-                          <div class="col">
-                            Pro
-                          </div>
-             </div>
-            <div class="food-items">
-                 <div id="breakfast" class="row strip">
-                     
-                        <div class="col-2">
-                          <p class="meal-time">Breakfast</p> 
-                          
-                        </div>
-                        <div class="col-4 d-flex  justify-content-between">
-                          <div id="b-foods" class="food-info"></div>
-                           
-                        </div>
-                        <div class="col-6 px-0">
-                          <div id="b-nutrients" class="row nucalcho px-0 mx-0"></div>
-                      </div>
-                  
-             </div>
-                <div id="lunch"class="row strip">
-                        <div class="col-2">
-                          <p class="meal-time">Lunch</p> 
-                        </div>
-                        <div class="col-4 d-flex  justify-content-between">
-                          <div id="l-foods" class="food-info"></div>
-                           
-                        </div>
-                        <div class="col-6 px-0">
-                          <div id="l-nutrients" class="row nucalcho px-0 mx-0"></div>
-                        </div>
+              <div class="row nutrients">
+                            <div class="col">
+                              Cal
+                            </div>
+                            <div class="col">
+                              Carbs
+                            </div>
+                            <div class="col">
+                              Cho
+                            </div>
+                            <div class="col">
+                              Fats
+                            </div>
+                            <div class="col">
+                              Fibres
+                            </div>
+                            <div class="col">
+                              Pro
+                            </div>
+              </div>
+                <div class="row nutrients">
+                            <div class="col small">
+                              KCal
+                            </div>
+                            <div class="col small">
+                              g
+                            </div>
+                            <div class="col small">
+                              mg
+                            </div>
+                            <div class="col small">
+                              g
+                            </div>
+                            <div class="col small">
+                              g
+                            </div>
+                            <div class="col small">
+                              g
+                            </div>
+              </div>
+              <div class="food-items">
+                  <div id="breakfast" class="row strip">
                       
-                </div>
-                <div id="dinner" class="row strip">
-                        <div class="col-2">
-                          <p class="meal-time">Dinner</p> 
+                          <div class="col-2">
+                            <p class="meal-time">Breakfast</p> 
+                            
+                          </div>
+                          <div class="col-4 d-flex  justify-content-between">
+                            <div id="b-foods" class="food-info"></div>
+                            
+                          </div>
+                          <div class="col-6 px-0">
+                            <div id="b-nutrients" class="row  small nucalcho px-0 mx-0"></div>
                         </div>
-                        <div class="col-4 d-flex  justify-content-between">
-                          <div id="d-foods" class="food-info"></div>
-                           
-                        </div>
-                        <div class="col-6 px-0">
-                          <div id="d-nutrients" class="row  nucalcho px-0 mx-0"></div>
-                        </div>
-                      
-                </div>
-                <div id="snacks" class="row strip">
-                        <div class="col-2">
-                          <p class="meal-time">Snacks</p> 
-                        </div>
-                        <div class="col-4 d-flex  justify-content-between">
-                          <div id="s-foods" class="food-info"></div>
-                          
-                        </div>
-                        <div class="col-6 px-0">
-                          <div id="s-nutrients" class="row nucalcho px-0 mx-0"></div>
-                        </div>
-                      
-                </div>
-                <!-- <div id="total" class="row strip">
-                        <div class="col-2">
-                          <p class="meal-time">Total</p> 
-                        </div>
-                        <div class="col-4">
-                          
-                        </div>
-                        <div class="col-6 px-0">
-                          <div id="s-nutrients" class="row nucalcho px-0 mx-0"></div>
-                        </div>
-                      
-                </div> -->
+                    
+              </div>
+                  <div id="lunch"class="row strip">
+                          <div class="col-2">
+                            <p class="meal-time">Lunch</p> 
+                          </div>
+                          <div class="col-4 d-flex  justify-content-between">
+                            <div id="l-foods" class="food-info"></div>
+                            
+                          </div>
+                          <div class="col-6 px-0">
+                            <div id="l-nutrients" class="row small nucalcho px-0 mx-0"></div>
+                          </div>
+                        
+                  </div>
+                  <div id="dinner" class="row strip">
+                          <div class="col-2">
+                            <p class="meal-time">Dinner</p> 
+                          </div>
+                          <div class="col-4 d-flex  justify-content-between">
+                            <div id="d-foods" class="food-info"></div>
+                            
+                          </div>
+                          <div class="col-6 px-0">
+                            <div id="d-nutrients" class="row small nucalcho px-0 mx-0"></div>
+                          </div>
+                        
+                  </div>
+                  <div id="snacks" class="row strip">
+                          <div class="col-2">
+                            <p class="meal-time">Snacks</p> 
+                          </div>
+                          <div class="col-4 d-flex  justify-content-between">
+                            <div id="s-foods" class="food-info"></div>
+                            
+                          </div>
+                          <div class="col-6 px-0">
+                            <div id="s-nutrients" class="row small nucalcho px-0 mx-0"></div>
+                          </div>
+                        
+                  </div>
+                  <!-- <div id="total" class="row strip">
+                          <div class="col-2">
+                            <p class="meal-time">Total</p> 
+                          </div>
+                          <div class="col-4">
+                            
+                          </div>
+                          <div class="col-6 px-0">
+                            <div id="s-nutrients" class="row nucalcho px-0 mx-0"></div>
+                          </div>
+                        
+                  </div> -->
+              </div>
+              
             </div>
+          <div class="rounded row  my-2 d-flex justify-content-around  mx-auto w-75" style="background-color: rgba(227, 125, 95,0.4);">
+                            <div class="p-3">
+                              Qty
+                              <div id="qty" class="mt-2 text-center"></div> 
+                              <hr class="my-1"> 
+                            </div>
+
+                            <div class="p-3">
+                             Measure
+                              <div id="unit" class="mt-2 text-center"></div>
+                              <hr class="my-1">   
+                            </div>
+
+                            <div class="p-3">
+                              weight(g)
+                              <div id="weight" class="mt-2 text-center"></div> 
+                              <hr class="my-1">  
+                            </div>
+
+                            <div class="p-3">
+                              Time
+                              <div id="time" class="mt-2 text-center"></div> 
+                              <hr class="my-1">  
+                            </div>
+                
             
-          </div>
-          <div class="jumbotron col-8 row  d-flex justify-content-between p-2">
-               <div>
-                           <div>
-                            Qty:
-                             <span id="qty"></span>  
-                           </div>
-                          <div>
-                          Measure:
-                             <span id="unit"></span>  
-                          </div>
-                           <div>
-                            weight:
-                             <span id="weight"></span>  
-                           </div>
-                           <div>
-                            Time:
-                             <span id=time></span>  
-                           </div>
-               </div>
-          
             </div>
           </div>
   </div>
@@ -387,7 +414,7 @@ function extractWithDate(mm, dd, yy) {
        //console.log(dc+"dcccccccccccccccccccccc")
     
  function func(index,label,millisecondsTilldate){
-   //alert(millisecondsTilldate)
+ // alert(millisecondsTilldate)
     
    let date= new Date(millisecondsTilldate);
    let time=date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
@@ -395,7 +422,7 @@ function extractWithDate(mm, dd, yy) {
    //alert(date +" "+ time);
   
    let count=1;
-   console.log("index-------"+index)
+  // console.log("index-------"+index)
 
    switch(label) {
   case 0:
@@ -446,6 +473,7 @@ function extractWithDate(mm, dd, yy) {
                                    document.getElementById("qty").textContent=<%-JSON.stringify(meals.qty[i])%>
                                   document.getElementById("weight").textContent=<%-JSON.stringify(meals.servingWeight[i])%>
                                   document.getElementById("unit").textContent=<%-JSON.stringify(meals.servingUnit[i])%>
+                                  document.getElementById("time").textContent=time;
                                         count++;
                         }
           
@@ -471,7 +499,8 @@ function extractWithDate(mm, dd, yy) {
                                    document.getElementById("qty").textContent=<%-JSON.stringify(meals.qty[i])%>
                                   document.getElementById("weight").textContent=<%-JSON.stringify(meals.servingWeight[i])%>
                                   document.getElementById("unit").textContent=<%-JSON.stringify(meals.servingUnit[i])%>
-                                 count++;
+                                  document.getElementById("time").textContent=time;
+                                   count++;
                         }
           
                            <%}%>
@@ -497,7 +526,8 @@ calorieCheck=scalorieArray[index];
                                    document.getElementById("qty").textContent=<%-JSON.stringify(meals.qty[i])%>
                                   document.getElementById("weight").textContent=<%-JSON.stringify(meals.servingWeight[i])%>
                                   document.getElementById("unit").textContent=<%-JSON.stringify(meals.servingUnit[i])%>
-                                 count++;
+                                  document.getElementById("time").textContent=time;
+                                   count++;
                         }
           
                            <%}%>
@@ -514,29 +544,35 @@ calorieCheck=scalorieArray[index];
   $(".item i").click(function () {
     let millisecondsOfItemsToBeRemoved=$(this).prop('className').split(' ').pop();//get last classname 
     let classOfItemsToBeRemoved=$(this).parent().prop('className').split(' ').pop();//get last classname 
+    // alert(classOfItemsToBeRemoved)
     let indexOfItemsToBeRemoved=classOfItemsToBeRemoved.split('-').pop();//get n from b-n
+    // alert(indexOfItemsToBeRemoved)
     let labelOfItemsToBeRemoved=classOfItemsToBeRemoved.slice(1,2);//get b from b-n
+    // alert(labelOfItemsToBeRemoved)
     let deleteThisIndexMeal=classOfItemsToBeRemoved.slice(0,1);
-    // alert(indexForpassingTodeleteMeal)
+  
+    //alert(indexOfItemsToBeRemoved)
     millisecondsOfItemsToBeRemoved=parseInt(millisecondsOfItemsToBeRemoved,10)
     
     //alert(new Date(millisecondsOfItemsToBeRemoved))
   
   $("."+classOfItemsToBeRemoved).hide();
-  removeFromDatabse();
+  removeFromDatabse(millisecondsOfItemsToBeRemoved,indexOfItemsToBeRemoved);
    
-          function removeFromDatabse(){
+          function removeFromDatabse(millisecondsOfItemsToBeRemoved,indexOfItemsToBeRemoved){
+            console.log(indexOfItemsToBeRemoved + "iiiiiiiiiiiiiiiiiiiiiiiiiiiiii" + millisecondsOfItemsToBeRemoved + " milliseconds")
+ 
            $.ajax({
                 type: "DELETE", 
-                url: "/deleteMeal/"+millisecondsOfItemsToBeRemoved+"/"+deleteThisIndexMeal,
-                
-
+                url: "/deleteMeal"+ '?' + $.param({"millisecondsOfItemsToBeRemoved":millisecondsOfItemsToBeRemoved, "deleteThisIndexMeal":indexOfItemsToBeRemoved}),
+              
+              
                 success: function (result, status, xhr) {
-                  
-                         console.log(result)
+                   $("#del-mssg").html("Meal at "+indexOfItemsToBeRemoved+" is deleted")
+                       
                 },
                 error: function (xhr, status, error) {
-                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                    // alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
                 }
             });
           }

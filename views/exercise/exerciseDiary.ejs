@@ -121,7 +121,7 @@
     </div>
 </div>
 </div>
-    
+    <div id="suggestions-result"> </div>
     
     
     <script>  
@@ -244,6 +244,27 @@
 
               
 
+            }
+getSuggestions(320)
+            function getSuggestions(calories){
+
+               console.log("winnnn "+calories)
+               
+              $.ajax({
+                    type: "get", 
+                    url: "/suggestion",
+                    data:{calories:calories},
+                    
+                    //dataType: "html",
+                    success: function (result) {
+                    $('#suggestions-result').html(result);
+                    
+                    },
+                    error: function (xhr, status) {
+                        alert("Sorry, there was a problem :(");
+                    },
+                
+                });
             }
 </script>
        <script src="/script/calender.js"></script>

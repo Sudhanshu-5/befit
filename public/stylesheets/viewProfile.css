@@ -1,10 +1,6 @@
-.container {
-    margin: 0 auto;
-
-}
-
-#profile {
-    text-align: center;
+#body,
+#general {
+    max-width: 60%;
 }
 
 .container .form-control {

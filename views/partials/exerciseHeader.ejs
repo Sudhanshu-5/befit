@@ -24,3 +24,35 @@
         </div>
     </div>
 </nav>
+<header class="container-fluid " >
+   <%if(currentUser){%>
+        <% if(error && error.length > 0) {%>
+          <div id="error" class="alert alert-danger  px-4 py-1">
+            <%=error %>
+            </div>
+        <% } %>
+        
+        <% if(success && success.length > 0) { %>
+          <div id="success"class="alert alert-success  px-4 py-1"><p><%= success %></p></div>
+        <% } %>
+          
+        <% if(info && info.length > 0) { %>
+                <p id="info"class="alert alert-success  px-4 py-1"> <%=info%></p>
+        <% } %>
+     <% } %>
+
+ <script>
+   $("#error").delay(2000)
+.fadeOut(function() {
+   $(this).remove() 
+});
+ $("#success").delay(2000)
+.fadeOut(function() {
+   $(this).remove() 
+});
+ $("#info").delay(2000)
+.fadeOut(function() {
+   $(this).remove() 
+});
+        
+  </script> 

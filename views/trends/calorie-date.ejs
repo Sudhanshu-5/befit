@@ -68,17 +68,18 @@ var ctx = document.getElementById("calorieChart").getContext("2d");
          console.log("inside custpm")
         <% for(let i=0 ; i<calorieinfo.macroNutrientInfo.length  ; i++){ %>
           //  console.log("andar"+<%-fromIndex%>)
-
+console.log(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString())%>+"  =============  "+ <%-JSON.stringify(from)%>)
             <%if(JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString()) === JSON.stringify(from)){%> 
               <%-fromIndex=i%>;
               valid_from=<%-i%>;
               // console.log(<%-fromIndex%>+"fromIndex"+typeof(<%-fromIndex%>))
             <% }%>
+console.log(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString())%>+" 2 =============  "+ <%-JSON.stringify(to)%>)
 
           <%if(JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString()) === JSON.stringify(to)){%>
             <%-toIndex=i%>
             valid_to=<%-i%>;
-            // console.log(<%-toIndex%>+"toindex")
+           console.log(valid_to+"toindex")
             <%}%>
 
         <%}%>
@@ -88,7 +89,7 @@ var ctx = document.getElementById("calorieChart").getContext("2d");
              
             }else{
                <% for(let i=fromIndex;i<=toIndex; i++){%>
-                           
+                     console.log("111111111111111111 "+<%-i%>);      
               dates.push(<%-JSON.stringify((new Date(calorieinfo.macroNutrientInfo[i]["createdAt"]).toLocaleDateString()))%>);
 		        	consumedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesConsumed"])%>);
               burnedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesBurned"])%>)

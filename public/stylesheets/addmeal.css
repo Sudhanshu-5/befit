@@ -203,6 +203,11 @@ input::-webkit-inner-spin-button {
     /* border: 1px solid #ADADAD; */
 }
 
+#nix-item-id {
+    visibility: hidden;
+    position: absolute;
+}
+
 #instant-form input {
     max-width: 10%;
     font-size: .8rem;

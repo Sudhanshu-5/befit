@@ -8,7 +8,7 @@ var gender;
 router.use(function (req, res, next) {
     if (req.user) {
         gender = req.user.gender;
-        console.log("gender" + gender)
+        // console.log("gender" + gender)
         if (gender === "male") {
             userType = maletheuser
         }
@@ -55,9 +55,9 @@ router.post("/bmr", middleware.isLoggedIn, async (req, res) => {
         bmr = 10 * W + 6.25 * H - 5 * A - 161;
         bmr = bmr * req.body.factor;
     }
-    console.log("bmr" + bmr);
-    console.log(req.user.gender);
-    console.log(typeof (req.body.factor))
+    // console.log("bmr" + bmr);
+    // console.log(req.user.gender);
+    // console.log(typeof (req.body.factor))
     var data = {
         weight: req.body.weight,
         height: req.body.height,

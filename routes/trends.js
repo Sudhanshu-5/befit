@@ -36,7 +36,7 @@ router.get("/trends", middleware.isLoggedIn, function (req, res) {
 router.get("/targets/:dc", middleware.isLoggedIn, async (req, res) => {
     try {
         var dc = (new Date(+req.params.dc))
-        console.log("date from calendardddddddddddddddd " + dc)
+        // console.log("date from calendardddddddddddddddd " + dc)
         let totals = {};
         let targets = {};
 
@@ -57,17 +57,17 @@ router.get("/targets/:dc", middleware.isLoggedIn, async (req, res) => {
 
         } else if (findeduser.activityFactor == 1.375 || findeduser.activityFactor == 1.55) {
 
-            targets["pTarget"] = findeduser.bmr * findeduser.med_protiensRatio / 4;
-            targets["fTarget"] = findeduser.bmr * findeduser.med_fatsRatio / 9;
-            targets["cTarget"] = findeduser.bmr * findeduser.med_carbsRatio / 4;
+            targets["pTarget"] = findeduser.bmr * findeduser.med_protiensRatio / 400;
+            targets["fTarget"] = findeduser.bmr * findeduser.med_fatsRatio / 900;
+            targets["cTarget"] = findeduser.bmr * findeduser.med_carbsRatio / 400;
 
         } else if (findeduser.activityFactor == 1.72 || findeduser.activityFactor == 1.9) {
-            targets["pTarget"] = findeduser.bmr * findeduser.high_protiensRatio / 4;
-            targets["fTarget"] = findeduser.bmr * findeduser.high_fatsRatio / 9;
-            targets["cTarget"] = findeduser.bmr * findeduser.high_carbsRatio / 4;
+            targets["pTarget"] = findeduser.bmr * findeduser.high_protiensRatio / 400;
+            targets["fTarget"] = findeduser.bmr * findeduser.high_fatsRatio / 900;
+            targets["cTarget"] = findeduser.bmr * findeduser.high_carbsRatio / 400;
         }
         findeduser.macroNutrientInfo.forEach(function (info) {
-            console.log(info)
+            // console.log(info)
             console.log("dateeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + (info.createdAt).toLocaleDateString() + " " + dc.toLocaleDateString())
             if ((new Date(info.createdAt)).toLocaleDateString().localeCompare(dc.toLocaleDateString()) == 0) {
                 console.log("ente toh krra")
@@ -79,7 +79,7 @@ router.get("/targets/:dc", middleware.isLoggedIn, async (req, res) => {
             }
 
         })
-        console.log("lengthhhhhhhhhhhhhhh " + Object.keys(totals).length);
+        // console.log("lengthhhhhhhhhhhhhhh " + Object.keys(totals).length);
         if (Object.keys(totals).length == 0) {
             totals["totalCaloriesConsumed"] = 0;
             totals["totalCaloriesBurned"] = 0;
@@ -89,8 +89,8 @@ router.get("/targets/:dc", middleware.isLoggedIn, async (req, res) => {
         }
 
 
-        console.log("totalssssssssssssssssssss " + JSON.stringify(totals));
-        console.log("targetssssssssssssss " + JSON.stringify(targets));
+        // console.log("totalssssssssssssssssssss " + JSON.stringify(totals));
+        // console.log("targetssssssssssssss " + JSON.stringify(targets));
 
 
 
@@ -106,16 +106,16 @@ router.get("/targets/:dc", middleware.isLoggedIn, async (req, res) => {
 })
 //!calorie vs date track
 router.get("/showCalorie", middleware.isLoggedIn, function (req, res) {
-    console.log("selctedddddddddddddddddddddddddd " + req.query.selected);
-    console.log("frommmmmmmmmmmmmmmmmmmmmmmmmmmm " + req.query.from);
-    console.log("toooooooooooooooooooooooo " + req.query.to);
+    // console.log("selctedddddddddddddddddddddddddd " + req.query.selected);
+    // console.log("frommmmmmmmmmmmmmmmmmmmmmmmmmmm " + req.query.from);
+    // console.log("toooooooooooooooooooooooo " + req.query.to);
     userType.findOne({
         username: req.user.username
     }).populate('ondate').exec(function (err, ondateinfo) {
         if (err) {
             console.log(err)
         } else {
-            console.log("barobar to horaaaaaaaaaaaa " + ondateinfo)
+            // console.log("barobar to horaaaaaaaaaaaa " + ondateinfo)
         }
     })
 
@@ -126,8 +126,8 @@ router.get("/showCalorie", middleware.isLoggedIn, function (req, res) {
             console.log(err)
         } else {
             length = calorieinfo.macroNutrientInfo.length;
-            console.log("lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
-            console.log("calorieingoooooooooooooooooo " + calorieinfo)
+            // console.log("lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
+            // console.log("calorieingoooooooooooooooooo " + calorieinfo)
             res.render("trends/calorie-date", {
                 calorieinfo: calorieinfo,
                 length: length,
@@ -141,9 +141,9 @@ router.get("/showCalorie", middleware.isLoggedIn, function (req, res) {
 })
 //!weight vs date
 router.get("/graphOdate", middleware.isLoggedIn, function (req, res) {
-    console.log("weight selctedddddddddddddddddddddddddd " + req.query.selected);
-    console.log("frommmmmmmmmmmmmmmmmmmmmmmmmmmm " + req.query.from);
-    console.log("toooooooooooooooooooooooo " + req.query.type);
+    // console.log("weight selctedddddddddddddddddddddddddd " + req.query.selected);
+    // console.log("frommmmmmmmmmmmmmmmmmmmmmmmmmmm " + req.query.from);
+    // console.log("toooooooooooooooooooooooo " + req.query.type);
 
     userType.findOne({
         username: req.user.username
@@ -152,8 +152,8 @@ router.get("/graphOdate", middleware.isLoggedIn, function (req, res) {
             console.log(err)
         } else {
             length = ondateinfo.ondate.length;
-            console.log("lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
-            console.log("calorieingoooooooooooooooooo " + ondateinfo)
+            // console.log("lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
+            // console.log("calorieingoooooooooooooooooo " + ondateinfo)
 
             res.render("trends/graphOdate", {
                 ondateinfo: ondateinfo,

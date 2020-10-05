@@ -1,142 +1,324 @@
- <div class="container">
-      
-    &nbsp;For &nbsp;
-    <input type="number" class="form-control w-25" id="x-qty" value="<%=data.serving_qty%>">
-    <select id="x-measure" class="form-control w-25"></select>
+ <div class="row">
+   <div class="row col-9">
+        <div class="col-12 p-0">
+            <div class="row w-50 mb-1">
+                <div class="col-3" id="thumb"><img src="<%=data.photo.thumb%>" width="70%" alt=""></div>
+                <div class="col-9">
+                    <div id="searched-food" style="font-size:1.5rem;"><%=data.food_name%></div>
+                    <div id="searched-brand"><%=data.brand_name%></div>
+                </div>
+            </div>
+                &nbsp;For &nbsp;
 
-<div id="kaccha-chittha" class="row" style="background-color:rgba(227, 125, 95, .2);"> 
-     <div id="carbs" class="row p-2">
-          <div>carbs</div><br>
-     </div>
-     <div id="fats" class="row p-2">
-          <h3>fats_obj</h3>
-     </div>
-     <div id="general"class="row p-2">
-          <h3>general</h3>
-     </div>
-     <div id="minerals"class="row p-2">
-          <h3>minerals</h3>
-     </div>
-     <div id="protiens"class="row p-2">
-          <h3>protiens</h3>
-     </div>
-     <div id="vitamins"class="row p-2">
-          <h3>vitamins</h3>
-     </div>
+                <input type="number" class="form-control w-25 d-inline" id="x-qty" value="<%=data.serving_qty%>">
+                <select id="x-measure" class="form-control w-25 d-inline"></select>
+            
+        </div>
+
+<div id="kaccha-chittha" class="row col-12 mt-2"> 
+      
+        <div class="col-6">
+            <div class="nutrition-head">General</div>
+            <div id="general"class="row p-2 small">
+
+            </div>
+         </div>
+         
+         
+         <div class="col-6">
+           <div class="nutrition-head">Carbohydrate</div>
+           <div id="carbs" class="row p-2 small">
+            
+           </div>
+         </div>
+
+         <div class="col-6">
+            <div class="nutrition-head">Fats</div>
+            <div id="fats" class="row p-2 small">
+                
+            </div>
+         </div>
+       
+        
+          <div class="col-6">
+            <div class="nutrition-head">Protiens</div>
+            <div id="protiens"class="row p-2 small">
+                
+            </div>
+         </div>
+
+         <div class="col-6">
+                <div class="nutrition-head">Minerals</div>
+                <div id="minerals"class="row p-2 small">
+                    
+                </div>  
+         </div>
+
+         <div class="col-6">
+            <div class="nutrition-head">Vitamins</div>
+            <div id="vitamins"class="row p-2 small">
+                
+            </div>
+        </div>
+</div>
+ </div>
+
+<div id="nutritionfacts" class="col-3">
+    
+  <section class="nutrition-label">
+    <header class="nutrition-header border-b-lg">
+      <h1 class="nutrition-facts border-b">Nutrition Facts</h1>
+      <div class="servings"  ><span id="i-serving">8 </span> servings per container</div>
+      <div class="nutrition-row">
+        <div class="nutrition-column text-md text-bold">Serving size</div>
+        <div class="nutrition-column text-md text-bold text-right" id="i-measure">2/3 cup (55g)</div>
+      </div>
+    </header>
+    <div class="nutrition-row border-b-md">
+      <div class="nutrition-column text-bold">
+        <div class="text-md">Amount per serving</div>
+        <div class="calories">Calories</div>
+      </div>
+      <div class="nutrition-column calories amount align-bottom text-right" id="i-calories">
+        230
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column text-right text-bold text-sm">
+        % Daily Value *
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-bold">Total Fat  </span> <span id="i-total-fat"></span> 
+      </div>
+      <div class="nutrition-column text-bold text-right" id="total-fat-dv">
+        10%
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-indent">Saturated Fat   <span id="i-saturated-fat"></span>
+      </div>
+      <div class="nutrition-column text-bold text-right" id="saturated-fat-dv">
+      
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-indent" >
+              Trans Fat  <span id="i-trans-fat"></span>
+      </div>
+      <div class="nutrition-column text-bold text-right" id="trans-fat-dv">
+      
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-bold">Cholesterol  </span><span id="i-cholesterol"></span>
+      </div>
+      <div class="nutrition-column text-bold text-right" id="cholestrol-dv">
+      
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-bold" >Sodium  </span><span id="i-sodium"></span> 
+      </div>
+      <div class="nutrition-column text-bold text-right" id="sodium-dv">
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-bold">Total Carbohydrate  </span> <span id="i-total-carbs"></span> 
+      </div>
+      <div class="nutrition-column text-bold text-right" id="total-carbs-dv">
+      
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span class="text-indent" ">Dietary Fiber  </span><span id="i-dietary-fiber"></span>
+      </div>
+      <div class="nutrition-column text-bold text-right" id="dietary-fiber-dv">
+   
+      </div>
+    </div>
+    <div class="nutrition-row">
+      <div class="nutrition-column">
+        <span class="text-indent">Total Sugars  </span><span id="i-total-sugar"></span>
+      </div>
+      <div class="nutrition-column text-bold text-right" id="total-sugar-dv">
+      </div>
+    </div>
+    <div class="nutrition-row text-indent-md border-t-sm">
+      <div class="nutrition-column">
+        Includes <span id="i-added-sugar"></span> Added Sugars
+      </div>
+      <div class="nutrition-column text-bold text-right" id="added-sugar-dv">
+      </div>
+    </div>
+    <div class="nutrition-row border-t-sm border-b-lg">
+      <div class="nutrition-column">
+        <span class="text-bold">Protein  </span> <span id="i-protiens"></span>
+      </div>
+      <div class="nutrition-column text-bold text-right" id="protiens-dv">
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        <span >Vitamin D  </span> <span id="i-vit-d"></span>
+      </div>
+      <div class="nutrition-column text-right" id="vit-d-dv">
+        10%
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        Calcium  <span id="i-calcium"></span>
+      </div>
+      <div class="nutrition-column text-right" id="calcium-dv">
+        
+      </div>
+    </div>
+    <div class="nutrition-row border-b">
+      <div class="nutrition-column">
+        Iron  <span id="i-iron"></span>
+      </div>
+      <div class="nutrition-column text-right" id="iron-dv">
+        
+      </div>
+    </div>
+    <div class="nutrition-row border-b-md">
+      <div class="nutrition-column">
+        Potassium  <span id="i-potassium"></span>
+      </div>
+      <div class="nutrition-column text-right" id="potassium-dv">
+      
+      </div>
+    </div>
+    <footer class="nutrition-footer">
+      <div class="asteric">*</div>
+      <div class="footnote">
+        The % Daily Value (DV) tells you how much a nutrient in a serving of food contributes to a daily diet. 2,000 calories a day is used for general nutrition advice.
+      </div>
+    </footer>
+  </section>
+  <!-- /nutrition-label -->
+
 </div>
  </div>
 <script>
 //Carbs
 carbs_obj={
-205:"Carbohydrate",
-287:"Galactose",
-211:"Glucose ,dextrose",
-291:"Fiber, total dietary",
-212:"Fructose",
-213:"Lactose",
-214:"Maltose",
-210:"Sucrose",
-269:"Sugars, total",
-539:"Sugars, added",
-209:"Starch",
+205:["Carbohydrate" , "g"],
+287:["Galactose" , "g"],
+211:["Glucose ,dextrose" , "g"],
+291:["Fiber, total dietary" , "g"],
+212:["Fructose" , "g"],
+213:["Lactose" , "g"],
+214:["Maltose" , "g"],
+210:["Sucrose" , "g"],
+269:["Sugars, total" , "g"],
+539:["Sugars, added" , "g"],
+209:["Starch" , "g"],
 }
 
 //fats'
  fats_obj={
-606:"total saturated",
-204:"total lipid",
-605:"total trans",
-645:"total monounsaturated",
-646:"total polyunsaturated",
-
-638:"Stigmasterol",
-693:"total trans-monoenoic",
-695:"total trans-polyenoic",
-636:"Phytosterols",
+606:["total saturated" , "g"],
+204:["total lipid" , "g"],
+605:["total trans" , "g"],
+645:["total monounsaturated" , "g"],
+646:["total polyunsaturated" , "g"],
+638:["Stigmasterol" , "g"],
+693:["total trans-monoenoic" , "g"],
+695:["total trans-polyenoic" , "g"],
+636:["Phytosterols" , "g"],
 }
 
 //minerals
- minerals_obj={
-312:"Copper",
-301:"Calcium",
-303:"Iron",
-307:"Sodium",
-313:"Fluoride",
-304:"Magnesium",
-315:"Manganese ",
-305:"Phosphorus",
-306:"Potassium",
-317:"Selenium",
+  minerals_obj={
+312:["Copper" , "mg"],
+301:["Calcium", "mg"],
+303:["Iron", "mg"],
+307:["Sodium", "mg"],
+313:["Fluoride", "Âµg"],
+304:["Magnesium", "mg"],
+315:["Manganese ", "mg"],
+305:["Phosphorus", "mg"],
+306:["Potassium", "mg"],
+317:["Selenium", "Âµg"],
 }
 
 //protiens
  protiens_obj={
-513:"Alanine",
-511:"Arginine",
-514:"Aspartic acid",
-257:"Adjusted Protein",
-515:"Glutamic acid",
-516:"Glycine",
-512:"Histidine",
-521:"Hydroxyproline",
-504:"Leucine",
-505:"Lysine",
-506:"Methionine",
-510:"Valine",
-508:"Phenylalanine",
-517:"Proline",
-501:"Tryptophan",
-509:"Tyrosine",
-502:"Threonine",
-518:"Serine",
+513:["Alanine", "g"],
+511:["Arginine", "g"],
+514:["Aspartic acid", "g"],
+257:["Adjusted Protein", "g"],
+515:["Glutamic acid", "g"],
+516:["Glycine", "g"],
+512:["Histidine", "g"],
+521:["Hydroxyproline", "g"],
+504:["Leucine", "g"],
+505:["Lysine", "g"],
+506:["Methionine", "g"],
+510:["Valine", "g"],
+508:["Phenylalanine", "g"],
+517:["Proline", "g"],
+501:["Tryptophan", "g"],
+509:["Tyrosine", "g"],
+502:["Threonine", "g"],
+518:["Serine", "g"],
 }
 
  general_obj={
-221:"Alcohol",
-207:"Ash",
-601:"Cholesterol",
-262:"Caffeine",
-639:"Campesterol",
-255:"Water",
-309:"Zinc, Zn"
+221:["Alcohol", "g"],
+207:["Ash", "g"],
+601:["Cholesterol", "mg"],
+262:["Caffeine", "mg"],
+639:["Campesterol", "mg"],
+255:["Water", "g"],
+309:["Zinc","mg"],
 }
 
 //vitamins
 vitamins_obj={
-404:"Tiamin",
-323:"Vitamin E, alpha-tocopherol",
-343:"Tocopherol, delta",
-342:"Tocopherol, gamma",
-417:"Folate, total",
-337:"Lycopene",
-406:"Niacin",
-410:"Pantothenic acid",
-344:"Tocotrienol, alpha",
-345:"Tocotrienol, beta",
-346:"Tocotrienol, gamma",
-347:"Tocotrienol, delta",
-431:"Folic acid",
-435:"Folate, DFE",
-432:"Folate, food",
-428:"Menaquinone-4",
-319:"Retinol",
-405:"Riboflavin",
-318:"Vitamin A, IU",
-320:"Vitamin A, RAE",
-418:"Vitamin B-12",
-415:"itamin B-6",
-401:"Vitamin C, total ascorbic acid",
-328:"Vitamin D , D2 + D3",
-430:"Vitamin K ,phylloquinone",
-325:"Vitamin D2 ,ergocalciferol",
-573:"Vitamin E, added",
-578:"Vitamin B-12, added",
-326:"Vitamin D3, cholecalciferol",
-324:"Vitamin D",
-322:"Carotene, alpha",
-321:"Carotene, beta",
-421:"Cryptoxanthin, beta",
-429:"Dihydrophylloquinone",
+404:["Thiamin", "mg"],
+323:["Vitamin E, alpha-tocopherol", "mg"],
+341:["Tocopherol, beta", "mg"],
+343:["Tocopherol, delta", "mg"],
+342:["Tocopherol, gamma", "mg"],
+417:["Folate, total", "Âµg"],
+337:["Lycopene", "Âµg"],
+406:["Niacin", "mg"],
+410:["Pantothenic acid", "mg"],
+344:["Tocotrienol, alpha", "mg"],
+345:["Tocotrienol, beta", "mg"],
+346:["Tocotrienol, gamma", "mg"],
+347:["Tocotrienol, delta",  "mg"],
+431:["Folic acid", "Âµg"],
+435:["Folate, DFE", "Âµg"],
+432:["Folate, food", "Âµg"],
+428:["Menaquinone-4", "Âµg"],
+319:["Retinol", "Âµg"],
+405:["Riboflavin", "mg"],
+320:["Vitamin A, RAE", "Âµg"],
+418:["Vitamin B-12", "Âµg"],
+415:["Vitamin B-6", "mg"],
+401:["Vitamin C, total ascorbic acid", "mg"],
+328:["Vitamin D , D2 + D3", "Âµg"],
+430:["Vitamin K ,phylloquinone", "Âµg"],
+325:["Vitamin D2 ,ergocalciferol", "Âµg"],
+573:["Vitamin E, added", "mg"],
+578:["Vitamin B-12, added", "Âµg"],
+326:["Vitamin D3, cholecalciferol", "Âµg"],
+324:["Vitamin D", "IU"],
+322:["Carotene, alpha", "Âµg"],
+321:["Carotene, beta", "Âµg"],
+421:["Cryptoxanthin, beta", "Âµg"],
+429:["Dihydrophylloquinone", "Âµg"],
 }
 
 //get val() default
@@ -172,62 +354,132 @@ var carbs=" ",fats=" ",general=" ",minerals=" ",protiens=" ",vitamins=" ";
   i_options_measure="<option id='first' value='' disabled selected hidden>Choose a measure</option>"; 
 
 //serving option
+        
  <% data.alt_measures.forEach(function (item) {%>
      if(<%-JSON.stringify(item.measure)%>===<%-JSON.stringify(data.serving_unit)%>){
-           i_options_measure+="<option class='measure' selected value="+<%-JSON.stringify(item.serving_weight)%>+">"+<%-JSON.stringify(item.measure)%>+" , "+<%-JSON.stringify(item.serving_weight)%>+"grams</option>";
+           i_options_measure+="<option class='measure' selected value="+<%-JSON.stringify(item.serving_weight)%>+">"+<%-JSON.stringify(item.measure)%>+" , "+<%-JSON.stringify(item.serving_weight)%>+"g</option>";
      }
      else{
        i_options_measure+="<option class='measure' value="+<%-JSON.stringify(item.serving_weight)%>+" >"+<%-JSON.stringify(item.measure)%>+" , "+<%-JSON.stringify(item.serving_weight)%>+"g</option>";
      }
- <%})%>   
+ <%})%>  
+     
     $("#x-measure").html(i_options_measure);
 
-   let factor;
+    factor;
 
    nutrientForParticularWeight(<%-data.serving_weight_grams%>);    
  
     function nutrientForParticularWeight(weight){
       carbs=" ",fats=" ",general=" ",minerals=" ",protiens=" ",vitamins=" ";
            factor = weight / <%-data.serving_weight_grams %>;
-          
+          ""
      <% data.full_nutrients.forEach(function(item){%>
+
      if(carbs_obj['<%-item.attr_id%>']){
        carbs+="<div class='col-6'>"+carbs_obj['<%-item.attr_id%>']+"</div>"+
-              "<div class='col-6'>"+<%-item.value%>*factor+"</div>"     
+              "<div class='col-3'>"+(<%-item.value%>*factor).toFixed(2)+"</div>"+
+               "<div class='col-3'>"+carbs_obj['<%-item.attr_id%>'][1]+"</div>";
       }
       
      else if(fats_obj['<%-item.attr_id%>']){
            
        fats+="<div class='col-6'>"+fats_obj['<%-item.attr_id%>']+"</div>"+
-              "<div class='col-6'>"+<%-item.value%>*factor+"</div>" 
+              "<div class='col-3'>"+(<%-item.value%>*factor).toFixed(2)+"</div>"+
+               "<div class='col-3'>"+fats_obj['<%-item.attr_id%>'][1]+"</div>"; 
      
      }
 
       else if(general_obj['<%-item.attr_id%>']){
 
        general+="<div class='col-6'>"+general_obj['<%-item.attr_id%>']+"</div>"+
-              "<div class='col-6'>"+<%-item.value%>*factor+"</div>"
+              "<div class='col-3'>"+(<%-item.value%>*factor).toFixed(2)+"</div>"+
+               "<div class='col-3'>"+general_obj['<%-item.attr_id%>'][1]+"</div>";
      
      }
  
       else if(protiens_obj['<%-item.attr_id%>']){
           
        protiens+="<div class='col-6'>"+protiens_obj['<%-item.attr_id%>']+"</div>"+
-              "<div class='col-6'>"+<%-item.value%>*factor+"</div>" 
+              "<div class='col-3'>"+(<%-item.value%>*factor).toFixed(2)+"</div>"+
+               "<div class='col-3'>"+protiens_obj['<%-item.attr_id%>'][1]+"</div>"; 
      
      }
       else if(vitamins_obj['<%-item.attr_id%>']){
 
        vitamins+="<div class='col-6'>"+vitamins_obj['<%-item.attr_id%>']+"</div>"+
-              "<div class='col-6'>"+<%-item.value%>*factor+"</div>" 
+              "<div class='col-3'>"+(<%-item.value%>*factor).toFixed(2)+"</div>"+
+               "<div class='col-3'>"+vitamins_obj['<%-item.attr_id%>'][1]+"</div>"; 
      
      }
       else if(minerals_obj['<%-item.attr_id%>']){
 
        minerals+="<div class='col-6'>"+minerals_obj['<%-item.attr_id%>']+"</div>"+
-              "<div class='col-6'>"+<%-item.value%>*factor+"</div>" 
+              "<div class='col-3'>"+(<%-item.value%>*factor).toFixed(2)  +"</div>"+
+               "<div class='col-3'>"+minerals_obj['<%-item.attr_id%>'][1]+"</div>"; 
      
      }
+
+      if(<%-item.attr_id%>==204){
+        $("#i-total-fat").html((<%-item.value%>*factor).toFixed(2)+"g");
+         $("#total-fat-dv").html(Math.round((<%-item.value%>)*factor*100/65)+"%");
+      }
+      if(<%-item.attr_id%>==606){
+        $("#i-saturated-fat").html((<%-item.value%>*factor).toFixed(2)+"g");
+         $("#saturated-fat-dv").html(Math.round((<%-item.value%>)*factor*100/20)+"%");
+      }
+      if(<%-item.attr_id%>==605){
+        $("#i-trans-fat").html((<%-item.value%>*factor).toFixed(2)+"g");
+         
+      }
+      if(<%-item.attr_id%>==601){
+        $("#i-cholestrol").html((<%-item.value%>*factor).toFixed(2)+"mg");
+         $("#cholestrol-dv").html(Math.round((<%-item.value%>)*factor*100/300)+"%");
+      }
+
+      if(<%-item.attr_id%>==307){
+        $("#i-sodium").html((<%-item.value%>*factor).toFixed(2)+"mg");
+         $("#sodium-dv").html(Math.round((<%-item.value%>)*factor*100/2400)+"%");
+      }
+
+      if(<%-item.attr_id%>==205){
+        $("#i-total-carbs").html((<%-item.value%>*factor).toFixed(2)+"g");
+         $("#total-carbs-dv").html(Math.round((<%-item.value%>)*factor*100/300)+"%");
+      }
+
+      if(<%-item.attr_id%>==291){
+        $("#i-dietary-fiber").html((<%-item.value%>*factor).toFixed(2)+"g");
+         $("#dietary-fiber-dv").html(Math.round((<%-item.value%>)*factor*100/25)+"%");
+      }
+
+      if(<%-item.attr_id%>==269){
+        $("#i-total-sugar").html((<%-item.value%>*factor).toFixed(2)+"g");
+         $("#total-sugar-dv").html(Math.round((<%-item.value%>)*factor*100/50)+"%");
+      }
+      if(<%-item.attr_id%>==539){
+        $("#i-added-sugar").html((<%-item.value%>*factor).toFixed(2)+"g");
+      }
+      if(<%-item.attr_id%>==203){
+        $("#i-protiens").html((<%-item.value%>*factor).toFixed(2)+"g");
+         $("#protiens-dv").html(Math.round((<%-item.value%>)*factor*100/50)+"%");
+      }
+      if(<%-item.attr_id%>==324){
+        $("#i-vit-d").html(((<%-item.value%>*factor)/40).toFixed(2)+"mcg");
+         $("#vit-d-dv").html(Math.round((<%-item.value%>)*factor*100/(40*20))+"%");
+      }
+    
+      if(<%-item.attr_id%>==301){
+        $("#i-calcium").html((<%-item.value%>*factor).toFixed(2)+"mg");
+         $("#calcium-dv").html(Math.round((<%-item.value%>)*factor*100/1000)+"%");
+      }
+      if(<%-item.attr_id%>==303){
+        $("#i-iron").html((<%-item.value%>*factor).toFixed(2)+"mg");
+         $("#iron-dv").html(Math.round((<%-item.value%>)*factor*100/18)+"%");
+      }
+      if(<%-item.attr_id%>==306){
+        $("#i-potassium").html((<%-item.value%>*factor).toFixed(2)+"mg");
+         $("#potassium-dv").html(Math.round((<%-item.value%>)*factor*100/3500)+"%");
+      }
      <% })%>
           $("#carbs").empty().append(carbs);
           $("#fats").empty().append(fats);
@@ -235,6 +487,11 @@ var carbs=" ",fats=" ",general=" ",minerals=" ",protiens=" ",vitamins=" ";
           $("#minerals").empty().append(minerals);
           $("#protiens").empty().append(protiens);
           $("#vitamins").empty().append(vitamins);
+       
+          $("#i-serving").html($("#x-qty").val());
+          $("#i-measure").html( $("#x-measure option:selected").text());
+          $("#i-calories").html(<%-data.nf_calories%>*factor);
+         
     }  
 
        

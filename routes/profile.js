@@ -131,35 +131,83 @@ router.get("/editRatios", middleware.isLoggedIn, async (req, res) => {
 
 router.put("/editRatios", middleware.isLoggedIn, async (req, res) => {
     console.log("oooooooooooooooo" + JSON.stringify(req.body.eratio));
-    let ratio = {};
+    let update_obj = {}; //contains ratios and target
     var findeduser = await userType.findOne({
         username: req.user.username
     });
     if (findeduser.activityFactor == 1.2) {
-        ratio["inactive_carbsRatio"] = req.body.eratio["carbs"];
-        ratio["inactive_protiensRatio"] = req.body.eratio["protiens"];
-        ratio["inactive_fatsRatio"] = req.body.eratio["fats"];
-    } else if (findeduser.activityFactor == 1.375 || findeduser.activityFactor == 1.55) {
+        update_obj["inactive_carbsRatio"] = req.body.eratio["carbs"];
+        update_obj["inactive_protiensRatio"] = req.body.eratio["protiens"];
+        update_obj["inactive_fatsRatio"] = req.body.eratio["fats"];
 
-        ratio["med_carbsRatio"] = req.body.eratio["carbs"];
-        ratio["med_protiensRatio"] = req.body.eratio["protiens"];
-        ratio["med_fatsRatio"] = req.body.eratio["fats"];
+        update_obj["p_target"] = findeduser.bmr * req.body.eratio["protiens"] / 400;
+        update_obj["f_target"] = findeduser.bmr * req.body.eratio["fats"] / 900;
+        update_obj["c_target"] = findeduser.bmr * req.body.eratio["carbs"] / 400;
+    } else if (findeduser.activityFactor == 1.375 | findeduser.activityFactor == 1.55) {
+
+        update_obj["med_carbsRatio"] = req.body.eratio["carbs"];
+        update_obj["med_protiensRatio"] = req.body.eratio["protiens"];
+        update_obj["med_fatsRatio"] = req.body.eratio["fats"];
+
+        update_obj["p_target"] = findeduser.bmr * req.body.eratio["protiens"] / 400;
+        update_obj["f_target"] = findeduser.bmr * req.body.eratio["fats"] / 900;
+        update_obj["c_target"] = findeduser.bmr * req.body.eratio["carbs"] / 400;
 
     } else {
-        ratio["high_carbsRatio"] = req.body.eratio["carbs"];
-        ratio["high_protiensRatio"] = req.body.eratio["protiens"];
-        ratio["high_fatsRatio"] = req.body.eratio["fats"];
+        update_obj["high_carbsRatio"] = req.body.eratio["carbs"];
+        update_obj["high_protiensRatio"] = req.body.eratio["protiens"];
+        update_obj["high_fatsRatio"] = req.body.eratio["fats"];
+
+        update_obj["p_target"] = findeduser.bmr * req.body.eratio["protiens"] / 400;
+        update_obj["f_target"] = findeduser.bmr * req.body.eratio["fats"] / 900;
+        update_obj["c_target"] = findeduser.bmr * req.body.eratio["carbs"] / 400;
     }
+
     var updateuser = await userType.findOneAndUpdate({
             username: req.user.username
         },
-        ratio, {
+        update_obj, {
             new: true,
             upsert: true // Make this update into an upsert
         });
-    console.log("updated user---------------------" + updateuser)
+    // console.log("updated user---------------------" + updateuser)
     res.redirect("back")
 
 });
 
 module.exports = router;
+
+// (async () => {
+//     try {
+
+//         const response = await axios({
+//             method: 'get',
+//             url: 'https://trackapi.nutritionix.com/v2/search/item?nix_item_id=' + req.body.nixItemId,
+//             headers: {
+//                 "x-app-id": "4b34a3d8",
+//                 "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
+//                 "x-remote-user-id": "0"
+//             }
+//         });
+//         console.log("1qqqqqqqqqqqqqqqqqqqqq " + JSON.stringify(response.data));
+//         console.log("winwinwiwnwinwinwinwinwinwin " + response.data["foods"][0].nf_calories)
+//         calsum = calsum + response.data["foods"][0].nf_calories;
+//         fooditems.push(response.data["foods"][0].food_name);
+//         console.log("nameeeeeeeeeeeeeeeeeeeeeeeeeeeee " + fooditems)
+//         servingWeight.push(response.data["foods"][0].serving_weight_grams);
+//         calorie.push(response.data["foods"][0].nf_calories);
+//         fats.push(response.data["foods"][0].nf_total_fat);
+//         fatSum += response.data["foods"][0].nf_total_fat;
+//         carbs.push(response.data["foods"][0].nf_total_carbohydrate);
+//         carbSum += response.data["foods"][0].nf_total_carbohydrate;
+//         protiens.push(response.data["foods"][0].nf_protein);
+//         proSum += response.data["foods"][0].nf_protein;
+//         cholestrol.push(response.data["foods"][0].nf_cholesterol);
+//         fibres.push(response.data["foods"][0].nf_dietary_fiber);
+//         servingUnit.push(req.body.measure);
+//         qty.push(req.body.qty);
+//         console.log("fooooooooodItems" + fooditems.length)
+//     } catch (err) {
+//         console.log(err)
+//     }
+// })()

@@ -3,96 +3,97 @@
 
 
 <div class="container row">
-  <div class="col-9">
+  <div class="col-9 mt-2">
     <div id="add">
-    <h3>Fill  with your own custom foods and recipies </h3>
+    <h4 class="mb-4 ">Add custom foods and recipies to kitchen </h4>
     <form  action="/customFoods" method="POST">
       <div class="row">
        <div class="col-6">
         <div class="form-group row">
-           <label for="food_name" class="col-sm-3 col-form-label">Food Name</label>
-           <div class="col-sm-9">
+           <label for="food_name" class="col-sm-4 col-form-label">Food Name</label>
+           <div class="col-sm-8">
            <input type="text"  name="info[food_name]" class="form-control" id="food_name" placeholder="jhunka/bhakar/thecha" required  >
            </div>
         </div>
 
         <div class="form-group row">
-          <label for="calories" class="col-sm-3 col-form-label">Energy</label>
-           <div class="col-sm-9">
-          <input type="number" name="info[calories]" class="form-control" id="calories"placeholder="kcal" step=".1" required  >
+          <label for="calories" class="col-sm-4 col-form-label">Energy</label>
+           <div class="col-sm-8">
+          <input type="number" name="info[calories]" class="form-control" id="calories"placeholder="kcal"  required  >
            </div>
         </div>
         
         <div class="form-group row">
-          <label for="protiens"class="col-sm-3 col-form-label">Protiens</label>
-          <div class="col-sm-9">
-          <input type="number" id="protiens"  class="form-control" name="info[protiens]" placeholder="grams"step="0.01" required  >
+          <label for="protiens"class="col-sm-4 col-form-label">Protiens</label>
+          <div class="col-sm-8">
+          <input type="number" id="protiens"  class="form-control" name="info[protiens]" placeholder="grams" required  >
           </div>
         </div>
 
         <div class="form-group row">
-           <label for="carbohydrates" class="col-sm-3 col-form-label">Carbohydrates</label>
-           <div class="col-sm-9">
-               <input type="number" id="carbohydrates" class="form-control" name="info[carbs]" placeholder="grams"step="0.01" required >
+           <label for="carbohydrates" class="col-sm-4 col-form-label">Carbohydrates</label>
+           <div class="col-sm-8">
+               <input type="number" id="carbohydrates" class="form-control" name="info[carbs]" placeholder="grams" required >
            </div>
         </div>
 
         <div class="form-group row">
-          <label for="fibre" class="col-sm-3 col-form-label">Fibre</label>
-          <div class="col-sm-9">
-              <input type="number" id="fibre" name="info[fibres]" class="form-control" placeholder="grams"step="0.01" required >
+          <label for="fibre" class="col-sm-4 col-form-label">Fibre</label>
+          <div class="col-sm-8">
+              <input type="number" id="fibre" name="info[fibres]" class="form-control" placeholder="grams" required >
           </div>
         </div>
 
         <div class="form-group row">
-          <label for="fat" class="col-sm-3 col-form-label">Fat</label>
-          <div class="col-sm-9">
-                <input type="number" id="fat" name="info[fats]" class="form-control" placeholder="grams"step="0.01" required >
+          <label for="fat" class="col-sm-4 col-form-label">Fats</label>
+          <div class="col-sm-8">
+                <input type="number" id="fat" name="info[fats]" class="form-control" placeholder="grams" required >
           </div>
         </div>
 
         <div class="form-group row">
-          <label for="cholestrol" class="col-sm-3 col-form-label">Cholestrol</label>
-          <div class="col-sm-9">
-             <input type="number" id="cholestrol" name="info[cholestrol]" class="form-control" placeholder="in mg"step="0.01"required >
+          <label for="cholestrol" class="col-sm-4 col-form-label">Cholestrol</label>
+          <div class="col-sm-8">
+             <input type="number" id="cholestrol" name="info[cholestrol]" class="form-control" placeholder="mg"required >
           </div>
         </div>
       </div>
-      <div class="col-6">
-        <div id="icon" class="my-2"class="d-flex justify-content-between">
+      <div class="col-6 mt-5 pl-0 ">
+        <div id="icon" class="mt-5 d-flex justify-content-between rounded mr-0 pr-0 ">
        
-        <i class="fas fa-plus-circle" style="cursor:pointer;" id="add-icon"></i>
-           <span>Add serving sizes</span>
-        <i class="fas fa-minus-circle" style="cursor:pointer;" id="remove-icon"></i>
+        <i class="fas fa-plus-circle p-1" style="cursor:pointer;" id="add-icon"></i>
+           <span id="label">Add serving sizes</span>
+        <i class="fas fa-minus-circle p-1" style="cursor:pointer;" id="remove-icon"></i>
       </div>  
-        <div id="servingDiv" class="d-flex flex-wrap justify-content start">
-           <label for="qty">Qty
+        <div id="servingDiv" class="d-flex flex-wrap justify-content start py-2 ">
+           <label for="qty" class="text-center">Qty
               <div id="qty"class="qty d-flex-column">
               </div>
            </label>
-            <label for="measure">Measure
+            <label for="measure" class="text-center">Measure
               <div id="measure"class="measure  d-flex-column">
               </div>
             </label>
-            <label for="weight">Weight
+            <label for="weight" class="text-center">Weight
               <div id="weight"class="weight d-flex-column">
               </div>
             </label>
         </div>
       </div>
       </div>
-        <button type="submit" class="btn btn-primary">Add</button>
-
+      <div class="row w-50" >
+        <button type="submit"id="add-btn" class="btn mx-auto my-0 ">Add</button>
+    </div>
     </form>
   </div>
 </div>
-  <div class="col-3">
+  <div class="col-3 border mt-3 " id="kitchen-list">
+    <h4 class="text-center "> Kitchen </h4>
           <%myfoods.userfood.forEach(function(food){%>
-     <ul>
-        <li class="food-name">
+        <div class="food-name text-center ">
             <%=food.food_name%>
-        </li>
-     </ul>
+        </div>
+    
     <%})%>
   </div>
   </div>
@@ -114,19 +115,19 @@ $(document).ready(function(){
 	     .attr("id", "winput");
 
 	qInputField.after().html(
-       '<input type="number"  class="input'+i+'" name="qty[]" placeholder="qty">'
+       '<input type="number"  class="input'+i+' p-1 mt-1" name="qty[] " placeholder="qty">'
        );
 
     qInputField.appendTo("#qty");
 
 	mInputField.after().html(
-       '<input type="text"  class="input'+i+'"name="serving_unit[]" placeholder="cup/tbps.pieces">'
+       '<input type="text"  class="input'+i+' p-1 mt-1"name="serving_unit[]" placeholder="cup/tbps/pieces">'
        );
 
     mInputField.appendTo("#measure");
    
   wInputField.after().html(
-       '<input  type="number" class="input'+i+'"name="serving_weight[]" placeholder="g/unit">'
+       '<input  type="number" class="input'+i+' p-1 mt-1"name="serving_weight[]" placeholder="g">'
        );
     wInputField.appendTo("#weight");
     i++;

@@ -1,54 +1,95 @@
 <%- include ("../partials/profileHeader") %>
 <link rel="stylesheet" href="/stylesheets/viewProfile.css"/>
 
-<div class="container row">
-  <div class="col-sm-3"></div>
-  <div id="profile" class="col-sm-6">
-    <h3>Profile</h3>
-        <div class="form-group row">
-          <label for="username" class="col-sm-4 col-form-label">Username</label>
-          <div class="col-sm-8">
-          <input type="text"class="form-control" id="username"  name="username" value="<%=founduser.username%>" readonly="readonly" >
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="email" class="col-sm-4 col-form-label">Email</label>
-          <div class="col-sm-8">
-          <input type="email" id="email"class="form-control" name="email" value="<%=currentUser.email%>" readonly="readonly" >
-          </div>
-        </div> 
-
-        <div class="form-group row">
-          <label for="date" class="col-sm-4 col-form-label">Date of birth</label>
-          <div class="col-sm-8">
-          <input type="text" id="date"class="form-control" name="date" value="<%=founduser.DOB%>" readonly="readonly" >
-          </div>
-        </div> 
-
-        <div class="form-group row">
-          <label for="height" class="col-sm-4 col-form-label">Height</label>
-          <div class="col-sm-8">
-          <input type="number" id="height"class="form-control" name="height" value="<%=founduser.height%>" readonly="readonly" >
-          </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="weight" class="col-sm-4 col-form-label">weight</label>
+<div class="container" id="profile">
+      <!-- genral -->
+     <div id="general" class="d-flex row flex-column justify-content-center px-5 py-3">
+          <div id="general-head" class="pb-3">General</div>
+          <div class="form-group row mb-0">
+            <label for="username" class="col-sm-4 col-form-label">Username</label>
             <div class="col-sm-8">
-            <input type="number" id="weight" class="form-control" name="weight" value="<%=founduser.weight%>" readonly="readonly" >
+              <input type="text"class="form-control" id="username"  name="username" value="<%=founduser.username%>" readonly="readonly" >
             </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="bmi" class="col-sm-4 col-form-label">BMI</label>
-          <div class="col-sm-8">
-          <input type="number" id="bmi" class="form-control" name="bmi" value="<%=founduser.bmi%>" readonly="readonly" >
           </div>
+
+          <div class="form-group row mb-0">
+            <label for="email" class="col-sm-4 col-form-label">Email</label>
+            <div class="col-sm-8">
+              <input type="email" id="email"class="form-control" name="email" value="<%=currentUser.email%>" readonly="readonly" >
+            </div>
+          </div>  
+        <div class="form-group mb-0">
+                          <a href="/forgotPass" id="forgot">Update password</a> 
         </div>
-      
-        <button class="btn align-center"onclick="window.location.href='/editProfile';">update profile</button>
-</div>
-<div class="col-sm-3"></div>
-</div>
+     </div>
+     
+     <div id="body" class="row px-4 py-3 ">
+            <div id="header-body" class="col-12 pb-3 ">Body</div>
+            <div class="form-group content row mb-0 col-6">
+                <label for="height" class="col-sm-4 col-form-label">Height</label>
+                 <div class="col-sm-8">
+                <input type="number" id="height"class="form-control w-75" name="height" value="<%=founduser.height%>" readonly="readonly" >
+                </div>
+            </div>
+
+            <div class="form-group content row mb-0 col-6">
+                  <label for="weight" class="col-sm-4 col-form-label">weight</label>
+                  <div class="col-sm-8">
+                  <input type="number" id="weight" class="form-control w-75" name="weight" value="<%=founduser.weight%>" readonly="readonly" >
+                  </div>
+            </div>
+
+            
+            <div class="form-group content row mb-0 col-6">
+                <label for="neck" class="col-sm-4 col-form-label">Neck</label>
+                <div class="col-sm-8">
+                <input type="number"class="form-control w-75" id="neck"  name="neck" value="<%=founduser.neck%>" readonly="readonly" >
+                </div>
+            </div>
+
+            <div class="form-group content row mb-0 col-6">
+                <label for="waist" class="col-sm-4 col-form-label">Waist</label>
+                <div class="col-sm-8">
+                 <input type="number"class="form-control w-75" id="waist"  name="waist" value="<%=founduser.waist%>" readonly="readonly" >
+                </div>
+            </div> 
+
+            <div class="form-group content row mb-0 col-6">
+                <label for="hip" class="col-sm-4 col-form-label">Hip</label>
+                <div class="col-sm-8">
+                 <input type="number"class="form-control w-75" id="hip"  name="hip" value="<%=founduser.hip%>" readonly="readonly" >
+                </div>
+            </div>
+
+              <div class="form-group content row mb-0 col-6">
+                <label for="activityFactor" class="col-sm-4 col-form-label">Activity Factor</label>
+                <div class="col-sm-8">
+                 <input type="number"class="form-control w-75 " id="activityFactor"  name="activityFactor" value="<%=founduser.activityFactor%>" readonly="readonly" >
+                </div>
+              </div>
+
+              <div class="form-group content row mb-0 col-6">
+                <label for="bmi" class="col-sm-4 col-form-label">BMI</label>
+                <div class="col-sm-8">
+                 <input type="number" id="bmi" class="form-control w-75 " name="bmi" value="<%=founduser.bmi%>" readonly="readonly" >
+                </div>
+              </div>
+
+              <div class="form-group content row mb-0 col-6">
+                <label for="bmr" class="col-sm-4 col-form-label">BMR</label>
+                <div class="col-sm-8">
+                 <input type="number" id="bmr" class="form-control w-75" name="bmr" value="<%=founduser.bmr%>" readonly="readonly" >
+                </div>
+              </div>
+
+              <div class="form-group content row mb-0 col-6">
+                <label for="fat-per" class="col-sm-4 col-form-label">Body Fat</label>
+                <div class="col-sm-8">
+                  <input type="number" id="fat-per" class="form-control w-75" name="fat-per" value="<%=founduser.bodyfat%>" readonly="readonly" >
+                </div>
+              </div>
+        </div>
+         <button class="btn align-center"onclick="window.location.href='/editProfile';">update profile</button>
+  </div>
+       
 <%- include ("../partials/footer") %>

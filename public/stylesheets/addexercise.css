@@ -30,6 +30,11 @@
     width: 35%;
 }
 
+#body-info {
+    font-size: .8rem;
+    width: 60%;
+}
+
 #body-info p {
     font-size: 1.5rem;
     margin-bottom: .1rem;
@@ -38,8 +43,12 @@
 }
 
 #body-info input {
-    width: 10%;
-    display: inline
+    width: 8%;
+    display: inline;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: .8;
 }
 
 #exercise-list p {

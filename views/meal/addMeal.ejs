@@ -36,7 +36,7 @@
                              
                     </div>
                      <div class="text-center">
-                        <button type="submit" class="btn btn-dark" id="submit-button" onclick="submitOnce()">Add</button>
+                        <button type="button" class="btn btn-dark" id="submit-button" onclick="submitOnce()">Add</button>
                     </div>
                 </form>
             </div>
@@ -59,18 +59,28 @@
         </div>    
 </div>
 <!-- submit once -->
-<script>        
-    function submitOnce() {
-        document.getElementById('desc').submit();
-        document.getElementById("submit-button").setAttribute("disabled", "true")
-        //document.getElementById('submit-button').removeAttribute('onclick');
+<script>    
+
+function submitOnce(){
+    alert("sjdnsajn")
+$("#desc").one("submit", submitFormFunction);
+
+function submitFormFunction(event) {
+    event.preventDefault(); 
+    $("#submit-button").submit();
 }
+}
+//     function submitOnce() {
+//         document.getElementById('desc').submit();
+//         document.getElementById("submit-button").setAttribute("disabled", "true")
+//         //document.getElementById('submit-button').removeAttribute('onclick');
+// }
 </script>
 
     <!--instant block   -->
 <div class="instant container d-flex justify-content-around">
                 <div class="autocomplete">
-                             <form  class="form-group" id="autocomplete-form"action="/searchNutrients" method="post">
+                             <form  class="form-group" id="autocomplete-form">
                                 
                                     <input id="search" class="form-control"type="text" name="query" placeholder="search from database" required>
                                         <!-- <input id="message"class="form-control" type="text" name="message"> 
@@ -111,6 +121,7 @@
                                  <select id="instant-select-measure" class="form-control serving"name="measure"required> </select> 
                                  <input type="number"id="instant-select-weight"class="form-control serving" name="weight" value="100" onClick="this.select();"required>
                                  grams
+                                 <input type="text" id="nix-item-id" name="nixItemId" visibility:hidden position:absolute>
                                  <button id="add-instant" class="btn" >Add food</button>
                              </form>
                              <!-- jump to add to kitchen page -->
@@ -127,6 +138,7 @@
 <script>  
     
         $(document).ready(function(){
+           
             $("#instant").click();//display none of .instant and .description in css
         });
         $("#instant").prop('checked', true);
@@ -214,10 +226,10 @@ $("#selectedFood-div").on('click','#remove',function(){
                         <!-- autocomplete -->
                         <script>
                             let userFood=[];//under kitchen
-
+                            let nix_item_id;
                             $(document).ready(function(){
-                                $("#common").click();
-
+                                
+                                 $("#common").click();
                                 <%findedUser.userfood.forEach(function(food){%>// kitchen
                                       userFood.push(<%-JSON.stringify(food.food_name)%>);
                                 <%})%>
@@ -226,7 +238,7 @@ $("#selectedFood-div").on('click','#remove',function(){
                                   
 
                                 function searchKitchen(userFood){
-                                console.log("ggggggggggg "+userFood)
+                               // console.log("ggggggggggg "+userFood)
                                     $( "#search" ).autocomplete({  
                                             source: userFood,
                                             appendTo: "#results",
@@ -264,8 +276,13 @@ $("#selectedFood-div").on('click','#remove',function(){
 <script>
 $(document).ready(function () {
     let  radioValue;
+    let options_measure="<option id='first' value='' disabled selected hidden>Choose a measure</option>";
+    let instant_select_weight;
+    let obj={};
+    let resultItems;
     $("input[type='radio']").click(function(){
             radioValue = $("input[name='choice']:checked").val();
+            //alert(radioValue)
             //console.log("typeosasa"+typeof(radioValue) + radioValue)
  });
     $(".ui-menu").click(function (){
@@ -305,10 +322,39 @@ $(document).ready(function () {
 
           
        }
-    else{
+    else{   
         // if radioValue is common and branded
-        if (selectedFood.length > 0) {
-            // console.log(selectedFood);
+            if(selectedFood.length > 0 && radioValue=="branded"){
+          //alert("branded")
+              $.ajax({
+                type: "get",
+                url: "https://trackapi.nutritionix.com/v2/search/item?nix_item_id="+nix_item_id,
+                dataType: "json",
+                headers: {
+                         "x-app-id": "4b34a3d8",
+                        "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
+                        "x-remote-user-id": "0"
+                        },
+
+                success: function (result, status, xhr) {
+                    options_measure="<option id='first' value='' disabled selected hidden>Choose a measure</option>";
+                    options_measure+=`<option value="${result.foods[0].serving_unit}" class="measure">${result.foods[0].serving_unit}</option>`
+                        instant_select_weight=result.foods[0].serving_weight_grams;
+                        obj[result.foods[0].serving_unit]=result.foods[0].serving_weight_grams;
+                     //document.getElementById("instant-select-measure").innerHTML=options_measure;
+                   $("#instant-select-measure").html(options_measure)
+                   $("#instant-select-measure").on('change',function () {
+                       let val=$(this).val();
+                      
+                       $("#instant-select-weight").val(obj[val])
+                   })
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: Usage limit exceeds")
+                }
+            });
+        }
+        else{
             $.ajax({
                 type: "POST",
                 url: "https://trackapi.nutritionix.com/v2/natural/nutrients",
@@ -323,17 +369,15 @@ $(document).ready(function () {
                         },
 
                 success: function (result, status, xhr) {
-                    console.log("asjjsann")
+                  
                    let options_measure="<option id='first' value='' disabled selected hidden>Choose a measure</option>";
                    let instant_select_weight;
                    let obj={};
                    let resultItems=result.foods[0].alt_measures;
                        resultItems.forEach(function(item) {
-
                         options_measure+=`<option value="${item.measure}" class="measure">${item.measure}</option>`
                         instant_select_weight=item.serving_weight;
                         obj[item.measure]=item.serving_weight;
-
                        });
                 
                    //document.getElementById("instant-select-measure").innerHTML=options_measure;
@@ -349,6 +393,7 @@ $(document).ready(function () {
                 }
             });
         }
+   
     }
 });
 });

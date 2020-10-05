@@ -107,10 +107,7 @@
   </div>
 
  <script>
-     $(document).ready(function(){
-        getchart("showCalorie",selected,from,to)//onload calorie grpah in showg-graph
-         $("#custom-range").hide();
-         })
+     
   
           let length;//for length in calorie-date file
           let consumedArray=[];
@@ -128,6 +125,10 @@
         let valid_from;
         let valid_to;
     
+$(document).ready(function(){
+        getchart("showCalorie",selected,from,to)//onload calorie grpah in showg-graph
+         $("#custom-range").hide();
+         })
 
          function switchTypeOGraph(){
                 $("#range-div").hide();
@@ -209,14 +210,14 @@
 
           console.log(mm+"/"+dd+"/"+yy)
           if(k==0){
-             $("#from").text(mm+1 +"/"+dd+"/"+yy);
+             $("#from").text(mm +"/"+dd+"/"+yy);
              m0=mm;
              d0=dd;
              y0=yy
           }
           else if(k==1) 
           {
-            $("#to").text(mm+1 +"/"+dd+"/"+yy)
+            $("#to").text(mm +"/"+dd+"/"+yy)
             m1=mm;
             d1=dd;
             y1=yy;

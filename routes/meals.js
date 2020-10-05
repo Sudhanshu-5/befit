@@ -156,23 +156,6 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
 
         }
     }
-
-    //instant path
-    if (req.body.labelInstant) {
-
-        info = req.body.qty * req.body.weight + "g" + " " + req.body.food;
-        label = req.body.labelInstant;
-        console.log('info ' + info)
-        //console.log("info" + info + label);
-
-    }
-    //descriptive path
-    else if (req.body.labelDescription) {
-        info = req.body.query
-        label = req.body.labelDescription;
-        //console.log("info" + info + label);
-    }
-
     var caloriesSum = 0;
     var calsum = 0;
     var proSum = 0;
@@ -189,57 +172,128 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
     var cholestrol = [];
     var fibres = [];
     var consumedAt = [];
-    axios({
-        method: "post",
-        url: " https://trackapi.nutritionix.com/v2/natural/nutrients",
-        headers: {
+    //instant path
+    if (req.body.labelInstant) {
 
-            "x-app-id": "4b34a3d8",
-            "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
-            "x-remote-user-id": "0"
+        if (req.body.nixItemId) {
+            console.log("branded");
+            axios({
+                method: "get",
+                url: "https://trackapi.nutritionix.com/v2/search/item?nix_item_id=" + req.body.nixItemId,
+                headers: {
+                    "x-app-id": "4b34a3d8",
+                    "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
+                    "x-remote-user-id": "0"
+                }
+            }).then(function (response) {
+                console.log("winwinwiwnwinwinwinwinwinwin " + response.data["foods"][0].nf_calories)
+                calsum = calsum + response.data["foods"][0].nf_calories;
+                fooditems.push(response.data["foods"][0].food_name);
+                console.log("nameeeeeeeeeeeeeeeeeeeeeeeeeeeee " + fooditems)
+                servingWeight.push(response.data["foods"][0].serving_weight_grams);
+                calorie.push(response.data["foods"][0].nf_calories);
+                fats.push(response.data["foods"][0].nf_total_fat);
+                fatSum += response.data["foods"][0].nf_total_fat;
+                carbs.push(response.data["foods"][0].nf_total_carbohydrate);
+                carbSum += response.data["foods"][0].nf_total_carbohydrate;
+                protiens.push(response.data["foods"][0].nf_protein);
+                proSum += response.data["foods"][0].nf_protein;
+                cholestrol.push(response.data["foods"][0].nf_cholesterol);
+                fibres.push(response.data["foods"][0].nf_dietary_fiber);
+                servingUnit.push(req.body.measure);
+                qty.push(req.body.qty);
+                console.log("nameeeeeeeeeeeeeeeeeeeeeeeeeeeee " + fooditems.length)
 
-        },
-        data: {
-            "query": info,
-            "timezone": "Asia/Calcutta"
+            }).catch(function (error) {
+                alert(err.message)
+                if (!fooditems.length && req.body.labelInstant) {
+                    req.flash('error', 'add ur meal with correct spellings')
+                    res.redirect('back')
+                }
+
+            }).finally(function () {
+                console.log("length of branded+" + fooditems.length)
+                demo();
+            })
+        } else {
+            console.log("inside common")
+
+            info = req.body.qty * req.body.weight + "g" + " " + req.body.food;
+            label = req.body.labelInstant;
+            hitNaturalNutri(info);
+
         }
 
-    }).then(function (response) {
-        // console.log("ooooooooooooooooooooooooooooooooooooooooooooooooooooo" + qty)
-
-        //console.log("kkkkkkkkkkkkkkkwwwwwwwwwwwaaaale" + kfooditems)
-        //console.log(response.data["foods"]); 
-
-        for (var i = 0; i < response.data["foods"].length; i++) {
-            calsum = calsum + response.data["foods"][i].nf_calories;
-            fooditems.push(response.data["foods"][i].food_name);
-
-            qty.push(response.data["foods"][i].serving_qty);
-
-            servingUnit.push(response.data["foods"][i].serving_unit);
-            servingWeight.push(response.data["foods"][i].serving_weight_grams);
-            calorie.push(response.data["foods"][i].nf_calories);
-            fats.push(response.data["foods"][i].nf_total_fat);
-            fatSum += response.data["foods"][i].nf_total_fat;
-            carbs.push(response.data["foods"][i].nf_total_carbohydrate);
-            carbSum += response.data["foods"][i].nf_total_carbohydrate;
-            protiens.push(response.data["foods"][i].nf_protein);
-            proSum += response.data["foods"][i].nf_protein;
-            cholestrol.push(response.data["foods"][i].nf_cholesterol);
-            fibres.push(response.data["foods"][i].nf_dietary_fiber);
-
-        }
-
-
-
-    }).catch(function (error) {
-
-        if (fooditems.length > 0) {
-            req.flash('error', 'add ur meal with correct spellings')
+    }
+    //descriptive path
+    else if (req.body.labelDescription) {
+        info = req.body.query
+        label = req.body.labelDescription;
+        console.log("info" + info + label);
+        console.log("descriptiove");
+        if (!info) {
+            req.flash('error', 'add something ')
             res.redirect('back')
+        } else {
+            hitNaturalNutri(info)
         }
-    }).finally(function () {
 
+    }
+
+    function hitNaturalNutri(info) {
+        axios({
+
+            method: "post",
+            url: " https://trackapi.nutritionix.com/v2/natural/nutrients",
+            headers: {
+
+                "x-app-id": "4b34a3d8",
+                "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
+                "x-remote-user-id": "0"
+
+            },
+            data: {
+                "query": info,
+                "timezone": "Asia/Calcutta"
+            }
+
+        }).then(function (response) {
+
+
+            for (var i = 0; i < response.data["foods"].length; i++) {
+
+                calsum = calsum + response.data["foods"][i].nf_calories;
+                fooditems.push(response.data["foods"][i].food_name);
+                servingWeight.push(response.data["foods"][i].serving_weight_grams);
+                calorie.push(response.data["foods"][i].nf_calories);
+                fats.push(response.data["foods"][i].nf_total_fat);
+                fatSum += response.data["foods"][i].nf_total_fat;
+                carbs.push(response.data["foods"][i].nf_total_carbohydrate);
+                carbSum += response.data["foods"][i].nf_total_carbohydrate;
+                protiens.push(response.data["foods"][i].nf_protein);
+                proSum += response.data["foods"][i].nf_protein;
+                cholestrol.push(response.data["foods"][i].nf_cholesterol);
+                fibres.push(response.data["foods"][i].nf_dietary_fiber);
+                servingUnit.push(response.data["foods"][i].serving_unit);
+                qty.push(response.data["foods"][i].serving_qty);
+
+            }
+        }).catch(function (error) {
+            // console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk " + error)
+            console.log("ssssssssssssssssss " + fooditems.length)
+            if (!fooditems.length) {
+                req.flash('error', 'add ur meal with correct spellings')
+                res.redirect('back')
+            }
+
+        }).finally(function () {
+            demo();
+        });
+    }
+
+    function demo() {
+
+        console.log("inside demo with " + fooditems.length);
         caloriesSum = calsum + uCalsum;
         // console.log(typeof (caloriesSum) + "111111111111111111111111111111 " + caloriesSum)
         fatSum = fatSum + uFatsum;
@@ -342,10 +396,10 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                                         }
 
 
-                                        console.log("totslcalore= " + totalCalorie);
-                                        console.log("totalFAts:" + totalFats);
-                                        console.log("totalPro:" + totalProtiens);
-                                        console.log("totalCarbs:" + totalCarbs);
+                                        // console.log("totslcalore= " + totalCalorie);
+                                        // console.log("totalFAts:" + totalFats);
+                                        // console.log("totalPro:" + totalProtiens);
+                                        // console.log("totalCarbs:" + totalCarbs);
 
 
                                         macronutrientinfo.findOneAndUpdate({
@@ -382,27 +436,12 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                                                             console.log(saved);
                                                         }
                                                     })
-                                                    //
 
-                                                    // console.log("111111111111111111111111 " + (new Date(info.createdAt)) + " " + dateNow.toLocaleDateString())
-                                                    // if ((new Date(info.createdAt)).toLocaleDateString() !== dateNow.toLocaleDateString()) {
-                                                    //     console.log("kkkkkkkkkkkkdddddddddddddd")
-
-                                                    // foodinfo.save(function (err, saved) {
-                                                    //     if (err) {
-                                                    //         console.log(err)
-                                                    //     } else {
-                                                    //         console.log(saved);
-                                                    //     }
-                                                    // })
-                                                    // }
-
-                                                    // })
                                                 } else {
                                                     foodinfo.macroNutrientInfo.forEach(function (info) {
-                                                        console.log("casmkmaskksakksa" + info)
-                                                        console.log("11111111111111111" + info.createdAt.toLocaleDateString());
-                                                        console.log("22222222222222222" + updatedCalorieInfo.createdAt.toLocaleDateString())
+                                                        // console.log("casmkmaskksakksa" + info)
+                                                        // console.log("11111111111111111" + info.createdAt.toLocaleDateString());
+                                                        // console.log("22222222222222222" + updatedCalorieInfo.createdAt.toLocaleDateString())
                                                         if (info.createdAt.toLocaleDateString() == updatedCalorieInfo.createdAt.toLocaleDateString()) {
                                                             count++;
 
@@ -422,102 +461,6 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                                                 }
                                             }
                                         })
-
-
-
-                                        // } else {
-                                        //     foodinfo.macronutrientinfo.push(updatedCalorieInfo);
-                                        //     foodinfo.save(function (err, saved) {
-                                        //         if (err) {
-                                        //             console.log(err)
-                                        //         } else {
-                                        //             console.log(saved);
-                                        //         }
-                                        //     })
-                                        // }
-
-
-                                        // userType.findOne({
-                                        //     username: req.user.username
-                                        // }).populate('calorieinfo').exec(function (err, populatedCalorieInfo) {
-
-                                        // });
-
-
-                                        // function create() {
-                                        //     //console.log("length==:+")
-                                        //     calorieinfo.create({
-
-                                        //     }, function (err, created) {
-                                        //         if (err) {
-                                        //             console.log(err)
-                                        //         } else {
-                                        //             //console.log("created" + created._id);
-                                        //             //!push totsl calorie in usermodel
-                                        //             findedUser.calorieinfo.push(created);
-                                        //             findedUser.save(function (err, savedUser) {
-
-                                        //                 if (err) {
-                                        //                     console.log(err);
-                                        //                 } else {
-                                        //                     // console.log("savedUser" + savedUser);
-                                        //                     var data = {
-                                        //                         totalCaloriesConsumed: totalCalorie,
-
-                                        //                     }
-                                        //                     var length = savedUser.calorieinfo.length;
-                                        //                     calorieinfo.findByIdAndUpdate(savedUser.calorieinfo[length - 1]._id, data, {
-                                        //                         upsert: true,
-                                        //                         new: true
-
-                                        //                     }, function (err, updatedCalorieInfo) {
-                                        //                         // console.log("updatedCalorieInfo" + updatedCalorieInfo);
-                                        //                     })
-                                        //                 }
-                                        //             })
-
-
-                                        //         }
-                                        //     })
-                                        // }
-                                        // if (findedUser.calorieinfo.length === 0) {
-                                        //     create();
-
-                                        // } else {
-                                        //     console.log("0");
-                                        //     //!populate date
-                                        //     userType.findOne({
-                                        //         username: req.user.username
-                                        //     }).populate('calorieinfo', 'date').exec(function (err, byDate) {
-                                        //         if (err) {
-                                        //             console.log(err)
-                                        //         } else {
-                                        //             //console.log(byDate);
-                                        //             //!if bydate[] != date.now then call func which creates
-                                        //             //!if bydate[] === date.now   to update
-                                        //             length = byDate.calorieinfo.length;
-                                        //             var d = byDate.calorieinfo[length - 1].createdAt;
-                                        //             //  console.log("length" + length);
-                                        //             // console.log("date" + d);
-                                        //             if ((new Date(d)).toLocaleDateString().localeCompare(dateNow) == 0) {
-                                        //                 var data = {
-                                        //                     totalCaloriesConsumed: totalCalorie,
-
-                                        //                 }
-                                        //                 calorieinfo.findByIdAndUpdate(byDate.calorieinfo[length - 1]._id, data, {
-                                        //                     upsert: true,
-                                        //                     new: true
-
-                                        //                 }, function (err, updatedCalorieInfo) {
-                                        //                     // console.log("updatedCalorieInfo" + updatedCalorieInfo);
-                                        //                 })
-                                        //             } else {
-                                        //                 create();
-                                        //             }
-
-                                        //         }
-                                        //     })
-                                        // }
                                     }
                                 });
 
@@ -526,70 +469,74 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                         });
 
                         //console.log("data:" + data);
-                        req.flash('info', 'Meal is added to ur  diary');
-                        res.redirect('back');
+                        if (fooditems.length) {
+                            req.flash('info', 'Meal is added to ur  diary');
+                            res.redirect('back');
+                        }
                     }
 
                 });
-        } //end if(fooditems.length)
-    })
-});
-//!delete Meal route
-router.delete("/deleteMeal/:mealmillisec/:deleteThisIndexMeal", middleware.isLoggedIn, async (req, res) => {
+        } //end if(fooditem
+    }
+})
 
-    let mealmillisecToDate = new Date(+req.params.mealmillisec);
-    let index = req.params.deleteThisIndexMeal;
-    console.log(index + "iiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+//!delete Meal route
+router.delete("/deleteMeal", middleware.isLoggedIn, async (req, res) => {
+
+    let millisecondsOfItemsToBeRemoved = req.query.millisecondsOfItemsToBeRemoved;
+    let indexOfItemsToBeRemoved = req.query.indexOfItemsToBeRemoved;
+
+    console.log(indexOfItemsToBeRemoved + "iiiiiiiiiiiiiiiiiiiiiiiiiiiiii" + millisecondsOfItemsToBeRemoved + " milliseconds");
 
     // console.log("000000000000 " + mealmillisecToDate)
-    try {
-        let findedMealId;
-        let findedMeal = await userType.findOne({
-            username: req.user.username
-        }).populate("mealinfo");
-        //console.log("000000000" + findedMeal)
-        findedMeal.mealinfo.forEach(function (meal) {
-            console.log(meal.createdAt + "-----------" + mealmillisecToDate);
-            //console.log(typeof (meal.createdAt) + "-----------" + typeof (mealmillisecToDate));
-            if (JSON.stringify(meal.createdAt) === JSON.stringify(mealmillisecToDate)) {
-                findedMealId = meal._id;
-                console.log("iddddddd " + findedMealId);
-            }
-        })
-        // var arrIndex = `foodItems.${index}`;
-        /* ... */
-        // db.collection.update({}, {
-        //     $unset: {
-        //         [arrIndex]: 1
-        //     }
-        // });
-        mealinfo.update(findedMealId, {
-            $unset: {
-                "foodItems.0": 1
-            }
-        });
-        //WriteResult({"nMatched": 1, "nUpserted": 0, "nModified": 1});
+    // try {
+    //     let findedMealId;
+    //     let findedMeal = await userType.findOne({
+    //         username: req.user.username
+    //     }).populate("mealinfo");
+    //     //console.log("000000000" + findedMeal)
+    //     findedMeal.mealinfo.forEach(function (meal) {
+    //         console.log(meal.createdAt + "-----------" + mealmillisecToDate);
+    //         //console.log(typeof (meal.createdAt) + "-----------" + typeof (mealmillisecToDate));
+    //         if (JSON.stringify(meal.createdAt) === JSON.stringify(mealmillisecToDate)) {
+    //             findedMealId = meal._id;
+    //             console.log("iddddddd " + findedMealId);
+    //         }
+    //     })
+    //     // var arrIndex = `foodItems.${index}`;
+    //     /* ... */
+    //     // db.collection.update({}, {
+    //     //     $unset: {
+    //     //         [arrIndex]: 1
+    //     //     }
+    //     // });
+    //     mealinfo.update(findedMealId, {
+    //         $unset: {
+    //             "foodItems.0": 1
+    //         }
+    //     });
+    //     //WriteResult({"nMatched": 1, "nUpserted": 0, "nModified": 1});
 
-        mealinfo.update(findedMealId, {
-            $pull: {
-                "foodItems": null
-            }
-        });
-        // WriteResult({"nMatched": 1, "nUpserted": 0, "nModified": 1});
+    //     mealinfo.update(findedMealId, {
+    //         $pull: {
+    //             "foodItems": null
+    //         }
+    //     });
+    //     // WriteResult({"nMatched": 1, "nUpserted": 0, "nModified": 1});
 
-        mealinfo.findById(findedMealId, function (err, ad) {
-            if (err) {
-                console.log(err)
-            } else {
-                console.log(ad);
-            }
-        })
-        console.log(JSON.stringify(mealinfo));
+    //     mealinfo.findById(findedMealId, function (err, ad) {
+    //         if (err) {
+    //             console.log(err)
+    //         } else {
+    //             console.log(ad);
+    //         }
+    //     })
+    //     console.log(JSON.stringify(mealinfo));
 
 
-    } catch (err) {
-        console.log(err);
-    }
+    // } catch (err) {
+    //     console.log(err);
+    // }
 });
 //!manage diary
 router.get("/diary", middleware.isLoggedIn, async (req, res) => {
@@ -693,55 +640,90 @@ router.get("/searchFood", middleware.isLoggedIn, function (req, res) {
             "x-remote-user-id": "0"
         }
     }).then(function (response) {
+
         //res.send(response.data);
 
     }).catch(function (error) {
         console.log(error);
-    }).finally(function () {})
+    }).finally(function () {
+
+    })
 });
 
 
 router.post("/searchNutrients", middleware.isLoggedIn, function (req, res) {
     var info = req.body.query;
-
+    var type = req.body.type; //common/breanded
     console.log("Query" + JSON.stringify(info));
-    axios({
-        method: "post",
-        url: " https://trackapi.nutritionix.com/v2/natural/nutrients",
-        headers: {
-            //"content-type": "text/json", 
-            //"Content-Type": "application/json", 
-            "x-app-id": "4b34a3d8",
-            "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
-            "x-remote-user-id": "0"
+    if (!JSON.stringify(type)) {
+        axios({
+            method: "post",
+            url: " https://trackapi.nutritionix.com/v2/natural/nutrients",
+            headers: {
+                "x-app-id": "4b34a3d8",
+                "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
+                "x-remote-user-id": "0"
 
-        },
-        data: {
-            query: info
-        }
+            },
+            data: {
+                query: info
+            }
 
-    }).then(function (response) {
-        var temp = response.data["foods"][0];
+        }).then(function (response) {
+            var temp = response.data["foods"][0];
 
-        // var a = {
-        //     food: temp.food_name,
-        //     total_fat: temp.nf_total_fat,
-        //     saturated_fat: temp.nf_saturated_fat,
-        //     cholestrol: temp.nf_cholesterol,
-        //     carbs: temp.nf_total_carbohydrate,
-        //     fiber: temp.nf_dietary_fiber,
-        //     sugar: temp.nf_sugars,
-        //     protiens: temp.nf_protein,
-        // }
-        //console.log(a);
-        res.render("meal/nutritionalFacts", {
-            data: temp
-        });
-    }).catch(function (error) {
-        // alert("Field should not be empty")
-    }).finally(function () {
+            // var a = {
+            //     food: temp.food_name,
+            //     total_fat: temp.nf_total_fat,
+            //     saturated_fat: temp.nf_saturated_fat,
+            //     cholestrol: temp.nf_cholesterol,
+            //     carbs: temp.nf_total_carbohydrate,
+            //     fiber: temp.nf_dietary_fiber,
+            //     sugar: temp.nf_sugars,
+            //     protiens: temp.nf_protein,
+            // }
+            //console.log(a);
+            res.render("meal/nutritionalFacts", {
+                data: temp
+            });
+        }).catch(function (error) {
+            // alert("Field should not be empty")
+        }).finally(function () {
 
-    })
+        })
+    } else if (JSON.stringify(type)) {
+        axios({
+            method: "post",
+            url: "https://trackapi.nutritionix.com/v2/search/item?detailed=true&nix_item_id=" + type,
+            headers: {
+                "x-app-id": "4b34a3d8",
+                "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
+                "x-remote-user-id": "0"
+
+            }
+        }).then(function (response) {
+            var temp = response.data["foods"][0];
+
+            // var a = {
+            //     food: temp.food_name,
+            //     total_fat: temp.nf_total_fat,
+            //     saturated_fat: temp.nf_saturated_fat,
+            //     cholestrol: temp.nf_cholesterol,
+            //     carbs: temp.nf_total_carbohydrate,
+            //     fiber: temp.nf_dietary_fiber,
+            //     sugar: temp.nf_sugars,
+            //     protiens: temp.nf_protein,
+            // }
+            //console.log(a);
+            res.render("meal/nutritionalFacts", {
+                data: temp
+            });
+        }).catch(function (error) {
+            // alert("Field should not be empty")
+        }).finally(function () {
+
+        })
+    }
 });
 module.exports = router;
 // 	dataPoints.push({

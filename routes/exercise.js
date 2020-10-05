@@ -12,6 +12,9 @@ var axios = require("axios");
 const {
     session
 } = require("passport");
+const {
+    request
+} = require("express");
 
 var dateNow = (new Date(Date.now()));
 
@@ -42,13 +45,13 @@ router.get("/addExercise", middleware.isLoggedIn, async (req, res) => {
             username: req.user.username
         }).populate("userexercise");
         //console.log("UserById:" + findedUser);
-        console.log("findedUSer---------" + findedUser)
-        console.log(findedUser.DOB);
+        // console.log("findedUSer---------" + findedUser)
+        // console.log(findedUser.DOB);
         let age = findedUser.age;
         let Gender = gender;
         let weight = findedUser.weight;
         let height = findedUser.height;
-        console.log("USer body" + Gender + " " + weight + " " + height + " " + age)
+        // console.log("USer body" + Gender + " " + weight + " " + height + " " + age)
         res.render("exercise/addExercise", {
             findedUser: findedUser,
             age: age,
@@ -84,7 +87,7 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
                 if (err) {
                     console.log(err)
                 } else {
-                    console.log("&&&&&&&&&&&&&&&&&&" + exercise)
+                    // console.log("&&&&&&&&&&&&&&&&&&" + exercise)
                     triggered(exercise);
                 }
 
@@ -101,11 +104,11 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
                 uMet.push(exercise.met);
                 uDuration.push(userDuration[i]);
                 uExerciseName.push(userExercise[i]);
-                console.log("0000000" + usum);
-                console.log("000000" + uCaloriesBurned);
-                console.log("0000000" + uMet);
-                console.log("000000000" + uDuration);
-                console.log("000000000" + uExerciseName);
+                // console.log("0000000" + usum);
+                // console.log("000000" + uCaloriesBurned);
+                // console.log("0000000" + uMet);
+                // console.log("000000000" + uDuration);
+                // console.log("000000000" + uExerciseName);
             }
 
         }
@@ -117,6 +120,7 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
     let label = req.body.xlabelDescription;
     let totalBurnedcalories = 0;
     var info = req.body.query; //api requirement to add info to post
+    // console.log(req.body.age + " " + req.body.weight + " " + req.body.height + "1221333333")
     axios({
         method: "post",
         url: "https://trackapi.nutritionix.com/v2/natural/exercise",
@@ -131,9 +135,9 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
         data: {
             query: info,
             gender: req.user.gender,
-            weight_kg: "80",
-            height_cm: "180",
-            age: "20"
+            weight_kg: req.body.weight,
+            height_cm: req.body.height,
+            age: req.body.age
         }
 
     }).then(function (response) {
@@ -159,11 +163,11 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
         totalBurnedcalories = totalBurnedcalories + usum;
 
         caloriesBurned = caloriesBurned.concat(uCaloriesBurned)
-        console.log("------------" + caloriesBurned);
+        // console.log("------------" + caloriesBurned);
         durations = durations.concat(uDuration);
-        console.log("----------" + durations)
+        // console.log("----------" + durations)
         exercises = exercises.concat(uExerciseName);
-        console.log("-----------" + exercises);
+        // console.log("-----------" + exercises);
         met = met.concat(uMet);
         if (exercises.length) {
             var data = {
@@ -205,13 +209,13 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
                                     } else {
                                         //console.log("workoutinfo----------- " + workoutinfo);
                                         var totalCalorie = parseFloat(data.totalCaloriesBurned);
-                                        console.log("totalCaloriesss " + totalCalorie);
+                                        // console.log("totalCaloriesss " + totalCalorie);
 
                                         console.log("999999999999999999999 " + dateNow.toLocaleDateString())
                                         if (workoutinfo.macroNutrientInfo.length > 0) {
                                             console.log("lengthjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
                                             workoutinfo.exerciseinfo.forEach(function (info) {
-                                                console.log("99999999999999999999 " + (new Date(info.createdAt)).toLocaleDateString())
+                                                // console.log("99999999999999999999 " + (new Date(info.createdAt)).toLocaleDateString())
                                                 if ((new Date(info.createdAt)).toLocaleDateString().localeCompare(dateNow.toLocaleDateString()) == 0) {
                                                     totalCalorie = totalCalorie + parseFloat(info.totalCaloriesBurned);
                                                 }
@@ -221,7 +225,7 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
                                         }
 
 
-                                        console.log("totslcalore= " + totalCalorie);
+                                        // console.log("totslcalore= " + totalCalorie);
 
                                         macronutrientinfo.findOneAndUpdate({
                                             date: dateNow.toLocaleDateString(),
@@ -235,8 +239,8 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
                                             if (err) {
                                                 console.log(err);
                                             } else {
-                                                console.log("winwinwinwiwnwinwiwwiwn  " + updatedCalorieInfo);
-                                                console.log("totslcalore= " + totalCalorie);
+                                                // console.log("winwinwinwiwnwinwiwwiwn  " + updatedCalorieInfo);
+                                                // console.log("totslcalore= " + totalCalorie);
 
                                                 //if (foodinfo.macronutrientinfo) {
                                                 let count = 0;
@@ -246,7 +250,7 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
                                                         if (err) {
                                                             console.log(err)
                                                         } else {
-                                                            console.log(saved);
+                                                            // console.log(saved);
                                                         }
                                                     })
                                                     //
@@ -277,7 +281,7 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
                                                             if (err) {
                                                                 console.log(err)
                                                             } else {
-                                                                console.log(saved);
+                                                                // console.log(saved);
                                                             }
                                                         })
                                                     }
@@ -391,7 +395,7 @@ router.get("/exerciseDiary", middleware.isLoggedIn, async (req, res) => {
         var findedUser = await userType.findOne({
             username: req.user.username
         }).populate("exerciseinfo");
-        console.log("UserById:" + findedUser);
+        // console.log("UserById:" + findedUser);
 
         res.render("exercise/exerciseDiary", {
             findedUser: findedUser
@@ -447,5 +451,54 @@ router.post("/customExercise", middleware.isLoggedIn, function (req, res) {
         })
 })
 
+//!get execise suggestion
+router.get("/suggestion", middleware.isLoggedIn, async (req, res) => {
+    try {
+        console.log("janjnasdsadsadas" + req.query.calories)
+        let calories = req.query.calories;
+        let duration_obj = {};
+        let info = "30 min walking 30 min running 30 min bicycling ";
+        let findeduser = await userType.findOne({
+            username: req.user.username
+        });
+        // console.log("ajjsadajsnjsansdjnsajdnnajsjdnsandnas" + findedwser.username);
+        axios({
+            method: "post",
+            url: "https://trackapi.nutritionix.com/v2/natural/exercise",
+            headers: {
+                //"content-type": "text/json", 
+                //"Content-Type": "application/json", 
+                "x-app-id": "4b34a3d8",
+                "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
+                "x-remote-user-id": "0"
 
+            },
+            data: {
+                query: info,
+                weight_kg: 63.5,
+
+            }
+
+        }).then(function (response) {
+
+            duration_obj.walking_duration = Math.round((calories * response.data.exercises[0].duration_min) / response.data.exercises[0].nf_calories);
+            duration_obj.running_duration = Math.round((calories * response.data.exercises[1].duration_min) / response.data.exercises[1].nf_calories);
+            duration_obj.cycling_duration = Math.round((calories * response.data.exercises[2].duration_min) / response.data.exercises[2].nf_calories);
+
+            // console.log(JSON.stringify(duration_obj) + "000000000000000000000 " + duration_obj);
+            res.render("exercise/suggestions", {
+                duration: duration_obj,
+                calories: calories
+            })
+        }).catch(function (error) {
+            console.log(error)
+
+        }).finally(function () {
+
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
+})
 module.exports = router;

@@ -1,0 +1,33 @@
+<!-- <%- include ("../partials/header") %> -->
+
+
+<div class="w-50">
+             <div class="box-title">
+              How long would it take to burn off <%=calories%> KCal?
+            </div>
+            <div class="row">
+              <div class="col-6">
+                Walking
+              </div>
+              <div id="walk" class="col-6">
+                  <%=JSON.stringify(duration["walking_duration"])%>
+              </div>
+
+               <div class="col-6">
+                Running
+              </div>
+              <div id="running" class="col-6">
+                 <%=JSON.stringify(duration["running_duration"])%>
+              </div>
+
+               <div class="col-6">
+                Cycling
+              </div>
+              <div id="cycling" class="col-6">
+               <%=JSON.stringify(duration["cycling_duration"])%>
+              </div>
+              
+            </div>
+</div>
+
+<!-- <%- include ("../partials/footer") %> -->

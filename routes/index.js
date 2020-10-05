@@ -51,16 +51,17 @@ router.get("/register", middleware.counterLoggedIn, function (req, res) {
 
 //!create new user and add to DB
 router.post("/register", async (req, res) => {
-    console.log(req.body.password.toLowerCase());
-    console.log(req.body.confirmPass.toLowerCase());
+    //console.log(req.body.password.toLowerCase());
+    //  c/onsole.log(req.body.confirmPass.toLowerCase());
     if ((req.body.password.toLowerCase()).localeCompare(req.body.confirmPass.toLowerCase()) == 0) {
         //  console.log(req.body.gender);
         let newlyCreated;
         let W = req.body.kgs;
         let H = req.body.height;
         let A = req.body.age;
-        let factor = 1.2;
+        let factor = req.body.activityFactor; //initislly , user can personalize it
         let bmr;
+        let targets = {};
         if (req.body.gender === "male") {
 
             bmr = 10 * W + 6.25 * H - 5 * A + 5;
@@ -70,6 +71,24 @@ router.post("/register", async (req, res) => {
             bmr = bmr * factor;
         }
 
+        //get targets
+        if (factor == 1.2) {
+            targets["pTarget"] = bmr * 30 / 400;
+            targets["fTarget"] = bmr * 20 / 900;
+            targets["cTarget"] = bmr * 50 / 400;
+
+
+        } else if (factor == 1.375 || factor == 1.55) {
+
+            targets["pTarget"] = bmr * 15 / 400;
+            targets["fTarget"] = bmr * 30 / 900;
+            targets["cTarget"] = bmr * 55 / 400;
+
+        } else if (factor == 1.72 || factor == 1.9) {
+            targets["pTarget"] = bmr * 25 / 400;
+            targets["fTarget"] = bmr * 30 / 900;
+            targets["cTarget"] = bmr * 45 / 400;
+        }
 
         var newUser = new user({
             username: req.body.username,
@@ -101,12 +120,15 @@ router.post("/register", async (req, res) => {
                         bmi: req.body.bmi,
                         age: req.body.age,
                         bmr: bmr,
-                        activityFactor: factor
+                        activityFactor: factor,
+                        p_target: targets["pTarget"],
+                        f_target: targets["fTarget"],
+                        c_target: targets["cTarget"]
                     })
 
                     try {
                         newlyCreated = await maletheuser.create(newMaleUser);
-                        console.log("new male user  " + newlyCreated);
+                        // console.log("new male user  " + newlyCreated);
                     } catch (err) {
                         console.log(err)
                     }
@@ -131,7 +153,7 @@ router.post("/register", async (req, res) => {
                     });
                     try {
                         newlyCreated = await femaleuser.create(newFemaleUser);
-                        console.log("new female user  " + newlyCreated);
+                        // console.log("new female user  " + newlyCreated);
                     } catch (err) {
                         console.log(err)
                     }
@@ -160,7 +182,7 @@ router.post("/register", async (req, res) => {
                         if (err) {
                             console.log(err)
                         } else {
-                            console.log(saved);
+                            // console.log(saved);
                         }
                     });
                 } catch (err) {
@@ -183,7 +205,7 @@ router.post("/register", async (req, res) => {
 })
 //!instant validate
 router.get("/validate", async (req, res) => {
-    console.log("1111111111111111111111111111111111111 " + req.query.Username + "111111111" + req.query.Email)
+    // console.log("1111111111111111111111111111111111111 " + req.query.Username + "111111111" + req.query.Email)
     let exists
     try {
         if (req.query.Username.length > 0) {
@@ -194,13 +216,16 @@ router.get("/validate", async (req, res) => {
             exists = await user.findOne({
                 email: req.query.Email
             })
+
         }
-        console.log(exists + "sddddddddddddddddddddd")
+        //console.log(exists + "sddddddddddddddddddddd")
     } catch (err) {
         console.log(err)
     }
     if (exists)
         res.send(true)
+    else
+        res.send(false)
 })
 
 //!show login form

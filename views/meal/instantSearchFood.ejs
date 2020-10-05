@@ -22,10 +22,19 @@
   
 </div>
 <script>
+  let instantRadioValue;
+   let inix_item_id;
   $(document).ready(function(){
   $("#common-instant").click();
 
   })
+
+  $("input[type='radio']").click(function(){
+            instantRadioValue = $("input[name='choice']:checked").val();
+            //alert(radioValue)
+            //console.log("typeosasa"+typeof(radioValue) + radioValue)
+ });
+
   $("#search").on('click',function(){
   
     $('#cb-toggle').attr('style','display:flex !important');
@@ -45,6 +54,7 @@
   let minerals_obj={};
   let protiens_obj={};
   let vitamins_obj={};
+     let factor;
    let i_options_measure; 
    let qty,measure,weight;
                                 $("#common-instant").click(function(){
@@ -75,7 +85,7 @@
       $.ajax({
                 url: "/searchNutrients",
                 type: "post",
-                data:{"query":item},
+                data:{"query":item,"id":inix_item_id},
            
             
                 success:function (result) {

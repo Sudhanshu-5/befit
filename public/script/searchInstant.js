@@ -1,5 +1,7 @@
 function searchInstant(wanted, unwanted) {
-    console.log(wanted+unwanted)
+
+    console.log(wanted + unwanted)
+
     $("#search").autocomplete({
 
         source: function (request, response) {
@@ -26,6 +28,7 @@ function searchInstant(wanted, unwanted) {
 
 
                 success: function (food_data) {
+                    console.log(request.term)
                     $(".selector").autocomplete({
 
                     });
@@ -41,7 +44,9 @@ function searchInstant(wanted, unwanted) {
                             console.log("positive")
                             response($.map(food_data.branded, function (item) {
                                 return {
-                                    value: item.food_name.replace(/\"/g, "")
+                                    value: item.food_name.replace(/\"/g, ""),
+                                    id: item.nix_item_id,
+                                    label: item.brand_name_item_name.replace(/\"/g, "")
                                 }
                             }))
                         }
@@ -111,7 +116,8 @@ function searchInstant(wanted, unwanted) {
                 }
                 // alert($("#search").val());
             })
-
+            nix_item_id = ui.item.id;
+            $("#nix-item-id").val(nix_item_id)
             $("#search").val(ui.item.value);
             $("#instant-form").show();
             return false;
