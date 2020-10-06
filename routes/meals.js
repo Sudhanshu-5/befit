@@ -16,8 +16,10 @@ const {
     json
 } = require("body-parser");
 const {
-    findByIdAndUpdate
+    findByIdAndUpdate,
+    findOneAndUpdate
 } = require("../models/maleUser");
+const mealInfo = require("../models/mealInfo");
 
 
 var userType;
@@ -177,6 +179,8 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
 
         if (req.body.nixItemId) {
             console.log("branded");
+            label = req.body.labelInstant;
+            console.log("info" + info + label);
             axios({
                 method: "get",
                 url: "https://trackapi.nutritionix.com/v2/search/item?nix_item_id=" + req.body.nixItemId,
@@ -376,30 +380,27 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                                         console.log("totalPro:" + totalProtiens);
                                         console.log("totalCarbs:" + totalCarbs);
 
-                                        console.log("999999999999999999999 " + dateNow.toLocaleDateString())
+                                        //console.log("999999999999999999999 " + dateNow.toLocaleDateString())
                                         if (foodinfo.macroNutrientInfo.length > 0) {
-                                            console.log("lengthjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
+                                            //console.log("lengthjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
                                             foodinfo.mealinfo.forEach(function (info) {
-                                                console.log("99999999999999999999 " + (new Date(info.createdAt)).toLocaleDateString())
+                                                //console.log("99999999999999999999 " + (new Date(info.createdAt)).toLocaleDateString())
                                                 if ((new Date(info.createdAt)).toLocaleDateString().localeCompare(dateNow.toLocaleDateString()) == 0) {
-                                                    totalCalorie = totalCalorie + parseFloat(info.calorieConsumption);
-                                                    totalCarbs += parseFloat(info.sumCarbs);
-                                                    totalFats += parseFloat(info.sumFats);
-                                                    totalProtiens += parseFloat(info.sumPro);
-
-
-
-
+                                                    totalCalorie += parseInt(info.calorieConsumption);
+                                                    console.log("total calorie 2" + totalCalorie);
+                                                    totalCarbs += parseInt(info.sumCarbs);
+                                                    totalFats += parseInt(info.sumFats);
+                                                    totalProtiens += parseInt(info.sumPro);
                                                 }
                                             })
 
                                         }
 
 
-                                        // console.log("totslcalore= " + totalCalorie);
-                                        // console.log("totalFAts:" + totalFats);
-                                        // console.log("totalPro:" + totalProtiens);
-                                        // console.log("totalCarbs:" + totalCarbs);
+                                        console.log("totslcalore= " + totalCalorie);
+                                        console.log("totalFAts:" + totalFats);
+                                        console.log("totalPro:" + totalProtiens);
+                                        console.log("totalCarbs:" + totalCarbs);
 
 
                                         macronutrientinfo.findOneAndUpdate({
@@ -485,59 +486,148 @@ router.delete("/deleteMeal", middleware.isLoggedIn, async (req, res) => {
 
     let millisecondsOfItemsToBeRemoved = req.query.millisecondsOfItemsToBeRemoved;
     let indexOfItemsToBeRemoved = req.query.indexOfItemsToBeRemoved;
+    let index = parseInt(indexOfItemsToBeRemoved);
+    let findedMealId;
+    let findMacroDoc;
+    let date = (new Date((parseInt(millisecondsOfItemsToBeRemoved)))).toLocaleDateString();
+    //console.log(date)
+    //console.log(typeof (indexOfItemsToBeRemoved) + "iiiiiiiiiiiiiiiiiiiiiiiiiiiiii" + millisecondsOfItemsToBeRemoved + " milliseconds");
 
-    console.log(indexOfItemsToBeRemoved + "iiiiiiiiiiiiiiiiiiiiiiiiiiiiii" + millisecondsOfItemsToBeRemoved + " milliseconds");
+    //populate mealinfo
 
-    // console.log("000000000000 " + mealmillisecToDate)
-    // try {
-    //     let findedMealId;
-    //     let findedMeal = await userType.findOne({
-    //         username: req.user.username
-    //     }).populate("mealinfo");
-    //     //console.log("000000000" + findedMeal)
-    //     findedMeal.mealinfo.forEach(function (meal) {
-    //         console.log(meal.createdAt + "-----------" + mealmillisecToDate);
-    //         //console.log(typeof (meal.createdAt) + "-----------" + typeof (mealmillisecToDate));
-    //         if (JSON.stringify(meal.createdAt) === JSON.stringify(mealmillisecToDate)) {
-    //             findedMealId = meal._id;
-    //             console.log("iddddddd " + findedMealId);
-    //         }
-    //     })
-    //     // var arrIndex = `foodItems.${index}`;
-    //     /* ... */
-    //     // db.collection.update({}, {
-    //     //     $unset: {
-    //     //         [arrIndex]: 1
-    //     //     }
-    //     // });
-    //     mealinfo.update(findedMealId, {
-    //         $unset: {
-    //             "foodItems.0": 1
-    //         }
-    //     });
-    //     //WriteResult({"nMatched": 1, "nUpserted": 0, "nModified": 1});
+    let findedMeal = await userType.findOne({
+        username: req.user.username
+    }).populate("mealinfo");
+    //get macronutrientdoc
+    try {
+        findMacroDoc = await macronutrientinfo.findOne({
 
-    //     mealinfo.update(findedMealId, {
-    //         $pull: {
-    //             "foodItems": null
-    //         }
-    //     });
-    //     // WriteResult({"nMatched": 1, "nUpserted": 0, "nModified": 1});
+            username: req.user.username,
+            date: date
+        });
+        console.log("findedMacro " + findMacroDoc);
+    } catch (err) {
+        console.log(err)
+    }
 
-    //     mealinfo.findById(findedMealId, function (err, ad) {
-    //         if (err) {
-    //             console.log(err)
-    //         } else {
-    //             console.log(ad);
-    //         }
-    //     })
-    //     console.log(JSON.stringify(mealinfo));
+    //macrodataobj to be updated to
+    // function getMacrodata(i) {
+    //     let dataForMacroInfo = {
 
-
-    // } catch (err) {
-    //     console.log(err);
+    //     }
+    //     return dataForMacroInfo;
     // }
-});
+    //update macronutient function
+    function updateMacronutrientInfo(i) {
+
+        macronutrientinfo.findOneAndUpdate({
+            username: req.user.username,
+            date: dateNow.toLocaleDateString()
+
+        }, {
+            totalCaloriesConsumed: findMacroDoc.totalCaloriesConsumed - findedMeal.mealinfo[i].calories[index],
+            total_carbs: findMacroDoc.total_carbs - findedMeal.mealinfo[i].carbs[index],
+            total_fats: findMacroDoc.total_fats - findedMeal.mealinfo[i].fats[index],
+            total_pro: findMacroDoc.total_pro - findedMeal.mealinfo[i].protiens[index]
+
+        }, {
+            new: true
+        }, function (err, updatedMacronutrient) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("updatedMacroNutrientInfo " + updatedMacronutrient);
+
+            }
+        })
+    }
+
+
+    for (let i = 0; i < findedMeal.mealinfo.length; i++) {
+        //console.log(typeof (JSON.stringify(new Date(findedMeal.mealinfo[i].createdAt).getTime())) + "---" + typeof (millisecondsOfItemsToBeRemoved))
+
+        //get document of provided millisecond to manipulate
+        if (JSON.stringify(new Date(findedMeal.mealinfo[i].createdAt).getTime()) === millisecondsOfItemsToBeRemoved) {
+            // console.log("mealinfo " + JSON.stringify(findedMeal.mealinfo[i]))
+            findedMealId = findedMeal.mealinfo[i]._id;
+            // console.log("iddddddd " + findedMealId);
+
+            if (findedMeal.mealinfo[i].foodItems.length === 1) {
+                //update maconutirentinfo
+                //delete
+                //show targets
+                console.log("single docccccccccccccccccccccccc")
+                updateMacronutrientInfo(i);
+                let deleteDoc = await mealinfo.findByIdAndDelete(findedMealId);
+                res.send(millisecondsOfItemsToBeRemoved) //to change update progress bars
+            } else {
+
+                //update mealinfo
+                //update maconutirentinfo
+                //delete
+                //show targets
+
+                updateMacronutrientInfo(i);
+                mealinfo.findByIdAndUpdate(
+                    findedMealId, {
+                        calorieConsumption: findedMeal.mealinfo[i].calorieConsumption - findedMeal.mealinfo[i].calories[index],
+                        sumPro: findedMeal.mealinfo[i].sumPro - findedMeal.mealinfo[i].protiens[index],
+                        sumCarbs: findedMeal.mealinfo[i].sumCarbs - findedMeal.mealinfo[i].carbs[index],
+                        sumFats: findedMeal.mealinfo[i].sumFats - findedMeal.mealinfo[i].fats[index]
+
+                    }, {
+                        new: true
+                    },
+                    function (err, updatedMealInfo) {
+
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            console.log("updatedMealInfo " + updatedMealInfo);
+                            var foodIndex = `foodItems.${index}`;
+                            var qtyIndex = `qty.${index}`;
+                            var servingUnitIndex = `servingUnit.${index}`;
+                            var servingWeightIndex = `servingWeight.${index}`;
+                            var caloriesIndex = `calories.${index}`;
+                            var fatsindex = `fats.${index}`;
+                            var carbsIndex = `carbs.${index}`;
+                            var protiensIndex = `protiens.${index}`;
+                            var cholestrolIndex = `cholestrol.${index}`;
+                            var fibresIndex = `fibres.${index}`;
+                            mealInfo.findByIdAndUpdate(
+                                findedMealId, {
+                                    $unset: {
+                                        [foodIndex]: 1,
+                                        [qtyIndex]: 1,
+                                        [servingUnitIndex]: 1,
+                                        [servingWeightIndex]: 1,
+                                        [caloriesIndex]: 1,
+                                        [fatsindex]: 1,
+                                        [carbsIndex]: 1,
+                                        [protiensIndex]: 1,
+                                        [cholestrolIndex]: 1,
+                                        [fibresIndex]: 1
+
+                                    }
+                                },
+                                function (err, updatedMealinfo) {
+                                    if (err) {
+                                        console.log(err)
+                                    } else {
+                                        console.log("updated " + updatedMealinfo)
+                                    }
+                                });
+
+                        }
+                    })
+                res.send(millisecondsOfItemsToBeRemoved)
+            }
+        }
+    }
+
+
+})
+
 //!manage diary
 router.get("/diary", middleware.isLoggedIn, async (req, res) => {
     try {
@@ -625,7 +715,7 @@ router.get("/Nutritional label", middleware.isLoggedIn, function (req, res) {
 //!instant searcch for food
 router.get("/searchInstant", middleware.isLoggedIn, function (req, res) {
     res.render("meal/instantSearchFood")
-})
+});
 router.get("/searchFood", middleware.isLoggedIn, function (req, res) {
     console.log(req.query.query);
     var url = " https://trackapi.nutritionix.com/v2/search/instant?query=" + req.query.query + "&detailed=true";

@@ -253,7 +253,9 @@ function extractWithDate(mm, dd, yy) {
                                              let millisecondsTilldate=new Date(<%-JSON.stringify(meals.createdAt)%>).getTime();
                                             // alert(new Date(millisecondsTilldate))
                                        <% for(var i=0; i < meals.foodItems.length; i++) {%>
-                                            breakfastFoodItems+="<div class='item breakfast-items "+<%-i%>+"b-"+b+"' onclick='func("+b+","+label+","+millisecondsTilldate+")'><i class='far fa-times-circle "+millisecondsTilldate+"'></i><%-meals.foodItems[i]%></div>";
+                                                        
+                                        if(<%-JSON.stringify(meals.foodItems[i])%>){
+                                            breakfastFoodItems+="<div id='<%-meals.foodItems[i]%>' class='item breakfast-items  "+<%-i%>+"b-"+b+"' onclick='func(this.id,"+b+","+label+","+millisecondsTilldate+")'><i class='far fa-times-circle "+millisecondsTilldate+"'></i><%-meals.foodItems[i]%></div>";
                                             //<%-i%>+"b-"+b+=====i(forIndex)+b+b(Bindex)
                                               //alert(millisecondsTilldate)
                                             bNutri +=  "<div class='"+<%-i%>+"b-"+b+"'><%-JSON.stringify(meals.calories[i])%></div>"+
@@ -262,10 +264,11 @@ function extractWithDate(mm, dd, yy) {
                                                        "<div class='"+<%-i%>+"b-"+b+"'><%-JSON.stringify(meals.fats[i])%></div>"+
                                                         "<div class='"+<%-i%>+"b-"+b+"'><%-JSON.stringify(meals.fibres[i])%></div>"+
                                                        "<div class='"+<%-i%>+"b-"+b+"'><%-JSON.stringify(meals.protiens[i])%></div>";
-                                              bcalorieArray.push(<%-JSON.stringify(meals.calories[i])%>);
-                                              b++;
                                               
-
+                                             
+                                        } 
+                                        bcalorieArray.push(<%-JSON.stringify(meals.calories[i])%>); 
+                                        b++;
                                        <%}%>
                                        document.getElementById("b-foods").innerHTML=breakfastFoodItems;
                                        document.getElementById("b-nutrients").innerHTML=bNutri;
@@ -279,7 +282,8 @@ function extractWithDate(mm, dd, yy) {
 
                                       
                                        <% for(var i=0; i < meals.foodItems.length; i++) {%>
-                                        lunchFoodItems+="<div class='item lunch-items "+<%-i%>+"l-"+l+"' onclick='func("+l+","+label+","+millisecondsTilldate+")'><i class='far fa-times-circle "+millisecondsTilldate+"'></i><%-meals.foodItems[i]%></div>";
+                                         if(<%-JSON.stringify(meals.foodItems[i])%>){
+                                        lunchFoodItems+="<div id='<%-meals.foodItems[i]%>' class='item lunch-items "+<%-i%>+"l-"+l+"' onclick='func(this.id,"+l+","+label+","+millisecondsTilldate+")'><i class='far fa-times-circle "+millisecondsTilldate+"'></i><%-meals.foodItems[i]%></div>";
                                            
                                             
                                             lNutri +=  "<div class='"+<%-i%>+"l-"+l+"'><%-JSON.stringify(meals.calories[i])%></div>"+
@@ -288,6 +292,8 @@ function extractWithDate(mm, dd, yy) {
                                                        "<div class='"+<%-i%>+"l-"+l+"'><%-JSON.stringify(meals.fats[i])%></div>"+
                                                        "<div class='"+<%-i%>+"l-"+l+"'><%-JSON.stringify(meals.fibres[i])%></div>"+
                                                        "<div class='"+<%-i%>+"l-"+l+"'><%-JSON.stringify(meals.protiens[i])%></div>";
+                                         
+                                         }
                                          lcalorieArray.push(<%-JSON.stringify(meals.calories[i])%>);
                                          l++;
 
@@ -305,7 +311,8 @@ function extractWithDate(mm, dd, yy) {
                                        let millisecondsTilldate=new Date(<%-JSON.stringify(meals.createdAt)%>).getTime();
                                           
                                        <% for(var i=0; i < meals.foodItems.length; i++) {%>
-                                           dinnerFoodItems+="<div class='item dinner-items "+<%-i%>+"d-"+d+"' onclick='func("+d+","+label+","+millisecondsTilldate+")'><i class='far fa-times-circle "+millisecondsTilldate+"'></i><%-meals.foodItems[i]%></div>";
+                                         if(<%-JSON.stringify(meals.foodItems[i])%>){
+                                           dinnerFoodItems+="<div id='<%-meals.foodItems[i]%>' class='item dinner-items "+<%-i%>+"d-"+d+"' onclick='func(this.id,"+d+","+label+","+millisecondsTilldate+")'><i class='far fa-times-circle "+millisecondsTilldate+"'></i><%-meals.foodItems[i]%></div>";
 
                                             
                                             dNutri +=  "<div class='"+<%-i%>+"d-"+d+"'><%-JSON.stringify(meals.calories[i])%></div>"+
@@ -314,6 +321,8 @@ function extractWithDate(mm, dd, yy) {
                                                        "<div class='"+<%-i%>+"d-"+d+"'><%-JSON.stringify(meals.fats[i])%></div>"+
                                                        "<div class='"+<%-i%>+"d-"+d+"'><%-JSON.stringify(meals.fibres[i])%></div>"+
                                                        "<div class='"+<%-i%>+"d-"+d+"'><%-JSON.stringify(meals.protiens[i])%></div>";
+                                                      
+                                         }
                                                        dcalorieArray.push(<%-JSON.stringify(meals.calories[i])%>);
                                                        d++;
 
@@ -330,8 +339,8 @@ function extractWithDate(mm, dd, yy) {
 
                                      
                                        <% for(var i=0; i < meals.foodItems.length; i++) {%>
-                                          
-                                           snacksFoodItems+="<div class='item snacks-items "+<%-i%>+"s-"+s+"' onclick='func("+s+","+label+","+millisecondsTilldate+")'><i class='far fa-times-circle "+millisecondsTilldate+"'></i><%-meals.foodItems[i]%></div>";
+                                           if(<%-JSON.stringify(meals.foodItems[i])%>){
+                                           snacksFoodItems+="<div id='<%-meals.foodItems[i]%>' class='item snacks-items "+<%-i%>+"s-"+s+"' onclick='func(this.id,"+s+","+label+","+millisecondsTilldate+")'><i class='far fa-times-circle "+millisecondsTilldate+"'></i><%-meals.foodItems[i]%></div>";
                                             
                                             sNutri +=  "<div class='"+<%-i%>+"s-"+s+"'><%-JSON.stringify(meals.calories[i])%></div>"+
                                                        "<div class='"+<%-i%>+"s-"+s+"'><%-JSON.stringify(meals.carbs[i])%></div>"+
@@ -339,9 +348,10 @@ function extractWithDate(mm, dd, yy) {
                                                        "<div class='"+<%-i%>+"s-"+s+"'><%-JSON.stringify(meals.fats[i])%></div>"+
                                                        "<div class='"+<%-i%>+"s-"+s+"'><%-JSON.stringify(meals.fibres[i])%></div>"+
                                                        "<div class='"+<%-i%>+"s-"+s+"'><%-JSON.stringify(meals.protiens[i])%></div>";
-                                                        scalorieArray.push(<%-JSON.stringify(meals.calories[i])%>);
+                                                        
+                                           }
+                                           scalorieArray.push(<%-JSON.stringify(meals.calories[i])%>);
                                                         s++;
-
                                        <%}%>
                                        document.getElementById("s-foods").innerHTML=snacksFoodItems;
                                        document.getElementById("s-nutrients").innerHTML=sNutri;
@@ -358,23 +368,7 @@ function extractWithDate(mm, dd, yy) {
 
                  getTargetProgress(milliForTargets);
           
-      function getTargetProgress(milliForTargets){
-//console.log("dccccccccccccccccccccccccccccccc"+dc)
-             //$('.container #showresults').append()  
-         $.ajax({
-                type: "GET", 
-                url: "/targets/"+milliForTargets,
-                 //dataType: "html",
-                  success: function (data) {
-                //  var result = $('<div />').append(data).find('#showresults').html();
-                 $('.container #showresults').html(data);
-                  },
-                  error: function (xhr, status) {
-                      alert("Sorry, there was a problem! Please reload the page");
-                  },
-              
-            });
-          }
+      
             let labelArray =[];
            <%findedUser.mealinfo.forEach(function (meals){%>
              
@@ -413,9 +407,7 @@ function extractWithDate(mm, dd, yy) {
 //show qty time unit weight
        //console.log(dc+"dcccccccccccccccccccccc")
     
- function func(index,label,millisecondsTilldate){
- // alert(millisecondsTilldate)
-    
+ function func(foodname,index,label,millisecondsTilldate){
    let date= new Date(millisecondsTilldate);
    let time=date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
 
@@ -426,21 +418,24 @@ function extractWithDate(mm, dd, yy) {
 
    switch(label) {
   case 0:
+  
     calorieCheck=bcalorieArray[index];
+  
 
-  let bfoodName=document.getElementsByClassName('breakfast-items')[index].outerText;
+  let bfoodName=foodname;
   <%findedUser.mealinfo.forEach(function (meals){%>
              dateFromDatabase = <%-JSON.stringify(meals.createdAt.toLocaleDateString())%>
             if (dateFromDatabase=== dc){
-            //alert(dateFromDatabase+"---------"+dc)
+            // alert(dateFromDatabase+"---------"+dc)
                   if(<%-JSON.stringify(meals.label)%>==="Breakfast"){
                     
-                   
+               
                       <% for(var i=0; i < meals.foodItems.length; i++) { %>
                                     
                                   if(<%-JSON.stringify(meals.foodItems[i])%>==bfoodName && <%-JSON.stringify(meals.calories[i])%>==calorieCheck)
                                   {
                                     //  console.log(<%-JSON.stringify(meals.foodItems[i])%>+calorieCheck);
+                                    
                                    console.log("qty "+<%-JSON.stringify(meals.qty[i])%>)
                                   document.getElementById("qty").textContent=<%-JSON.stringify(meals.qty[i])%>
                                   document.getElementById("weight").textContent=<%-JSON.stringify(meals.servingWeight[i])%>
@@ -458,7 +453,7 @@ function extractWithDate(mm, dd, yy) {
   case 1:
    calorieCheck=lcalorieArray[index];
 
-  let lfoodName=document.getElementsByClassName('lunch-items')[index].outerText;
+  let lfoodName=foodname;
   // console.log(dc);
   <%findedUser.mealinfo.forEach(function (meals){%>
              dateFromDatabase = <%-JSON.stringify(meals.createdAt.toLocaleDateString())%>
@@ -485,7 +480,7 @@ function extractWithDate(mm, dd, yy) {
     case 2:
     // console.log(index+"index")
   calorieCheck=dcalorieArray[index];
-  let dfoodName=document.getElementsByClassName('dinner-items')[index].outerText;
+  let dfoodName=foodname
   console.log(dc);
   <%findedUser.mealinfo.forEach(function (meals){%>
              dateFromDatabase = <%-JSON.stringify(meals.createdAt.toLocaleDateString())%>
@@ -512,7 +507,7 @@ function extractWithDate(mm, dd, yy) {
   case 3:
 calorieCheck=scalorieArray[index];
 
-  let sfoodName=document.getElementsByClassName('snacks-items')[index].outerText;
+  let sfoodName=foodname;
   // console.log(dc);
   <%findedUser.mealinfo.forEach(function (meals){%>
              dateFromDatabase = <%-JSON.stringify(meals.createdAt.toLocaleDateString())%>
@@ -541,34 +536,37 @@ calorieCheck=scalorieArray[index];
    return;
 }
 
-  $(".item i").click(function () {
+  $(".item i").unbind().click(function () {
     let millisecondsOfItemsToBeRemoved=$(this).prop('className').split(' ').pop();//get last classname 
     let classOfItemsToBeRemoved=$(this).parent().prop('className').split(' ').pop();//get last classname 
     // alert(classOfItemsToBeRemoved)
-    let indexOfItemsToBeRemoved=classOfItemsToBeRemoved.split('-').pop();//get n from b-n
-    // alert(indexOfItemsToBeRemoved)
+    let deleteThisIndexMeal=classOfItemsToBeRemoved.split('-').pop();//get n from b-n
+     //alert(indexOfItemsToBeRemoved)
     let labelOfItemsToBeRemoved=classOfItemsToBeRemoved.slice(1,2);//get b from b-n
     // alert(labelOfItemsToBeRemoved)
-    let deleteThisIndexMeal=classOfItemsToBeRemoved.slice(0,1);
-  
+    let indexOfItemsToBeRemoved=classOfItemsToBeRemoved.slice(0,1);
+   //alert(indexOfItemsToBeRemoved)
     //alert(indexOfItemsToBeRemoved)
-    millisecondsOfItemsToBeRemoved=parseInt(millisecondsOfItemsToBeRemoved,10)
+    millisecondsOfItemsToBeRemoved=parseInt(millisecondsOfItemsToBeRemoved)
     
-    //alert(new Date(millisecondsOfItemsToBeRemoved))
+   // alert(new Date(millisecondsOfItemsToBeRemoved))
   
   $("."+classOfItemsToBeRemoved).hide();
-  removeFromDatabse(millisecondsOfItemsToBeRemoved,indexOfItemsToBeRemoved);
+  removeFromDatabse(millisecondsOfItemsToBeRemoved,parseInt(indexOfItemsToBeRemoved));
    
           function removeFromDatabse(millisecondsOfItemsToBeRemoved,indexOfItemsToBeRemoved){
-            console.log(indexOfItemsToBeRemoved + "iiiiiiiiiiiiiiiiiiiiiiiiiiiiii" + millisecondsOfItemsToBeRemoved + " milliseconds")
+            console.log(typeof(indexOfItemsToBeRemoved) + "iiiiiiiiiiiiiiiiiiiiiiiiiiiiii" + millisecondsOfItemsToBeRemoved + " milliseconds")
  
-           $.ajax({
+           $.ajax({ 
                 type: "DELETE", 
-                url: "/deleteMeal"+ '?' + $.param({"millisecondsOfItemsToBeRemoved":millisecondsOfItemsToBeRemoved, "deleteThisIndexMeal":indexOfItemsToBeRemoved}),
+                url: "/deleteMeal"+ '?' + $.param({"millisecondsOfItemsToBeRemoved":millisecondsOfItemsToBeRemoved, "indexOfItemsToBeRemoved":indexOfItemsToBeRemoved}),
               
               
                 success: function (result, status, xhr) {
-                   $("#del-mssg").html("Meal at "+indexOfItemsToBeRemoved+" is deleted")
+                 if(result){
+                   console.log(result)
+                  getTargetProgress(result);
+                 }
                        
                 },
                 error: function (xhr, status, error) {
@@ -580,7 +578,23 @@ calorieCheck=scalorieArray[index];
   }) 
  
  }
- 
+ function getTargetProgress(milliForTargets){
+//console.log("dccccccccccccccccccccccccccccccc"+dc)
+             //$('.container #showresults').append()  
+         $.ajax({
+                type: "GET", 
+                url: "/targets/"+milliForTargets,
+                 //dataType: "html",
+                  success: function (data) {
+                //  var result = $('<div />').append(data).find('#showresults').html();
+                 $('.container #showresults').html(data);
+                  },
+                  error: function (xhr, status) {
+                      alert("Sorry, there was a problem! Please reload the page");
+                  },
+              
+            });
+          }
 </script>
       
        <script src="/script/calender.js"></script>
