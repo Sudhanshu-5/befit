@@ -27,7 +27,7 @@ var exerciseRoute = require("./routes/exercise.js");
 var trends = require("./routes/trends.js");
 var calculator = require("./routes/calculators.js");
 var profile = require("./routes/profile.js")
-var myfoods = require("./routes/meals.js")
+var report = require("./routes/report.js")
 
 const {
     asyncify
@@ -153,6 +153,7 @@ app.use(trends);
 app.use(indexRoute);
 app.use(calculator);
 app.use(profile);
+app.use(report);
 
 
 

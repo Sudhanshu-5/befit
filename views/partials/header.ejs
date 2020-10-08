@@ -60,8 +60,8 @@
         </button>
         <div class="navbar-collapse collapse" id="navbar10">
             <ul class="navbar-nav nav-tabs nav-fill w-100">
-                <li class="nav-item upper">
-                  <a class=" nav-link upper active`"  id="meal"  href="/addMeal">Meal</a>
+                <li class="nav-item">
+                  <a class=" nav-link upper"  id="meal"  href="/addMeal">Meal</a>
                 </li>
                 <li class="nav-item">
                     <a class=" nav-link upper" id="exercise" href="/addExercise" >Exercise</a>
@@ -70,7 +70,7 @@
                     <a class=" nav-link upper" id="trends" href="/trends" >Trends</a>
                 </li>
                 <li class="nav-item">
-                     <a class=" nav-link upper" id="report" href="/addExercise">Report</a>
+                     <a class=" nav-link upper" id="report" href="/report">Report</a>
                 </li>
                 <li class="nav-item">
                     <a class=" nav-link upper" id="profile" href="/viewProfile" >Profile</a>
@@ -99,15 +99,24 @@
      <% } %>
 
  <script>
-   $("#error").delay(1000)
+ var setDefaultActive = function() {
+    var path = window.location.pathname;
+
+    var element = $("#navbar10 a[href='" + path + "']");
+
+    element.addClass("activenav");
+}
+
+setDefaultActive()
+   $("#error").delay(2000)
 .fadeOut(function() {
    $(this).remove() 
 });
- $("#success").delay(1000)
+ $("#success").delay(2000)
 .fadeOut(function() {
    $(this).remove() 
 });
- $("#info").delay(1000)
+ $("#info").delay(2000)
 .fadeOut(function() {
    $(this).remove() 
 });

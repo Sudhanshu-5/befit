@@ -1,11 +1,12 @@
 <%- include ("./header") %>
-		  
+		  <link rel="stylesheet" href="/stylesheets/meal-header.css"/>
+
 <nav class="navbar child-nav navbar-expand">
     <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar10">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar11">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse collapse" id="navbar10">
+        <div class="navbar-collapse collapse" id="navbar11">
             <ul class="navbar-nav nav-tabs nav-fill w-100">
                 <li class="nav-item">
                   <a class="nav-link lower"  id="meal"   href= "/addmeal">Add Meal</a>
@@ -54,13 +55,12 @@
 .fadeOut(function() {
    $(this).remove() 
 });
-        
-  </script> 
-     <script type="text/javascript">
-	$(function(){
-		$('.lower a').filter(function(){return this.href==location.href}).parent().addClass('active').siblings().removeClass('active')
-		$('.lower a').click(function(){
-			$(this).parent().addClass('active').siblings().removeClass('active')	
-		})
-	})
+      
+	 var setDefaultActive = function() {
+    var path = window.location.pathname;
+
+    var element = $("#navbar11 a[href='" + path + "']");
+
+    element.addClass("active2");
+}
 	</script>

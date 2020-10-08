@@ -67,6 +67,7 @@ var femaleUserSchema = new mongoose.Schema({
     p_target: Number, //protien target
     c_target: Number,
     f_target: Number,
+    goal: String,
 
     mealinfo: [{
         type: mongoose.Schema.Types.ObjectId,

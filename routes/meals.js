@@ -282,6 +282,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                 qty.push(response.data["foods"][i].serving_qty);
 
             }
+            //console.log("typeofffffffffffffffffffff"+typeof(calorie)+typeof(carbSum)+typeof(carb)+typeof(protiens)+typeof(proSum));
         }).catch(function (error) {
             // console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk " + error)
             console.log("ssssssssssssssssss " + fooditems.length)
@@ -369,28 +370,26 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                                         console.log(err);
                                     } else {
                                         console.log("userinfo" + foodinfo);
-                                        //console.log("daaaaaaata " + data.calorieConsumption)
+                                        console.log("daaaaaaata " + data.calorieConsumption + typeof (data.calorieConsumption) + data.sumPro + typeof (data.sumCarbs));
                                         var totalCalorie = parseFloat(data.calorieConsumption); //from body
-                                        var totalProtiens = parseFloat(data.sumPro);
-                                        var totalFats = parseFloat(data.sumFats);
-                                        var totalCarbs = parseFloat(data.sumCarbs);
+                                        var totalProtiens = data.sumPro;
+                                        var totalFats = data.sumFats;
+                                        var totalCarbs = data.sumCarbs;
 
-                                        console.log("totslcalore= " + totalCalorie);
-                                        console.log("totalFAts:" + totalFats);
-                                        console.log("totalPro:" + totalProtiens);
+                                        // console.log("totslcalore= " + totalCalorie);
+                                        // console.log("totalFAts:" + totalFats);
+                                        // console.log("totalPro:" + totalProtiens);
                                         console.log("totalCarbs:" + totalCarbs);
 
                                         //console.log("999999999999999999999 " + dateNow.toLocaleDateString())
                                         if (foodinfo.macroNutrientInfo.length > 0) {
                                             //console.log("lengthjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
                                             foodinfo.mealinfo.forEach(function (info) {
-                                                //console.log("99999999999999999999 " + (new Date(info.createdAt)).toLocaleDateString())
                                                 if ((new Date(info.createdAt)).toLocaleDateString().localeCompare(dateNow.toLocaleDateString()) == 0) {
-                                                    totalCalorie += parseInt(info.calorieConsumption);
-                                                    console.log("total calorie 2" + totalCalorie);
-                                                    totalCarbs += parseInt(info.sumCarbs);
-                                                    totalFats += parseInt(info.sumFats);
-                                                    totalProtiens += parseInt(info.sumPro);
+                                                    totalCalorie += parseFloat(info.calorieConsumption);
+                                                    totalCarbs += info.sumCarbs;
+                                                    totalFats += info.sumFats;
+                                                    totalProtiens += info.sumPro;
                                                 }
                                             })
 
@@ -401,8 +400,6 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                                         console.log("totalFAts:" + totalFats);
                                         console.log("totalPro:" + totalProtiens);
                                         console.log("totalCarbs:" + totalCarbs);
-
-
                                         macronutrientinfo.findOneAndUpdate({
 
                                             date: dateNow.toLocaleDateString(),
@@ -525,10 +522,10 @@ router.delete("/deleteMeal", middleware.isLoggedIn, async (req, res) => {
             date: dateNow.toLocaleDateString()
 
         }, {
-            totalCaloriesConsumed: findMacroDoc.totalCaloriesConsumed - findedMeal.mealinfo[i].calories[index],
-            total_carbs: findMacroDoc.total_carbs - findedMeal.mealinfo[i].carbs[index],
-            total_fats: findMacroDoc.total_fats - findedMeal.mealinfo[i].fats[index],
-            total_pro: findMacroDoc.total_pro - findedMeal.mealinfo[i].protiens[index]
+            totalCaloriesConsumed: (findMacroDoc.totalCaloriesConsumed - findedMeal.mealinfo[i].calories[index]),
+            total_carbs: (findMacroDoc.total_carbs - findedMeal.mealinfo[i].carbs[index]).toFixed(2),
+            total_fats: (findMacroDoc.total_fats - findedMeal.mealinfo[i].fats[index]).toFixed(2),
+            total_pro: (findMacroDoc.total_pro - findedMeal.mealinfo[i].protiens[index]).toFixed(2)
 
         }, {
             new: true
@@ -570,10 +567,10 @@ router.delete("/deleteMeal", middleware.isLoggedIn, async (req, res) => {
                 updateMacronutrientInfo(i);
                 mealinfo.findByIdAndUpdate(
                     findedMealId, {
-                        calorieConsumption: findedMeal.mealinfo[i].calorieConsumption - findedMeal.mealinfo[i].calories[index],
-                        sumPro: findedMeal.mealinfo[i].sumPro - findedMeal.mealinfo[i].protiens[index],
-                        sumCarbs: findedMeal.mealinfo[i].sumCarbs - findedMeal.mealinfo[i].carbs[index],
-                        sumFats: findedMeal.mealinfo[i].sumFats - findedMeal.mealinfo[i].fats[index]
+                        calorieConsumption: (findedMeal.mealinfo[i].calorieConsumption - findedMeal.mealinfo[i].calories[index]),
+                        sumPro: (findedMeal.mealinfo[i].sumPro - findedMeal.mealinfo[i].protiens[index]).toFixed(2),
+                        sumCarbs: (findedMeal.mealinfo[i].sumCarbs - findedMeal.mealinfo[i].carbs[index]).toFixed(2),
+                        sumFats: (findedMeal.mealinfo[i].sumFats - findedMeal.mealinfo[i].fats[index]).toFixed(2)
 
                     }, {
                         new: true

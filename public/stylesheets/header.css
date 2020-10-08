@@ -1,74 +1,77 @@
     * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* font-family: 'Roboto Condensed', sans-serif; */
-    /* font-family: 'Alegreya SC',
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        /* font-family: 'Roboto Condensed', sans-serif; */
+        /* font-family: 'Alegreya SC',
         serif; */
-    font-family: 'Oxygen',
-        sans-serif;
-    color: #272727;
-}
+        font-family: 'Oxygen',
+            sans-serif;
+        color: #272727;
+    }
 
-/* textarea:focus,
+    /* textarea:focus,
 select:focus, */
-textarea.form-control:focus,
-input.form-control:focus,
-select.form-control:focus,
-input[type=text]:focus,
-input[type=password]:focus,
-input[type=email]:focus,
-input[type=number]:focus,
-[type=text].form-control:focus,
-[type=password].form-control:focus,
-[type=email].form-control:focus,
-[type=tel].form-control:focus,
-[contenteditable].form-control:focus {
-    box-shadow: inset 0 0 0 #fff;
-    border-color: #ADADAD;
-}
+    textarea.form-control:focus,
+    input.form-control:focus,
+    select.form-control:focus,
+    input[type=text]:focus,
+    input[type=password]:focus,
+    input[type=email]:focus,
+    input[type=number]:focus,
+    [type=text].form-control:focus,
+    [type=password].form-control:focus,
+    [type=email].form-control:focus,
+    [type=tel].form-control:focus,
+    [contenteditable].form-control:focus {
+        box-shadow: inset 0 0 0 #fff;
+        border-color: #ADADAD;
+    }
 
-.navbar #brand {
-    font-family: 'Black Ops One', cursive;
-    font-size: 2rem;
-}
+    .navbar #brand {
+        font-family: 'Black Ops One', cursive;
+        font-size: 2rem;
+    }
 
-#navbarSupportedContent li {
-    margin: auto
-}
+    #navbarSupportedContent li {
+        margin: auto
+    }
 
-body {
-    background-color: #F2F2F2;
-    font-size: 1em;
-    color: #1A1A1D;
-}
+    body {
+        background-color: #F2F2F2;
+        font-size: 1em;
+        color: #1A1A1D;
+    }
 
-.main-nav {
-    background-color: #E27D60;
-    color: #F2F9FB;
-    font-size: 1.2rem;
+    .main-nav {
+        background-color: #E27D60;
+        color: #F2F9FB;
+        font-size: 1.2rem;
 
-}
+    }
 
-#greet {
-    color: #F2F9FB;
-}
+    #greet {
+        color: #F2F9FB;
+    }
 
-.main-nav a {
-    color: #F2F9FB;
+    .main-nav a {
+        color: #F2F9FB;
 
-}
+    }
 
-.child-nav {}
+    .child-nav {}
 
-.child-nav a {
-    color: #E27D60;
-}
+    .child-nav a {
+        color: #E27D60;
+    }
 
-.upper-nav {
-    margin-left: 100px;
-}
+    .upper-nav {
+        margin-left: 100px;
+    }
 
-.active {
-    background-color: #f7f7f7
-}
+    .activenav {
+        border-bottom: 0 !important;
+        border-color: rgba(227, 125, 95) !important;
+        background-color: transparent !important;
+
+    }

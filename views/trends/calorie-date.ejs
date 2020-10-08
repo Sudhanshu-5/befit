@@ -6,6 +6,7 @@
 <canvas id="calorieChart"></canvas>
 </div>
 <script>
+ 
   <% let fromIndex=0;%>
           <% let toIndex=0; %>
          
@@ -17,7 +18,7 @@
 		length = <%-calorieinfo.macroNutrientInfo.length%>;
 
 
- 
+
 // console.log("yesterdaytttttttttttttt "+yesterday.toLocaleDateString())
 // console.log("todayyyyyyyyyyyyyy "+today.toLocaleDateString());
 var ctx = document.getElementById("calorieChart").getContext("2d");
@@ -72,7 +73,7 @@ console.log(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLo
             <%if(JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString()) === JSON.stringify(from)){%> 
               <%-fromIndex=i%>;
               valid_from=<%-i%>;
-              // console.log(<%-fromIndex%>+"fromIndex"+typeof(<%-fromIndex%>))
+            console.log(<%-fromIndex%>+"fromIndex"+typeof(<%-fromIndex%>))
             <% }%>
 console.log(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString())%>+" 2 =============  "+ <%-JSON.stringify(to)%>)
 
@@ -84,16 +85,17 @@ console.log(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLo
 
         <%}%>
         console.log("nkjndankds "+valid_to+"   "+valid_from);
-            if(!valid_to){
-              $("#date-absence").show();
-             
-            }else{
+             if(valid_to >=0){
                <% for(let i=fromIndex;i<=toIndex; i++){%>
                      console.log("111111111111111111 "+<%-i%>);      
               dates.push(<%-JSON.stringify((new Date(calorieinfo.macroNutrientInfo[i]["createdAt"]).toLocaleDateString()))%>);
 		        	consumedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesConsumed"])%>);
               burnedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesBurned"])%>)
                <% }%>
+            }
+            else{
+              $("#date-absence").show();
+             
             }
 
 
@@ -113,11 +115,11 @@ var data = {
   labels:dates,
   datasets: [{
     label: "calories consumed",
-    backgroundColor: "blue",
+    backgroundColor: "#FF652F",
     data:consumedArray
   }, {
     label: "Burned calories",
-    backgroundColor: "red",
+    backgroundColor: "#14A76C",
     data: burnedArray
   }]
 };
@@ -128,9 +130,17 @@ var myBarChart = new Chart(ctx, {
     maintainAspectRatio: false,
     scales: {
        xAxes: [{
+         	scaleLabel: {
+					display: true,
+					labelString: 'Dates'
+				},
             barThickness : 73
         }],
       yAxes: [{
+          	scaleLabel: {
+					display: true,
+					labelString: 'Calories in KCal'
+				},
         ticks: {
           min: 0,
           max:3500
@@ -139,6 +149,7 @@ var myBarChart = new Chart(ctx, {
     }
   }
 });
+ 
 </script>
 
 

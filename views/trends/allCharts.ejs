@@ -3,30 +3,34 @@
     <link rel="stylesheet" href="/stylesheets/allCharts.css"/>
 
 
-<div class="container">
-
-    <div id="type-graph-div">
-          <select id="type-graph-select" class="form-control" name="typeGraph"  placeholder="0">
-            <option value="energy">Energy</option>
-            <option value="weight">Weight</option>
-            <option value="height">Height</option>
-            <option value="body-fat">Body-fat</option>
-            <option value="neck">Neck</option>
-            <option value="waist">Waist</option>
-            <option value="hip">Hip</option>
-          </select>
-    </div>
-      <!-- calendar range -->
-    <div id="range-div" class="d-inline">
-          <select id="range-select"  class="form-control" name="range"  placeholder="0">
-            <option value="allDate">All dates</option>
-            <option value="today">Today</option>
-            <option value="yesterday">Yesterday</option>
-            <option data-toggle="modal" data-target="#exampleModal" id="custom" value="custom">Custom duration</option>
-          </select>
+<div class="container mt-5">
+<div class="alert alert-primary" role="alert" id="no-record">
+  No records added <a href="/addMeal" >Add now</a>
+</div>
+<div class="row w-50">
+        <div id="type-graph-div" class="col-6">
+              <select id="type-graph-select" class="form-control" name="typeGraph"  placeholder="0"> 
+                <option value="energy">Energy</option>
+                <option value="weight">Weight</option>
+                <option value="height">Height</option>
+                <option value="body-fat">Body-fat</option>
+                <option value="neck">Neck</option>
+                <option value="waist">Waist</option>
+                <option value="hip">Hip</option>
+              </select>
+        </div>
+          <!-- calendar range -->
+        <div id="range-div" class="col-6">
+              <select id="range-select"  class="form-control" name="range"  placeholder="0">
+                <option value="allDate">All dates</option>
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+                <option data-toggle="modal" data-target="#exampleModal" id="custom" value="custom">Custom duration</option>
+              </select>
+        </div>
     </div>
     <div id="custom-range">
-      <button id="range-btn">Get range</button>
+      <button id="range-btn" class="btn mt-2" style="background-color: rgba(227, 125, 95, .8);color:white">Get range</button>
     </div>
     <div class="modal fade" id="from-to" tabindex="-1" role="dialog" aria-labelledby="from-to" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -100,14 +104,14 @@
       </div>
     </div>
    
-    <div id="show-graph"> 
-           <img id="gif" src="images/load.gif">
+    <div id="show-graph" class="mt-5 mr-5"> 
+           
     </div>
    
   </div>
 
  <script>
-     
+     $("#no-record").hide()
   
           let length;//for length in calorie-date file
           let consumedArray=[];
@@ -208,16 +212,16 @@ $(document).ready(function(){
        function extractWithDate(mm, dd, yy,k) {
             $(".modal-content #err-mssg").hide();
 
-          console.log(mm+"/"+dd+"/"+yy)
+          console.log(mm+1+"/"+dd+"/"+yy)
           if(k==0){
-             $("#from").text(mm +"/"+dd+"/"+yy);
+             $("#from").text(mm+1 +"/"+dd+"/"+yy);
              m0=mm;
              d0=dd;
              y0=yy
           }
           else if(k==1) 
           {
-            $("#to").text(mm +"/"+dd+"/"+yy)
+            $("#to").text(mm+1 +"/"+dd+"/"+yy)
             m1=mm;
             d1=dd;
             y1=yy;
@@ -239,7 +243,8 @@ $(document).ready(function(){
              function getchart(value0,value1,value2,value3,value4){
 
                console.log("winnnn "+value0+value1+" "+value2+" "+value3+" "+value4)
-               
+               if(<%-findeduser.macroNutrientInfo.length%>){
+                 $("#show-graph").html("<img id='gif' src='images/load.gif'>")
               $.ajax({
                     type: "GET", 
                     url: "/"+value0,
@@ -255,27 +260,11 @@ $(document).ready(function(){
                     },
                 
                 });
+            }else{
+              $("#no-record").show();
+              
             }
-            //  function getweightchart(value1,value2,value3){
-
-            //    console.log("winnnn "+value1+" "+value2+" "+value3)
-            //   $.ajax({
-            //         type: "GET", 
-            //         url: "/weight",
-            //         data:{selected:value1,from:value2,to:value3},
-                    
-            //         //dataType: "html",
-            //         success: function (result) {
-                    
-            //         $('#show-graph').html(result);
-                    
-            //         },
-            //         error: function (xhr, status) {
-            //             alert("Sorry, there was a problem :(");
-            //         },
-                
-            //     });
-            // }
+             }
 
 </script>
                              

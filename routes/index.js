@@ -123,7 +123,8 @@ router.post("/register", async (req, res) => {
                         activityFactor: factor,
                         p_target: targets["pTarget"],
                         f_target: targets["fTarget"],
-                        c_target: targets["cTarget"]
+                        c_target: targets["cTarget"],
+                        goal: req.body.goal
                     })
 
                     try {

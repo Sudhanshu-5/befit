@@ -29,8 +29,13 @@ router.use(function (req, res, next) {
 });
 
 //!charts 
-router.get("/trends", middleware.isLoggedIn, function (req, res) {
-    res.render("trends/allCharts")
+router.get("/trends", middleware.isLoggedIn, async(req, res)=> {
+    let findeduser = await userType.findOne({
+        username: req.user.username
+    }).populate("macroNutrientInfo");
+    res.render("trends/allCharts", {
+        findeduser: findeduser
+    })
 })
 //!targsts
 router.get("/targets/:dc", middleware.isLoggedIn, async (req, res) => {
