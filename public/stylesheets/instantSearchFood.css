@@ -21,3 +21,6 @@
     display: none !important;
     height: 5vh
 }
+.ui-helper-hidden-accessible {
+    z-index: 100;
+}

@@ -29,7 +29,7 @@ router.use(function (req, res, next) {
 });
 
 //!charts 
-router.get("/trends", middleware.isLoggedIn, async(req, res)=> {
+router.get("/trends", middleware.isLoggedIn, async (req, res) => {
     let findeduser = await userType.findOne({
         username: req.user.username
     }).populate("macroNutrientInfo");
@@ -38,14 +38,16 @@ router.get("/trends", middleware.isLoggedIn, async(req, res)=> {
     })
 })
 //!targsts
-router.get("/targets/:dc", middleware.isLoggedIn, async (req, res) => {
+router.get("/targets", middleware.isLoggedIn, async (req, res) => {
     try {
-        var dc = (new Date(+req.params.dc))
+        //console.log(req.query.type+"1111111111111111111111111")
+        var dc = (new Date(+req.query.milliForTargets));
+
         // console.log("date from calendardddddddddddddddd " + dc)
         let totals = {};
         let targets = {};
 
-
+    
         let findeduser = await userType.findOne({
             username: req.user.username
         }).populate("macroNutrientInfo");
@@ -53,58 +55,77 @@ router.get("/targets/:dc", middleware.isLoggedIn, async (req, res) => {
         //console.log("ksdksadlksamsakmds " + findeduser)
 
         // console.log(findeduser.bmr + " " + findeduser.activityFactor);
+        if (req.query.type == "meal") {
+            if (findeduser.activityFactor == 1.2) {
+                targets["pTarget"] = findeduser.bmr * findeduser.inactive_protiensRatio / 400;
+                targets["fTarget"] = findeduser.bmr * findeduser.inactive_fatsRatio / 900;
+                targets["cTarget"] = findeduser.bmr * findeduser.inactive_carbsRatio / 400;
 
-        if (findeduser.activityFactor == 1.2) {
-            targets["pTarget"] = findeduser.bmr * findeduser.inactive_protiensRatio / 400;
-            targets["fTarget"] = findeduser.bmr * findeduser.inactive_fatsRatio / 900;
-            targets["cTarget"] = findeduser.bmr * findeduser.inactive_carbsRatio / 400;
 
+            } else if (findeduser.activityFactor == 1.375 || findeduser.activityFactor == 1.55) {
 
-        } else if (findeduser.activityFactor == 1.375 || findeduser.activityFactor == 1.55) {
+                targets["pTarget"] = findeduser.bmr * findeduser.med_protiensRatio / 400;
+                targets["fTarget"] = findeduser.bmr * findeduser.med_fatsRatio / 900;
+                targets["cTarget"] = findeduser.bmr * findeduser.med_carbsRatio / 400;
 
-            targets["pTarget"] = findeduser.bmr * findeduser.med_protiensRatio / 400;
-            targets["fTarget"] = findeduser.bmr * findeduser.med_fatsRatio / 900;
-            targets["cTarget"] = findeduser.bmr * findeduser.med_carbsRatio / 400;
+            } else if (findeduser.activityFactor == 1.72 || findeduser.activityFactor == 1.9) {
+                targets["pTarget"] = findeduser.bmr * findeduser.high_protiensRatio / 400;
+                targets["fTarget"] = findeduser.bmr * findeduser.high_fatsRatio / 900;
+                targets["cTarget"] = findeduser.bmr * findeduser.high_carbsRatio / 400;
+            }
+            findeduser.macroNutrientInfo.forEach(function (info) {
+                // console.log(info)
+                console.log("dateeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + (info.createdAt).toLocaleDateString() + " " + dc.toLocaleDateString())
+                if ((new Date(info.createdAt)).toLocaleDateString().localeCompare(dc.toLocaleDateString()) == 0) {
+                    console.log("ente toh krra")
+                    totals["totalCaloriesConsumed"] = info.totalCaloriesConsumed;
+                    totals["totalCaloriesBurned"] = info.totalCaloriesBurned;
+                    totals["totalProtiens"] = info.total_pro;
+                    totals["totalFats"] = info.total_fats;
+                    totals["totalCarbs"] = info.total_carbs;
+                }
 
-        } else if (findeduser.activityFactor == 1.72 || findeduser.activityFactor == 1.9) {
-            targets["pTarget"] = findeduser.bmr * findeduser.high_protiensRatio / 400;
-            targets["fTarget"] = findeduser.bmr * findeduser.high_fatsRatio / 900;
-            targets["cTarget"] = findeduser.bmr * findeduser.high_carbsRatio / 400;
-        }
-        findeduser.macroNutrientInfo.forEach(function (info) {
-            // console.log(info)
-            console.log("dateeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + (info.createdAt).toLocaleDateString() + " " + dc.toLocaleDateString())
-            if ((new Date(info.createdAt)).toLocaleDateString().localeCompare(dc.toLocaleDateString()) == 0) {
-                console.log("ente toh krra")
-                totals["totalCaloriesConsumed"] = info.totalCaloriesConsumed;
-                totals["totalCaloriesBurned"] = info.totalCaloriesBurned;
-                totals["totalProtiens"] = info.total_pro;
-                totals["totalFats"] = info.total_fats;
-                totals["totalCarbs"] = info.total_carbs;
+            })
+            // console.log("lengthhhhhhhhhhhhhhh " + Object.keys(totals).length);
+            if (Object.keys(totals).length == 0) {
+                totals["totalCaloriesConsumed"] = 0;
+                totals["totalCaloriesBurned"] = 0;
+                totals["totalProtiens"] = 0;
+                totals["totalFats"] = 0;
+                totals["totalCarbs"] = 0;
             }
 
-        })
-        // console.log("lengthhhhhhhhhhhhhhh " + Object.keys(totals).length);
-        if (Object.keys(totals).length == 0) {
-            totals["totalCaloriesConsumed"] = 0;
-            totals["totalCaloriesBurned"] = 0;
-            totals["totalProtiens"] = 0;
-            totals["totalFats"] = 0;
-            totals["totalCarbs"] = 0;
+
+            // console.log("totalssssssssssssssssssss " + JSON.stringify(totals));
+            // console.log("targetssssssssssssss " + JSON.stringify(targets));
+
+
+
+
+            res.render("meal/mealTargets", {
+                totals: totals,
+                targets: targets,
+                bmr: bmr,
+                goal:findeduser.goal
+            });
         }
+        else if (req.query.type == "exercise") {
+          
+             findeduser.macroNutrientInfo.forEach(function (info) {
+                // console.log(info)
+                console.log("dateeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + (info.createdAt).toLocaleDateString() + " " + dc.toLocaleDateString())
+                if ((new Date(info.createdAt)).toLocaleDateString().localeCompare(dc.toLocaleDateString()) == 0) {
+                    console.log("ente toh krra")
+                   totals["totalCaloriesBurned"] = info.totalCaloriesBurned;
+                }
 
-
-        // console.log("totalssssssssssssssssssss " + JSON.stringify(totals));
-        // console.log("targetssssssssssssss " + JSON.stringify(targets));
-
-
-
-
-        res.render("meal/targets", {
-            totals: totals,
-            targets: targets,
-            bmr: bmr
-        });
+            })
+            res.render("exercise/exerciseTargets", {
+                totals: totals,
+                bmr: bmr,
+                goal:findeduser.goal
+            });
+        }
     } catch (err) {
         console.log(err)
     }
@@ -133,12 +154,14 @@ router.get("/showCalorie", middleware.isLoggedIn, function (req, res) {
             length = calorieinfo.macroNutrientInfo.length;
             // console.log("lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
             // console.log("calorieingoooooooooooooooooo " + calorieinfo)
+            console.log("--------------------- " + req.query.type);
             res.render("trends/calorie-date", {
                 calorieinfo: calorieinfo,
                 length: length,
                 selected: req.query.selected,
                 from: req.query.from,
-                to: req.query.to
+                to: req.query.to,
+                type: req.query.type
             })
         }
     })

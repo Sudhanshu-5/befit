@@ -153,18 +153,7 @@
                           </div>
                         
                   </div>
-                  <!-- <div id="total" class="row strip">
-                          <div class="col-2">
-                            <p class="meal-time">Total</p> 
-                          </div>
-                          <div class="col-4">
-                            
-                          </div>
-                          <div class="col-6 px-0">
-                            <div id="s-nutrients" class="row nucalcho px-0 mx-0"></div>
-                          </div>
-                        
-                  </div> -->
+                  
               </div>
               
             </div>
@@ -229,9 +218,10 @@ function extractWithDate(mm, dd, yy) {
         dcalorieArray=[];
           scalorieArray     
         
-        let b=0,l=0,d=0,s=0;
+      let b=0,l=0,d=0,s=0;
         dc=dateSelectedFromCalender;
-        let caloriePer;
+      let caloriePer;
+      let conTarget;
       let carbPer;
       let fatsPer;
       let protienPer ; 
@@ -366,7 +356,7 @@ function extractWithDate(mm, dd, yy) {
             <%})%>
   let milliForTargets=(new Date(dc)).getTime();
 
-                 getTargetProgress(milliForTargets);
+                 getTargetProgress(milliForTargets,"meal");
           
       
             let labelArray =[];
@@ -379,9 +369,11 @@ function extractWithDate(mm, dd, yy) {
             <%})%>
             console.log("labelArray for date: "+dateSelectedFromCalender+" is"+labelArray) 
             let labelFrequency={};
+
             for(key of labelArray ){
               labelFrequency[key]=(labelFrequency[key]||0)+1;
             }
+
             console.log("labelFrequency"+JSON.stringify(labelFrequency));
               if(!labelFrequency.Breakfast) {
                 document.getElementById("b-foods").innerHTML="";
@@ -583,7 +575,8 @@ calorieCheck=scalorieArray[index];
              //$('.container #showresults').append()  
          $.ajax({
                 type: "GET", 
-                url: "/targets/"+milliForTargets,
+                url: "/targets",
+                 data:{milliForTargets:milliForTargets,type:"meal"},
                  //dataType: "html",
                   success: function (data) {
                 //  var result = $('<div />').append(data).find('#showresults').html();
@@ -597,7 +590,7 @@ calorieCheck=scalorieArray[index];
           }
 </script>
       
-       <script src="/script/calender.js"></script>
+ <script src="/script/calender.js"></script>
  <script>getCalendar(0)</script>
     
     <%- include ("../partials/footer") %>

@@ -119,6 +119,7 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
     let met = [];
     let label = req.body.xlabelDescription;
     let totalBurnedcalories = 0;
+    let time = req.body.time;
     var info = req.body.query; //api requirement to add info to post
     // console.log(req.body.age + " " + req.body.weight + " " + req.body.height + "1221333333")
     axios({
@@ -177,6 +178,7 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
                 met: met,
                 session: label,
                 totalCaloriesBurned: totalBurnedcalories,
+                time:time
             }
             //!create exercise info
             exerciseinfo.create(data,
@@ -288,93 +290,8 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
                                                 }
                                             }
                                         })
-                                        // workoutinfo.exerciseinfo.forEach(function (info) {
-
-                                        //     if (new Date(info.date).toDateString().localeCompare(new Date(Date.now()).toDateString()) == 0) {
-                                        //         totalCalorie = totalCalorie + parseFloat(info.totalCaloriesBurned);
-                                        //     }
-
-                                        // });
-                                        // //console.log(totalCalorie);
-
-                                        // //!create calorieinfo
-                                        // function create() {
-                                        //     console.log("length==:+")
-                                        //     calorieinfo.create({
-
-                                        //     }, function (err, created) {
-                                        //         if (err) {
-                                        //             console.log(err)
-                                        //         } else {
-                                        //             // console.log("created" + created._id);
-                                        //             //!push in maletheuser
-                                        //             findedUser.calorieinfo.push(created);
-                                        //             findedUser.save(function (err, savedUser) {
-
-                                        //                 if (err) {
-                                        //                     console.log(err);
-                                        //                 } else {
-                                        //                     // console.log("savedUser" + savedUser);
-                                        //                     var data = {
-                                        //                         totalCaloriesBurned: totalCalorie,
-
-                                        //                     }
-                                        //                     var length = savedUser.calorieinfo.length;
-                                        //                     calorieinfo.findByIdAndUpdate(savedUser.calorieinfo[length - 1]._id, data, {
-                                        //                         upsert: true,
-                                        //                         new: true
-
-                                        //                     }, function (err, updatedCalorieInfo) {
-                                        //                         // console.log("updatedCalorieInfo" + updatedCalorieInfo);
-                                        //                     })
-                                        //                 }
-                                        //             })
-
-
-                                        //         }
-                                        //     })
-                                        // }
-                                        // if (findedUser.macroNutrientInfo.length === 0) {
-                                        //     create();
-
-                                        // } else {
-                                        //     console.log("0");
-                                        //     //!populate date
-                                        //     userType.findOne({
-                                        //         username: req.user.username
-                                        //     }).populate('calorieinfo', 'date').exec(function (err, byDate) {
-                                        //         if (err) {
-                                        //             console.log(err)
-                                        //         } else {
-                                        //             // console.log(byDate);
-                                        //             //!if bydate[] != date.now then call func which creates
-                                        //             //!if bydate[] === date.now   to update
-                                        //             length = byDate.calorieinfo.length;
-                                        //             var d = byDate.calorieinfo[length - 1].date;
-                                        //             console.log("length" + length);
-                                        //             console.log("date" + d);
-                                        //             if ((new Date(d)).toLocaleDateString().localeCompare(dateNow) == 0) {
-                                        //                 var data = {
-                                        //                     totalCaloriesBurned: totalCalorie,
-
-                                        //                 }
-                                        //                 calorieinfo.findByIdAndUpdate(byDate.calorieinfo[length - 1]._id, data, {
-                                        //                     upsert: true,
-                                        //                     new: true
-
-                                        //                 }, function (err, updatedCalorieInfo) {
-                                        //                     // console.log("updatedCalorieInfo" + updatedCalorieInfo);
-                                        //                 })
-                                        //             } else {
-                                        //                 create();
-                                        //             }
-
-                                        //         }
-                                        //     })
-                                        // }
-
-
-                                    }
+                                        
+                                     }
                                 });
 
 
@@ -387,6 +304,123 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
         }
     })
 });
+
+router.delete("/deleteExercise", middleware.isLoggedIn, async (req, res) => {
+
+    let millisecondsOfItemsToBeRemoved = req.query.millisecondsOfItemsToBeRemoved;
+    let indexOfItemsToBeRemoved = req.query.indexOfItemsToBeRemoved;
+    let index = parseInt(indexOfItemsToBeRemoved);
+    let findedExerciseId;
+    let findMacroDoc;
+    let date = (new Date((parseInt(millisecondsOfItemsToBeRemoved)))).toLocaleDateString();
+    
+    let findedExercise = await userType.findOne({
+        username: req.user.username
+    }).populate("exerciseinfo");
+    //get macronutrientdoc
+    try {
+        findMacroDoc = await macronutrientinfo.findOne({
+
+            username: req.user.username,
+            date: date
+        });
+        console.log("findedMacro " + findMacroDoc);
+    } catch (err) {
+        console.log(err)
+    }
+
+    function updateMacronutrientInfo(i) {
+
+        macronutrientinfo.findOneAndUpdate({
+            username: req.user.username,
+            date: dateNow.toLocaleDateString()
+
+        }, {
+            totalCaloriesBurned: (findMacroDoc.totalCaloriesBurned - findedExercise.exerciseinfo[i].caloriesBurnedPerExercise[index]).toFixed(2)
+           
+        }, {
+            new: true
+        }, function (err, updatedMacronutrient) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("updatedMacroNutrientInfo " + updatedMacronutrient);
+
+            }
+        })
+    }
+
+
+    for (let i = 0; i < findedExercise.exerciseinfo.length; i++) {
+        //console.log(typeof (JSON.stringify(new Date(findedMeal.mealinfo[i].createdAt).getTime())) + "---" + typeof (millisecondsOfItemsToBeRemoved))
+
+        //get document of provided millisecond to manipulate
+        if (JSON.stringify(new Date(findedExercise.exerciseinfo[i].createdAt).getTime()) === millisecondsOfItemsToBeRemoved) {
+            // console.log("mealinfo " + JSON.stringify(findedMeal.mealinfo[i]))
+            findedExerciseId = findedExercise.exerciseinfo[i]._id;
+            // console.log("iddddddd " + findedMealId);
+
+            if (findedExercise.exerciseinfo[i].caloriesBurnedPerExercise.length === 1) {
+                //update maconutirentinfo
+                //delete
+                //show targets
+                console.log("single docccccccccccccccccccccccc")
+                updateMacronutrientInfo(i);
+                let deleteDoc = await exerciseinfo.findByIdAndDelete(findedExerciseId);
+                res.send(millisecondsOfItemsToBeRemoved) //to change update progress bars
+            } else {
+
+                //update mealinfo
+                //update maconutirentinfo
+                //delete
+                //show targets
+
+                updateMacronutrientInfo(i);
+                exerciseinfo.findByIdAndUpdate(
+                    findedExerciseId, {
+                    totalCaloriesBurned: (findedExercise.exerciseinfo[i]. totalCaloriesBurned - findedExercise.exerciseinfo[i].caloriesBurnedPerExercise[index])
+                        
+                    }, {
+                        new: true
+                    },
+                    function (err, updatedExerciseInfo) {
+
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            console.log("updatedMealInfo " + updatedExerciseInfo);
+                            var caloriesBurnedPerExercise = `caloriesBurnedPerExercise.${index}`;
+                            var duration = `duration.${index}`;
+                            var exerciseName = `exerciseName.${index}`;
+                            var met = `met.${index}`;
+                    
+                            exerciseinfo.findByIdAndUpdate(
+                                findedExerciseId, {
+                                    $unset: {
+                                        [caloriesBurnedPerExercise]: 1,
+                                        [duration]: 1,
+                                        [exerciseName]: 1,
+                                        [met]: 1
+
+                                    }
+                                },
+                                function (err, updatedExerciseinfo) {
+                                    if (err) {
+                                        console.log(err)
+                                    } else {
+                                        console.log("updated " + updatedExerciseinfo)
+                                    }
+                                });
+
+                        }
+                    })
+                res.send(millisecondsOfItemsToBeRemoved)
+            }
+        }
+    }
+
+
+})
 
 //!manage diasry
 

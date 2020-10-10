@@ -17,7 +17,13 @@
 
  <script>
  //console.log("asmdsaaaaaaaaaaaaaaa " + <%-totals['totalCarbs']%>+" "+<%-targets['cTarget']%>)
-       caloriePer = ( (<%-totals['totalCaloriesConsumed']%>/<%-bmr%> )*100).toFixed(2);
+
+if(<%-JSON.stringify(goal)%>=="wGain")
+       conTarget=<%-bmr%>+250
+else
+    conTarget=<%-bmr%>
+
+       caloriePer = ( (<%-totals['totalCaloriesConsumed']%>/conTarget )*100).toFixed(2);
        carbPer=( (<%-totals['totalCarbs']%>/<%-targets['cTarget']%> )*100).toFixed(2);
        fatsPer=( (<%-totals['totalFats']%>/<%-targets['fTarget']%>)*100).toFixed(2);
        protienPer = ( (<%- totals['totalProtiens']%>/<%-targets['pTarget']%>)*100).toFixed(2);
@@ -37,7 +43,7 @@
    $("#carbProgress").append(carbp);
    $("#fatsProgress").append(fatsp);
    $("#protiensProgress").append(protiensp); 
-$("#cal-label").html((<%-totals['totalCaloriesConsumed']%>).toFixed(2)+" kcal"+" / "+(<%-bmr%>).toFixed(2)+" kcal"+" ("+caloriePer+"%"+")");
+$("#cal-label").html((<%-totals['totalCaloriesConsumed']%>).toFixed(2)+" kcal"+" / "+conTarget.toFixed(2)+" kcal"+" ("+caloriePer+"%"+")");
 $("#carb-label").html((<%- totals['totalCarbs'] %>).toFixed(2)+" g "+" / " +(<%-targets['cTarget'] %> ).toFixed(2)+" g "+" ("+carbPer+"%"+")")
 $("#fats-label").html((<%- totals['totalFats'] %>).toFixed(2)+" g "+" / "+(<%-targets['fTarget'] %> ).toFixed(2)+" g "+" ("+fatsPer+"%"+")")
 $("#protiens-label").html((<%- totals['totalProtiens']%>).toFixed(2)+" g "+" / "+(<%-targets['pTarget']%>).toFixed(2)+" g "+" ("+protienPer+"%"+")")

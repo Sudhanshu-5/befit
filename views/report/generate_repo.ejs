@@ -139,7 +139,7 @@ function setData(goal,con,bur,bmr){
                             let remain=(bmr+250-con).toFixed(2) ;
                            let goal_stmt;
                            if(remain>0){
-                           goal_stmt= bur+" KCal are consumed, "+remain+" KCal are more to have. Eat healthy! "
+                           goal_stmt= con+" KCal are consumed, "+remain+" KCal are more to have. Eat healthy! "
                            }
                             else if(Math.abs(remain)>100 && remain<0 ){
                              goal_stmt="You have gone too far. Stick to diet."
@@ -222,7 +222,8 @@ function setData(goal,con,bur,bmr){
              }
 			      
       }
-      else if(<%-JSON.stringify(selected)%> == "custom" && <%-JSON.stringify(from)%> && <%-JSON.stringify(to)%>){
+     
+    else if(<%-JSON.stringify(selected)%> == "custom" && <%-JSON.stringify(from)%> && <%-JSON.stringify(to)%>){
          console.log("inside custpm")
         <% for(let i=0 ; i<calorieinfo.macroNutrientInfo.length ;i++){ %>
           //  console.log("andar"+<%-fromIndex%>)
@@ -248,23 +249,28 @@ function setData(goal,con,bur,bmr){
                           if(<%-JSON.stringify((new Date(info.createdAt)).toLocaleDateString())%>!==(new Date()).toLocaleDateString()){
                 
 		                 if(<%-JSON.stringify(calorieinfo.goal)%>=="wGain"){
+
                        data3.push(<%-calorieinfo.macroNutrientInfo[i].totalCaloriesConsumed%>-<%-calorieinfo.bmr%>);
                        dates.push(<%-JSON.stringify((new Date(calorieinfo.macroNutrientInfo[i].createdAt)).toLocaleDateString())%>);
-                       
                        sum+=<%-calorieinfo.macroNutrientInfo[i].totalCaloriesConsumed%>-<%-calorieinfo.bmr%>
+
                      }
                       else if(<%-JSON.stringify(calorieinfo.goal)%>=="wLoss"){
+
                        data3.push(<%-calorieinfo.macroNutrientInfo[i].totalCaloriesBurned%>-<%-calorieinfo.bmr%>);
                        dates.push(<%-JSON.stringify((new Date(calorieinfo.macroNutrientInfo[i].createdAt)).toLocaleDateString())%>);
                         sum+=<%-calorieinfo.macroNutrientInfo[i].totalCaloriesBurned%>-<%-calorieinfo.bmr%>
+
                      }
                       else if(<%-JSON.stringify(calorieinfo.goal)%>=="wMaintain"){
-                       data3.push(<%-calorieinfo.macroNutrientInfo[i].totalCaloriesConsumed%>);
+
+                        data3.push(<%-calorieinfo.macroNutrientInfo[i].totalCaloriesConsumed%>);
                         data4.push(<%-calorieinfo.macroNutrientInfo[i].totalCaloriesBurned%>);
-                         dates.push(<%-JSON.stringify((new Date(calorieinfo.macroNutrientInfo[i].createdAt)).toLocaleDateString())%>);
+                        dates.push(<%-JSON.stringify((new Date(calorieinfo.macroNutrientInfo[i].createdAt)).toLocaleDateString())%>);
                         sum+=<%-calorieinfo.macroNutrientInfo[i].totalCaloriesConsumed%>;
                         sum2+=<%-calorieinfo.macroNutrientInfo[i].totalCaloriesBurned%>;
-                     }
+                     
+                      }
                     }
 
                     
@@ -299,6 +305,7 @@ else{
                         sum2+=<%-info.totalCaloriesBurned%>;
                      }
                     }
+                    
     <%})%>
     avg=sum/(<%-calorieinfo.macroNutrientInfo.length%>);
     if(<%-JSON.stringify(calorieinfo.goal)%>=="wLoss"){
@@ -314,6 +321,9 @@ else{
        efficiency=avg/<%-calorieinfo.bmr%>;
        efficiency2=avg2/<%-calorieinfo.bmr%>;
        $("#efficiency").html(efficiency)
+    }
+    if( !<%-calorieinfo.macroNutrientInfo.length-1%>){
+       $("#date-absence-r").show();
     }
    
     }
@@ -398,9 +408,7 @@ if(data2.length){
 });
 }
 if (data3.length){
- 
-
-var myChart = new Chart(ctx3, {
+ var myChart = new Chart(ctx3, {
     type: 'line',
     data: {
         labels: dates,

@@ -40,7 +40,8 @@ var exerciseSchema = new mongoose.Schema({
     totalCaloriesBurned: {
         type: Number,
 
-    }
+    },
+    time: String
 
 }, {
     timestamps: true

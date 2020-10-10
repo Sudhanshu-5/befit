@@ -121,7 +121,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                 }
 
                 // console.log("foofasdSDAS" + food);
-                uCalsum = uCalsum + food.calories * factor;
+                uCalsum = (uCalsum + food.calories * factor);
                 // console.log(typeof (uCalsum) + "0000000000000000000000000" + " " + uCalsum)
                 // console.log("uSUM" + usum);
                 ufooditems.push(food.food_name);
@@ -323,10 +323,10 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
         if (fooditems.length) {
 
             var data = {
-                calorieConsumption: caloriesSum,
-                sumPro: proSum,
-                sumCarbs: carbSum,
-                sumFats: fatSum,
+                calorieConsumption: caloriesSum.toFixed(2),
+                sumPro: proSum.toFixed(2),
+                sumCarbs: carbSum.toFixed(2),
+                sumFats: fatSum.toFixed(2),
                 label: label,
                 description: info,
                 foodItems: fooditems,
@@ -507,14 +507,7 @@ router.delete("/deleteMeal", middleware.isLoggedIn, async (req, res) => {
         console.log(err)
     }
 
-    //macrodataobj to be updated to
-    // function getMacrodata(i) {
-    //     let dataForMacroInfo = {
-
-    //     }
-    //     return dataForMacroInfo;
-    // }
-    //update macronutient function
+    
     function updateMacronutrientInfo(i) {
 
         macronutrientinfo.findOneAndUpdate({
@@ -567,7 +560,7 @@ router.delete("/deleteMeal", middleware.isLoggedIn, async (req, res) => {
                 updateMacronutrientInfo(i);
                 mealinfo.findByIdAndUpdate(
                     findedMealId, {
-                        calorieConsumption: (findedMeal.mealinfo[i].calorieConsumption - findedMeal.mealinfo[i].calories[index]),
+                        calorieConsumption: (findedMeal.mealinfo[i].calorieConsumption - findedMeal.mealinfo[i].calories[index]).toFixed(2),
                         sumPro: (findedMeal.mealinfo[i].sumPro - findedMeal.mealinfo[i].protiens[index]).toFixed(2),
                         sumCarbs: (findedMeal.mealinfo[i].sumCarbs - findedMeal.mealinfo[i].carbs[index]).toFixed(2),
                         sumFats: (findedMeal.mealinfo[i].sumFats - findedMeal.mealinfo[i].fats[index]).toFixed(2)
@@ -740,9 +733,48 @@ router.get("/searchFood", middleware.isLoggedIn, function (req, res) {
 
 router.post("/searchNutrients", middleware.isLoggedIn, function (req, res) {
     var info = req.body.query;
-    var type = req.body.type; //common/breanded
+    var type =req.body.id; //common/breanded
     console.log("Query" + JSON.stringify(info));
-    if (!JSON.stringify(type)) {
+    console.log(type);
+     if (type) {
+        
+        console.log("brandeddddddddd" )
+        axios({
+                method: "get",
+                url: "https://trackapi.nutritionix.com/v2/search/item?nix_item_id=" + req.body.id,
+                headers: {
+                    "x-app-id": "4b34a3d8",
+                    "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
+                    "x-remote-user-id": "0"
+                }
+        }).then(function (response) {
+            var temp = response.data["foods"][0];
+            console.log(temp);
+            console.log(JSON.stringify(temp))
+            // var a = {
+            //     food: temp.food_name,
+            //     total_fat: temp.nf_total_fat,
+            //     saturated_fat: temp.nf_saturated_fat,
+            //     cholestrol: temp.nf_cholesterol,
+            //     carbs: temp.nf_total_carbohydrate,
+            //     fiber: temp.nf_dietary_fiber,
+            //     sugar: temp.nf_sugars,
+            //     protiens: temp.nf_protein,
+            // }
+            //console.log(a);
+            console.log(JSON.stringify(temp))
+            res.render("meal/nutritionalFacts", {
+                data: temp
+            });
+        }).catch(function (error) {
+            res.send(error)
+            console.log(error)
+        }).finally(function () {
+
+        })
+    }
+    else{
+        console.log("comoonnnnnnnnnnnnnnnnnnnnnnnnnnnn")
         axios({
             method: "post",
             url: " https://trackapi.nutritionix.com/v2/natural/nutrients",
@@ -774,43 +806,11 @@ router.post("/searchNutrients", middleware.isLoggedIn, function (req, res) {
                 data: temp
             });
         }).catch(function (error) {
-            // alert("Field should not be empty")
+          res.send(error)
         }).finally(function () {
 
         })
-    } else if (JSON.stringify(type)) {
-        axios({
-            method: "post",
-            url: "https://trackapi.nutritionix.com/v2/search/item?detailed=true&nix_item_id=" + type,
-            headers: {
-                "x-app-id": "4b34a3d8",
-                "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
-                "x-remote-user-id": "0"
-
-            }
-        }).then(function (response) {
-            var temp = response.data["foods"][0];
-
-            // var a = {
-            //     food: temp.food_name,
-            //     total_fat: temp.nf_total_fat,
-            //     saturated_fat: temp.nf_saturated_fat,
-            //     cholestrol: temp.nf_cholesterol,
-            //     carbs: temp.nf_total_carbohydrate,
-            //     fiber: temp.nf_dietary_fiber,
-            //     sugar: temp.nf_sugars,
-            //     protiens: temp.nf_protein,
-            // }
-            //console.log(a);
-            res.render("meal/nutritionalFacts", {
-                data: temp
-            });
-        }).catch(function (error) {
-            // alert("Field should not be empty")
-        }).finally(function () {
-
-        })
-    }
+    } 
 });
 module.exports = router;
 // 	dataPoints.push({

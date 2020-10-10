@@ -15,60 +15,59 @@
             
         </div>
 
-<div id="kaccha-chittha" class="row col-12 mt-2"> 
-      
-        <div class="col-6">
-            <div class="nutrition-head">General</div>
-            <div id="general"class="row p-2 small">
-
-            </div>
-         </div>
-         
-         
-         <div class="col-6">
-           <div class="nutrition-head">Carbohydrate</div>
-           <div id="carbs" class="row p-2 small">
-            
-           </div>
-         </div>
-
-         <div class="col-6">
-            <div class="nutrition-head">Fats</div>
-            <div id="fats" class="row p-2 small">
-                
-            </div>
-         </div>
-       
+  <div id="kaccha-chittha" class="row col-12 mt-2"> 
         
-          <div class="col-6">
-            <div class="nutrition-head">Protiens</div>
-            <div id="protiens"class="row p-2 small">
-                
-            </div>
-         </div>
+          <div class="col-6 general-div" >
+              <div class="nutrition-head">General</div>
+              <div id="general"class="row p-2 small">
 
-         <div class="col-6">
-                <div class="nutrition-head">Minerals</div>
-                <div id="minerals"class="row p-2 small">
-                    
-                </div>  
-         </div>
-
-         <div class="col-6">
-            <div class="nutrition-head">Vitamins</div>
-            <div id="vitamins"class="row p-2 small">
-                
+              </div>
+          </div>
+          
+          
+            <div class="col-6 carbs-div">
+            <div class="nutrition-head">Carbohydrate</div>
+            <div id="carbs" class="row p-2 small">
+              
             </div>
-        </div>
+          </div>
+
+          <div class="col-6 fats-div">
+              <div class="nutrition-head">Fats</div>
+              <div id="fats" class="row p-2 small">
+                  
+              </div>
+          </div>
+        
+          
+            <div class="col-6 protiens-div">
+              <div class="nutrition-head">Protiens</div>
+              <div id="protiens"class="row p-2 small">
+                  
+              </div>
+          </div>
+
+          <div class="col-6 minerals-div">
+                  <div class="nutrition-head">Minerals</div>
+                  <div id="minerals"class="row p-2 small">
+                      
+                  </div>  
+          </div>
+
+          <div class="col-6 vitamins-div">
+              <div class="nutrition-head">Vitamins</div>
+              <div id="vitamins"class="row p-2 small">
+              </div>
+          </div>
+  </div>
 </div>
- </div>
 
 <div id="nutritionfacts" class="col-3">
     
   <section class="nutrition-label">
     <header class="nutrition-header border-b-lg">
       <h1 class="nutrition-facts border-b">Nutrition Facts</h1>
-      <div class="servings"  ><span id="i-serving">8 </span> servings per container</div>
+      <div class="servings"><span id="i-serving">8 </span> servings per container</div>
       <div class="nutrition-row">
         <div class="nutrition-column text-md text-bold">Serving size</div>
         <div class="nutrition-column text-md text-bold text-right" id="i-measure">2/3 cup (55g)</div>
@@ -354,21 +353,14 @@ var carbs=" ",fats=" ",general=" ",minerals=" ",protiens=" ",vitamins=" ";
   i_options_measure="<option id='first' value='' disabled selected hidden>Choose a measure</option>"; 
 
 //serving option
-        
- <% data.alt_measures.forEach(function (item) {%>
-     if(<%-JSON.stringify(item.measure)%>===<%-JSON.stringify(data.serving_unit)%>){
-           i_options_measure+="<option class='measure' selected value="+<%-JSON.stringify(item.serving_weight)%>+">"+<%-JSON.stringify(item.measure)%>+" , "+<%-JSON.stringify(item.serving_weight)%>+"g</option>";
-     }
-     else{
-       i_options_measure+="<option class='measure' value="+<%-JSON.stringify(item.serving_weight)%>+" >"+<%-JSON.stringify(item.measure)%>+" , "+<%-JSON.stringify(item.serving_weight)%>+"g</option>";
-     }
- <%})%>  
+
+       i_options_measure+="<option class='measure'selected value="+<%-JSON.stringify(data.serving_weight_grams)%>+" >"+<%-JSON.stringify(data.serving_unit)%>+" , "+<%-JSON.stringify(data.serving_weight_grams)%>+"g</option>";
+
      
     $("#x-measure").html(i_options_measure);
 
     factor;
-
-   nutrientForParticularWeight(<%-data.serving_weight_grams%>);    
+    nutrientForParticularWeight(<%-data.serving_weight_grams%>);    
  
     function nutrientForParticularWeight(weight){
       carbs=" ",fats=" ",general=" ",minerals=" ",protiens=" ",vitamins=" ";
@@ -490,10 +482,21 @@ var carbs=" ",fats=" ",general=" ",minerals=" ",protiens=" ",vitamins=" ";
        
           $("#i-serving").html($("#x-qty").val());
           $("#i-measure").html( $("#x-measure option:selected").text());
-          $("#i-calories").html(<%-data.nf_calories%>*factor);
+          $("#i-calories").html((<%-data.nf_calories%>*factor).toFixed(2));
          
     }  
+ if($("#fats").html()==""){
+   alert("snn")
+ }
+ tempObj=["fats","minerals","carbs","vitamins","protiens","general"];
 
+for(let i in tempObj)
+{
+  //  tempObj[key]=tempObj[key];
+if($("#"+tempObj[i]).html()==" "){
+   $("."+tempObj[i]+"-div").removeClass("col-6").html(" ");
+}
+}
        
 </script>
 

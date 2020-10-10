@@ -19,6 +19,8 @@
   </div>
     <div id="results">
     </div>
+
+    <div id="facts" class="d-flex justify-content-center"></div>
   
 </div>
 <script>
@@ -45,6 +47,7 @@
   $("#results .ui-menu").css({
       'max-width': ($("#search").width() + 'px')
     })
+    
 
     
   })
@@ -55,6 +58,9 @@
   let protiens_obj={};
   let vitamins_obj={};
      let factor;
+    let tempObj;
+
+     let nix_item_id=null;
    let i_options_measure; 
    let qty,measure,weight;
                                 $("#common-instant").click(function(){
@@ -79,17 +85,21 @@
         alert("enter a food")
       }
       else{
+       
       let item=$("#search").val();
       //alert(item)
-      $("#results").html("<img id='gif' src='images/load.gif'>")
+      $("#facts").html("<img id='gif' src='images/load.gif'>")
       $.ajax({
                 url: "/searchNutrients",
                 type: "post",
-                data:{"query":item,"id":inix_item_id},
+                data:{"query":item,"id":nix_item_id},
            
             
                 success:function (result) {
-                  $("#results").html(result)
+                  if(result==="error"){
+                    alert(error)
+                  }else 
+                     $("#facts").html(result)
                 },
                  error: function (xhr, status) {
                         alert("Sorry, there was a problem :("+status);

@@ -117,6 +117,7 @@ function searchInstant(wanted, unwanted) {
                 // alert($("#search").val());
             })
             nix_item_id = ui.item.id;
+            // console.log(nix_item_id)    
             $("#nix-item-id").val(nix_item_id)
             $("#search").val(ui.item.value);
             $("#instant-form").show();

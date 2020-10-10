@@ -79,7 +79,7 @@ function getCalendar(k) {
         //prev dates
         for (let x = firstDayIndex; x > 0; x--) {
             day += `<div class="select${k} prev${k} align-self-center">${lastDatePrevMonth - x + 1}</div>`
-            //console.log(lastDatePrevMonth - x + 1);
+            //console.log(lastDatePrevMonth - x +  1);
             count++;
         }
         //current dates
@@ -95,6 +95,12 @@ function getCalendar(k) {
                 day += `<div class="select${k} current-date${k} align-self-center" onclick ="clicker(${i},${k})">${i}</div>`;
                 count++;
             }
+        }
+        if ((new Date(Date.now()).getMonth()) !== date.getMonth()) {
+            // selected = lastDateCurrentMonth;
+            date2.setMonth (date.getMonth());
+             alert(date2.getMonth())
+          extractWithDate(date2.getMonth(),30, date2.getFullYear(), k);
         }
         //next dates
         for (let j = 1; count < 42; j++) {
@@ -149,24 +155,26 @@ function getCalendar(k) {
         getDates(date1);
     }
     document.getElementsByClassName("prev-date")[k].addEventListener("click", () => {
+        
         getDates(date3);
         if (temp) temp.classList.remove("my-class");
         var selected = date2.getDate() - 2;
-        //console.log(selected);
-        // if (selected == -1) {
-        //     date1.setMonth(date1.getMonth() - 1);
-        //     monthChange(date1);
-        // }
-        var element = document.getElementsByClassName("current-date" + k)[selected];
-        temp = element;
-        element.classList.add("my-class");
-        document.getElementsByClassName("dateString")[k].innerHTML = getDateString(date2.getMonth(), selected + 1, date2.getFullYear());
 
-        date2.setDate(selected + 1);
-        extractWithDate(date2.getMonth(), selected + 1, date2.getFullYear(), k);
+        if (selected == -1) {
+            date1.setMonth(date1.getMonth() - 1);
+            monthChange(date1);
+            
+        }
+        else {  
+            var element = document.getElementsByClassName("current-date" + k)[selected];
+            temp = element;
+            element.classList.add("my-class");
+            document.getElementsByClassName("dateString")[k].innerHTML = getDateString(date2.getMonth(), selected + 1, date2.getFullYear());
 
-
-    });
+            date2.setDate(selected + 1);
+            extractWithDate(date2.getMonth(), selected + 1, date2.getFullYear(), k);
+        }
+     });
     document.getElementsByClassName("next-date")[k].addEventListener("click", () => {
         getDates(date3);
         if (temp) temp.classList.remove("my-class");

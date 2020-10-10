@@ -8,13 +8,16 @@
 <script>
  
   <% let fromIndex=0;%>
-          <% let toIndex=0; %>
+  <% let toIndex=0; %>
          
-     consumedArray=[];
-
-    burnedArray=[];
+ consumedArray=[];
+ burnedArray=[];
  dates=[];
-  $("#date-absence").hide();
+ macro=[];
+type=<%-JSON.stringify(type)%> 
+
+$("#date-absence").hide();
+
 		length = <%-calorieinfo.macroNutrientInfo.length%>;
 
 
@@ -34,11 +37,19 @@ var ctx = document.getElementById("calorieChart").getContext("2d");
         info_date=<%-JSON.stringify((new Date(info.createdAt)).toLocaleDateString())%>;
                   if(  today_dates === info_date){
                     // console.log(typeof(today.toLocaleDateString())+"   "+typeof(<%-JSON.stringify((new Date(info.createdAt)).toLocaleDateString())%>)
-                        dates.push('<%-(new Date(info.createdAt)).toLocaleDateString()%>');
+                    dates.push('<%-(new Date(info.createdAt)).toLocaleDateString()%>');
+
+                    if(<%-JSON.stringify(type)%>=="calories"){
+                       
                         consumedArray.push('<%-info.totalCaloriesConsumed%>');
                         burnedArray.push('<%-info.totalCaloriesBurned%>')
-                        
-                        count++;
+                    }
+                    else{
+                      console.log("ye wal")
+                      macro.push(<%-JSON.stringify(info)%>[type])
+                     
+                    }
+                     count++;
                    }
                  
                    
@@ -53,10 +64,17 @@ var ctx = document.getElementById("calorieChart").getContext("2d");
             let count=0;
             <%calorieinfo.macroNutrientInfo.forEach(function(info){%>
                    if( yesterday.toLocaleDateString() == '<%-(new Date(info.createdAt)).toLocaleDateString()%>'){
-			        dates.push('<%-(new Date(info.createdAt)).toLocaleDateString()%>');
-		        	consumedArray.push('<%-info.totalCaloriesConsumed%>');
-              burnedArray.push('<%-info.totalCaloriesBurned%>')
-              count++;
+                       dates.push('<%-(new Date(info.createdAt)).toLocaleDateString()%>');
+		        
+                    if(<%-JSON.stringify(type)%>=="calories"){
+                       	consumedArray.push('<%-info.totalCaloriesConsumed%>');
+                         burnedArray.push('<%-info.totalCaloriesBurned%>')
+                    }
+                    else{
+                     macro.push(<%-JSON.stringify(info)%>[type])
+                    }
+                     count++;
+                  
                    }
                   
              <%})%>
@@ -65,17 +83,17 @@ var ctx = document.getElementById("calorieChart").getContext("2d");
              }
 			      
       }
-      else if(<%-JSON.stringify(selected)%> == "custom" && <%-JSON.stringify(from)%> && <%-JSON.stringify(to)%>){
+      else if(<%-JSON.stringify(selected)%> == "stom" && <%-JSON.stringify(from)%> && <%-JSON.stringify(to)%>){
          console.log("inside custpm")
         <% for(let i=0 ; i<calorieinfo.macroNutrientInfo.length  ; i++){ %>
           //  console.log("andar"+<%-fromIndex%>)
-console.log(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString())%>+"  =============  "+ <%-JSON.stringify(from)%>)
+// console.log(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString())%>+"  =============  "+ <%-JSON.stringify(from)%>)
             <%if(JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString()) === JSON.stringify(from)){%> 
               <%-fromIndex=i%>;
               valid_from=<%-i%>;
             console.log(<%-fromIndex%>+"fromIndex"+typeof(<%-fromIndex%>))
             <% }%>
-console.log(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString())%>+" 2 =============  "+ <%-JSON.stringify(to)%>)
+// console.log(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString())%>+" 2 =============  "+ <%-JSON.stringify(to)%>)
 
           <%if(JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString()) === JSON.stringify(to)){%>
             <%-toIndex=i%>
@@ -89,8 +107,14 @@ console.log(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLo
                <% for(let i=fromIndex;i<=toIndex; i++){%>
                      console.log("111111111111111111 "+<%-i%>);      
               dates.push(<%-JSON.stringify((new Date(calorieinfo.macroNutrientInfo[i]["createdAt"]).toLocaleDateString()))%>);
-		        	consumedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesConsumed"])%>);
+		        	
+              if(<%-JSON.stringify(type)%>=="calories"){
+              consumedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesConsumed"])%>);
               burnedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesBurned"])%>)
+                    }
+                    else{
+                        macro.push(<%-JSON.stringify(info)%>[type])
+                    }
                <% }%>
             }
             else{
@@ -106,11 +130,19 @@ else{
     <%calorieinfo.macroNutrientInfo.forEach(function(info){%>
               console.log("date "+'<%-(new Date(info.createdAt)).toLocaleDateString()%>')
 			        dates.push('<%-(new Date(info.createdAt)).toLocaleDateString()%>');
-		        	consumedArray.push('<%-info.totalCaloriesConsumed%>');
-              burnedArray.push('<%-info.totalCaloriesBurned%>')
+		        	
+                 if(<%-JSON.stringify(type)%>=="calories"){
+                     consumedArray.push('<%-info.totalCaloriesConsumed%>');
+                      burnedArray.push('<%-info.totalCaloriesBurned%>');
+                    }
+                    else{
+                        macro.push(<%-JSON.stringify(info)%>[type])
+                    }
+              
                  
 		<%})%>
     }
+if(<%-JSON.stringify(type)%>=="calories"){    
 var data = {
   labels:dates,
   datasets: [{
@@ -149,7 +181,26 @@ var myBarChart = new Chart(ctx, {
     }
   }
 });
- 
+}else{
+  var myBarChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: dates,
+        datasets: [{
+            label: 'Series 1', // Name the series
+            data:macro,
+            fill: false,
+            borderColor: '#2196f3', // Add custom color border (Line)
+            backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+            borderWidth: 1 // Specify bar border width
+        }]
+    },
+    options: {
+      // responsive: false ,// Instruct chart js to respond nicely.
+       maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
+    }
+});
+}
 </script>
 
 

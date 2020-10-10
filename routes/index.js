@@ -73,21 +73,21 @@ router.post("/register", async (req, res) => {
 
         //get targets
         if (factor == 1.2) {
-            targets["pTarget"] = bmr * 30 / 400;
-            targets["fTarget"] = bmr * 20 / 900;
-            targets["cTarget"] = bmr * 50 / 400;
+            targets["pTarget"] = (bmr * 30 / 400).toFixed(2);
+            targets["fTarget"] = (bmr * 20 / 900).toFixed(2);
+            targets["cTarget"] = (bmr * 50 / 400).toFixed(2);
 
 
         } else if (factor == 1.375 || factor == 1.55) {
 
-            targets["pTarget"] = bmr * 15 / 400;
-            targets["fTarget"] = bmr * 30 / 900;
-            targets["cTarget"] = bmr * 55 / 400;
+            targets["pTarget"] = (bmr * 15 / 400).toFixed(2);
+            targets["fTarget"] = (bmr * 30 / 900).toFixed(2);
+            targets["cTarget"] = (bmr * 55 / 400).toFixed(2);
 
         } else if (factor == 1.72 || factor == 1.9) {
-            targets["pTarget"] = bmr * 25 / 400;
-            targets["fTarget"] = bmr * 30 / 900;
-            targets["cTarget"] = bmr * 45 / 400;
+            targets["pTarget"] = (bmr * 25 / 400).toFixed(2);
+            targets["fTarget"] = (bmr * 30 / 900).toFixed(2);
+            targets["cTarget"] = (bmr * 45 / 400).toFixed(2);
         }
 
         var newUser = new user({
@@ -115,6 +115,7 @@ router.post("/register", async (req, res) => {
                         weight: req.body.kgs,
                         neck: req.body.neck,
                         waist: req.body.waist,
+                        hip: req.body.hip,
                         bodyfat: req.body.bodyfat,
                         DOB: req.body.date,
                         bmi: req.body.bmi,

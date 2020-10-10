@@ -11,6 +11,9 @@
         <div id="type-graph-div" class="col-6">
               <select id="type-graph-select" class="form-control" name="typeGraph"  placeholder="0"> 
                 <option value="energy">Energy</option>
+                 <option value="carbs">Carbohydrtaes</option>
+                  <option value="protiens">Protiens</option>
+                   <option value="fats">Fats</option>
                 <option value="weight">Weight</option>
                 <option value="height">Height</option>
                 <option value="body-fat">Body-fat</option>
@@ -130,7 +133,7 @@
         let valid_to;
     
 $(document).ready(function(){
-        getchart("showCalorie",selected,from,to)//onload calorie grpah in showg-graph
+        getchart("showCalorie",selected,from,to,"calories")//onload calorie grpah in showg-graph
          $("#custom-range").hide();
          })
 
@@ -141,12 +144,27 @@ $(document).ready(function(){
               case "energy":
                   // alert("energy")
                   $("#range-div").show();
-                  getchart("showCalorie",selected,from,to)
+                  getchart("showCalorie",selected,from,to,"calories")
                   break;
+
+              case "protiens":  
+                $("#range-div").show();
+                  getchart("showCalorie",selected,from,to,"total_pro")
+                  break;  
+
+             case "carbs":  
+                $("#range-div").show();
+                  getchart("showCalorie",selected,from,to,"total_carbs")
+                  break;
+
+             case "fats":  
+                $("#range-div").show();
+                  getchart("showCalorie",selected,from,to,"total_fats")
+                  break; 
+
               case "weight":
                   // alert("weight")
-                          
-              getchart("graphOdate",selected,from,to,"weight")
+                   getchart("graphOdate",selected,from,to,"weight")
                   break;
               case "height":
                   // alert("height")
@@ -246,14 +264,14 @@ $(document).ready(function(){
                if(<%-findeduser.macroNutrientInfo.length%>){
                  $("#show-graph").html("<img id='gif' src='images/load.gif'>")
               $.ajax({
+
                     type: "GET", 
                     url: "/"+value0,
                     data:{selected:value1,from:value2,to:value3,type:value4},
                     
                     //dataType: "html",
                     success: function (result) {
-                    $('#show-graph').html(result);
-                    
+                      $('#show-graph').html(result);
                     },
                     error: function (xhr, status) {
                         alert("Sorry, there was a problem :(");
@@ -262,9 +280,8 @@ $(document).ready(function(){
                 });
             }else{
               $("#no-record").show();
-              
-            }
              }
+  }
 
 </script>
                              

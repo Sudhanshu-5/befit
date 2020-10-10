@@ -1,11 +1,20 @@
+
 #contents {
     width: 100%;
-    padding: 0;
 
+    font-size: 1rem;
 }
+
+
 
 #exercise-info {
     padding: 0;
+    box-sizing: border-box;
+
+}
+
+#diary {
+    border: .1rem solid gray;
 }
 
 #exercise-info .info {
@@ -15,7 +24,38 @@
 
 .info div {
     padding: 0;
+    text-align: center;
 
+}
+
+#m-info,
+#a-info,
+#e-info {
+    text-align: center;
+}
+
+#m-exercise i,
+#a-exercise i,
+#e-exercise i
+ {
+    background-color: white;
+    color: red;
+    text-align: center;
+    display: inline-block;
+
+    opacity: 0;
+
+    transition: 0.1s linear;
+    margin-right: .3rem
+}
+
+#m-exercise div:hover i,
+#a-exercise div:hover i,
+#e-exercise div:hover i
+ {
+
+    opacity: 1;
+    margin-right: .3rem
 }
 
 .strip {
@@ -31,13 +71,12 @@
 }
 
 .meduca div {
-    font-size: .8em;
 
     padding: 0px;
     width: calc(100%/3);
     height: 24px;
 }
 
-.exercise-names div {
+.exercise-info div {
     cursor: pointer;
 }
