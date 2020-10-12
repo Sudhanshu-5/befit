@@ -75,7 +75,7 @@ router.get("/targets", middleware.isLoggedIn, async (req, res) => {
             }
             findeduser.macroNutrientInfo.forEach(function (info) {
                 // console.log(info)
-                console.log("dateeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + (info.createdAt).toLocaleDateString() + " " + dc.toLocaleDateString())
+                console.log("dateeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + (info.createdAt) + " " + dc)
                 if ((new Date(info.createdAt)).toLocaleDateString().localeCompare(dc.toLocaleDateString()) == 0) {
                     console.log("ente toh krra")
                     totals["totalCaloriesConsumed"] = info.totalCaloriesConsumed;
@@ -106,7 +106,9 @@ router.get("/targets", middleware.isLoggedIn, async (req, res) => {
                 totals: totals,
                 targets: targets,
                 bmr: bmr,
-                goal:findeduser.goal
+                goal: findeduser.goal,
+                info: findeduser.macroNutrientInfo[1],
+                dc:dc
             });
         }
         else if (req.query.type == "exercise") {

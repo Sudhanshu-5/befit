@@ -8,7 +8,10 @@ var maleUserSchema = new mongoose.Schema({
     weight: String,
     DOB: String,
     age: Number,
-    bmi: Number,
+    bmi: {
+        type: Number,
+        default: 0
+    },
     // calorieinfo: [{
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "calorieinfo"
