@@ -16,10 +16,10 @@ var back = require('express-back'); //access previous paths
 var app = express();
 require('dotenv').config(); //for env variables
 const moment = require('moment-timezone');
-const dateIndia = moment.tz(Date.now(), "Asia/Calcutta");
-console.log(dateIndia);
-var dateNow = (new Date(Date.now()));
-console.log("dateNow" + dateNow)
+const dateNow = moment.tz(Date.now(), "Asia/Calcutta");
+console.log(dateNow);
+// var dateNow = (new Date(Date.now()));
+// console.log("dateNow" + dateNow)
 //!import routes
 var indexRoute = require("./routes/index.js");
 var mealsRoute = require("./routes/meals.js");
@@ -28,6 +28,7 @@ var trends = require("./routes/trends.js");
 var calculator = require("./routes/calculators.js");
 var profile = require("./routes/profile.js")
 var report = require("./routes/report.js")
+
 
 const {
     asyncify
