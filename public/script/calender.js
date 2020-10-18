@@ -92,7 +92,7 @@ function getCalendar(k) {
                 day += `<div class="select${k} today${k} current-date${k} align-self-center" onclick ="clicker(${i},${k})">${i}</div>`;
                 count++;
             } else {
-                day += `<div class="select${k} current-date${k} align-self-center" onclick ="clicker(${i},${k})">${i}</div>`;
+                day += `<div class="select${k} current-date${k} align-self-center" onclick ="clicker(${i},${k},this)">${i}</div>`;
                 count++;
             }
         }
@@ -111,12 +111,16 @@ function getCalendar(k) {
 
 
         //console.log(count);
-
-        window.clicker = (i, k) => {
-
-
+       
+        window.clicker = (i, k ,elem) => {
+                
             document.getElementsByClassName("dateString")[k].innerHTML = getDateString(date.getMonth(), i, date.getFullYear());
             //console.log("mm" + mm);
+            if (document.querySelector(".my-class"+k)) {
+                document.querySelector(".my-class"+k).classList.remove("my-class"+k)
+            }
+            
+           elem.classList.add("my-class"+k)
             extractWithDate(mm, i, yy, k);
         };
 

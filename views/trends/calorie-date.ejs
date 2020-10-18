@@ -1,10 +1,16 @@
 <!-- <%=calorieinfo.macroNutrientInfo%> -->
-<p id="date-absence">
-  No record is added for this date !!
-</p>
+
+
 <div class="container">
-<canvas id="calorieChart"></canvas>
+    <div class="alert py-2 w-50" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="date-absence">
+      No records are added for this date !!
+    </div>
+     <div class="alert py-2 w-50" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="range-absence">
+      No records are found in this range !!
+    </div>
+    <canvas id="calorieChart" width="300" height="300"></canvas>
 </div>
+
 <script>
  
   <% let fromIndex=0;%>
@@ -18,12 +24,10 @@ type=<%-JSON.stringify(type)%>
 
 $("#date-absence").hide();
 
+$("#range-absence").hide();
+
 		length = <%-calorieinfo.macroNutrientInfo.length%>;
 
-
-
-// console.log("yesterdaytttttttttttttt "+yesterday.toLocaleDateString())
-// console.log("todayyyyyyyyyyyyyy "+today.toLocaleDateString());
 var ctx = document.getElementById("calorieChart").getContext("2d");
 
 
@@ -71,57 +75,43 @@ var ctx = document.getElementById("calorieChart").getContext("2d");
                          burnedArray.push('<%-info.totalCaloriesBurned%>')
                     }
                     else{
-                     macro.push(<%-JSON.stringify(info)%>[type])
+                         macro.push(<%-JSON.stringify(info)%>[type])
                     }
                      count++;
-                  
-                   }
-                  
-             <%})%>
+            }
+          <%})%>
             if(!count){
                $("#date-absence").show();
              }
 			      
       }
-      else if(<%-JSON.stringify(selected)%> == "stom" && <%-JSON.stringify(from)%> && <%-JSON.stringify(to)%>){
+      else if(<%-JSON.stringify(selected)%> == "custom" && <%-JSON.stringify(from)%> && <%-JSON.stringify(to)%>){
          console.log("inside custpm")
+            from_date=new Date(<%-JSON.stringify(from)%>).getTime();
+        to_date=new Date(<%-JSON.stringify(to)%>).setHours(23,59,59,999);
         <% for(let i=0 ; i<calorieinfo.macroNutrientInfo.length  ; i++){ %>
-          //  console.log("andar"+<%-fromIndex%>)
-// console.log(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString())%>+"  =============  "+ <%-JSON.stringify(from)%>)
-            <%if(JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString()) === JSON.stringify(from)){%> 
-              <%-fromIndex=i%>;
-              valid_from=<%-i%>;
-            console.log(<%-fromIndex%>+"fromIndex"+typeof(<%-fromIndex%>))
-            <% }%>
-// console.log(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString())%>+" 2 =============  "+ <%-JSON.stringify(to)%>)
+              // console.log("asbasjbjdsadbasbdbsah"+<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString())%>)
+     
+        this_date=new Date(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString())%>).getTime();
 
-          <%if(JSON.stringify(calorieinfo.macroNutrientInfo[i]["createdAt"].toLocaleDateString()) === JSON.stringify(to)){%>
-            <%-toIndex=i%>
-            valid_to=<%-i%>;
-           console.log(valid_to+"toindex")
-            <%}%>
-
-        <%}%>
-        console.log("nkjndankds "+valid_to+"   "+valid_from);
-             if(valid_to >=0){
-               <% for(let i=fromIndex;i<=toIndex; i++){%>
-                     console.log("111111111111111111 "+<%-i%>);      
-              dates.push(<%-JSON.stringify((new Date(calorieinfo.macroNutrientInfo[i]["createdAt"]).toLocaleDateString()))%>);
-		        	
-              if(<%-JSON.stringify(type)%>=="calories"){
-              consumedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesConsumed"])%>);
-              burnedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesBurned"])%>)
+        // alert(new Date(this_date))
+        //alert(from_date<=this_date+"    "+to_date>=this_date)
+        if(from_date<=this_date && to_date>=this_date){
+          console.log(<%-i%>)
+          console.log("win"+new Date(this_date));
+          dates.push(<%-JSON.stringify((new Date(calorieinfo.macroNutrientInfo[i]["createdAt"]).toLocaleDateString()))%>);
+                if(<%-JSON.stringify(type)%>=="calories"){
+                    consumedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesConsumed"])%>);
+                    burnedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesBurned"])%>)
                     }
                     else{
                         macro.push(<%-JSON.stringify(info)%>[type])
                     }
-               <% }%>
-            }
-            else{
-              $("#date-absence").show();
-             
-            }
-
+        }
+        <%}%>
+         if(!dates.length){
+               $("#range-absence").show();
+        }
 
               
       	}
@@ -187,17 +177,17 @@ var myBarChart = new Chart(ctx, {
     data: {
         labels: dates,
         datasets: [{
-            label: 'Series 1', // Name the series
+            label: <%-JSON.stringify(type_obj)%>[type], // Name the series
             data:macro,
             fill: false,
-            borderColor: '#2196f3', // Add custom color border (Line)
-            backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+            borderColor: "#FF652F", // Add custom color border (Line)
+            backgroundColor: "#FF652F", // Add custom color background (Points and Fill)
             borderWidth: 1 // Specify bar border width
         }]
     },
     options: {
       // responsive: false ,// Instruct chart js to respond nicely.
-       maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
+        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
     }
 });
 }

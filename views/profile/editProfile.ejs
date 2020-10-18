@@ -1,84 +1,203 @@
 <%- include ("../partials/profileHeader") %>
+<link rel="stylesheet" href="/stylesheets/editProfile.css"/>
+
 <div class="container">
-<h1>Edit profile</h1>
   <form action="/viewProfile?_method=PUT" method="POST"> 
+    <div class="row">
+   <div class="col-4"></div>
+     <div id="general" class="px-2 py-3 m-auto col-4 ">
+          
+          <div class="form-group row mb-0">
+            <label for="username" class="col-sm-3 col-form-label ">Username</label>
+            <div class="col-sm-9">
+              <input type="text"class="form-control text-center" id="username"  name="founduser[username]" value="<%=founduser.username%>"  >
+              <hr class="m-0">
+            </div>
+          </div>
 
-  <div class="form-group row">
-      <label for="username" class="col-sm-3 col-form-label">Username</label>
-      <div class="col-sm-9">
-      <input type="text"class="form-control" id="username"  name="founduser[username]" value="<%=founduser.username%>"  >
-      </div>
-    </div>
+          <div class="form-group row mb-0">
+            <label for="email" class="col-sm-3 col-form-label">Email</label>
+            <div class="col-sm-9">
+              <input type="email" id="email"class="form-control text-center" name="founduser[email]" value="<%=currentUser.email%>"  >
+            <hr class="m-0">
+          </div>
+          </div>  
 
-    <div class="form-group row">
-      <label for="email" class="col-sm-3 col-form-label">Email</label>
-      <div class="col-sm-9">
-      <input type="email" id="email"class="form-control" name="founduser[email]" value="<%=currentUser.email%>"  >
-      </div>
-    </div> 
+           <!-- <div class="form-group row mb-0">
+            <label for="forgot" class="col-sm-3 col-form-label">Password</label>
+            <div class="col-sm-9 py-2 text-center">
+               <a href="/forgotPass" id="forgot">Update password</a> 
+            <hr class="m-0">
+          </div>
+          </div>  -->
 
-     <div class="form-group row">
-       <label for="date" class="col-sm-3 col-form-label">Date of birth</label>
-       <div class="col-sm-9">
-       <input type="text" id="date"class="form-control" name="founduser[date]" value="<%=founduser.DOB%>"  >
-      </div>
-     </div> 
-
-     <div class="form-group row">
-      <label for="height" class="col-sm-3 col-form-label">Height</label>
-      <div class="col-sm-9">
-      <input type="number" id="height"class="form-control" name="founduser[height]" value="<%=founduser.height%>"  >
-      </div>
-     </div>
-
-     <div class="form-group row">
-        <label for="weight" class="col-sm-3 col-form-label">weight</label>
-        <div class="col-sm-9">
-        <input type="number" id="weight" class="form-control" name="founduser[weight]" value="<%=founduser.weight%>"  >
-        </div>
-     </div>
-
-     <div class="form-group row">
-      <label for="bmi" class="col-sm-3 col-form-label">BMI</label>
-      <div class="col-sm-9">
-      <input type="number" id="bmi" class="form-control" name="founduser[bmi]" value="<%=founduser.bmi%>"  >
-      </div>
-     </div>
-      <!-- <label>Username:
-      <input type="text"  name="founduser[username]" value="<%=founduser.username%>">
-      </label>
-    </div>
-    <div>
-      <label>Email:
-      <input type="email" name="founduser[email]" value="<%=founduser.email%>">
-      </label>
-    </div>
-     <div>
-      <label>Date of birth:
-     <input type="text" id="dob" name="founduser[DOB]" value="<%=founduser.DOB%>">
-      </label>
-    </div>
-     <div>
-      <label>height:
-     <input type="number" id="cms" name="founduser[height]" value="<%=founduser.height%>">
-      </label>
-    </div>
-     <div>
-      <label>weight:
-     <input type="number" id="kgs" name="founduser[weight]" value="<%=founduser.weight%>">
-      </label>
-    </div> -->
-     <!-- <div> -->
+           <div class="form-group row mb-0">
+                <label for="dob" class="col-sm-3 col-form-label">D-O-B</label>
+                 <div class="col-sm-9">
+                <input type="text" id="dob"class="form-control text-center" name="founduser[DOB]" value="<%=founduser.DOB%>"  >
+                <hr class="m-0">
+              </div>
+          </div>
+           <div class="form-group row mb-0 ">
+                <label for="gender" class="col-sm-3 col-form-label">Gender</label>
+                 <div class="col-sm-9">
+                <input type="text" id="gender"class="form-control  text-center" name="founduser[gender]" value="<%=currentUser.gender%>"  >
+                <hr class="m-0">
+              </div>
+          </div>
       
-      <!-- <label>
-               <input type="number" id="bmi" name="founduser[bmi]" step=0.01  >
+     </div>
+     <div class="col-4">  </div>
+    <div class="col-3"></div>
+     <div class="col-6 row mt-4 d-flex justify-content-around" id="targets">
+         
+           <div class="form-group content row mb-0 mt-4 col-6">
+                <label for="goal" class="col-sm-4 col-form-label ">Goal</label>
+                 <div class="col-sm-8">
+                <input type="text" id="goal"class="form-control text-center" name="founduser[goal]"  >
+                <hr class="m-0"> 
+              </div>
+            </div>
 
-          <
-      </label> -->
-    <!-- </div> -->
-  <button class="btn" onclick="window.location.href='/viewProfile';">save</button>
- 
+             <div class="form-group content row mb-0 mt-4 col-6">
+                <label for="bmr" class="col-sm-4 col-form-label">BMR</label>
+                <div class="col-sm-8 d-flex justify-content-start row">
+                  <input id="bmr" class="form-control px-0 py-2 text-center" name="founduser[bmr]"   >
+                  <hr class=" w-100 m-0 ml-4">
+               </div>
+                
+             </div>
+            
+           <div class="form-group content row col-12 mb-0 mt-3">
+              <div class="col-4"></div>
+              <div class="col-sm-8 row">
+                    <div class="col-3">Carbs</div>
+                    <div class="col-3">Fats</div>
+                    <div class="col-3">Protiens</div>
+              </div>
+           </div>
+
+              <div class="form-group content row col-12 mb-0 mt-2">
+                <label  class="col-sm-4 col-form-label">Macronutrient Ratio</label>
+                <div class="col-sm-8 row">
+                    <div class="col-3  d-flex justify-content-center pt-2" id="carbs"></div>
+                    <div class="col-3  d-flex justify-content-center pt-2" id="fats"></div>
+                    <div class="col-3  d-flex justify-content-center pt-2" id="protiens"></div>
+                </div>
+              </div>
+               <div class="form-group content row col-12 mb-0">
+                <label for="mn-target" class="col-sm-4 col-form-label">Macronutrient Targets</label>
+                <div class="col-sm-8 row">
+                  <div class="col-3 d-flex justify-content-center pt-2"><%=founduser.c_target%></div>
+                  <div class="col-3  d-flex justify-content-center pt-2"><%=founduser.f_target%></div>
+                  <div class="col-3  d-flex justify-content-center pt-2"><%=founduser.p_target%></div>
+                </div>
+              </div>
+
+     <!-- </div> -->
+     <!-- <div class="col-2"></div> -->
+     <!-- <div id="body" class="row col-4 mt-2 mr-auto"> -->
+            
+            <div class="form-group content row mb-0 col-6">
+                <label for="height" class="col-sm-4 col-form-label">Height</label>
+                 <div class="col-sm-8">
+                <input type="number" id="height"class="form-control w-75 mb-0 text-center" name="founduser[height]" value="<%=founduser.height%>" >
+                <hr class="m-0">
+                </div>
+            </div>
+
+            <div class="form-group content row mb-0 col-6">
+                  <label for="weight" class="col-sm-4 col-form-label">weight</label>
+                  <div class="col-sm-8">
+                  <input type="number" id="weight" class="form-control w-75 text-center" name="founduser[weight]" value="<%=founduser.weight%>"  >
+                  <hr class="m-0">
+                </div>
+            </div>
+
+            
+            <div class="form-group content row mb-0 col-6">
+                <label for="neck" class="col-sm-4 col-form-label">Neck</label>
+                <div class="col-sm-8">
+                <input type="number"class="form-control w-75 text-center" id="neck"  name="founduser[neck]" value="<%=founduser.neck%>"  >
+                <hr class="m-0">
+              </div>
+            </div>
+
+            <div class="form-group content row mb-0 col-6">
+                <label for="waist" class="col-sm-4 col-form-label">Waist</label>
+                <div class="col-sm-8">
+                 <input type="number"class="form-control w-75 text-center" id="waist"  name="founduser[waist]" value="<%=founduser.waist%>"  >
+                <hr class="m-0">
+              </div>
+            </div> 
+
+            <div class="form-group content row mb-0 col-6">
+                <label for="hip" class="col-sm-4 col-form-label">Hip</label>
+                <div class="col-sm-8">
+                 <input type="number"class="form-control w-75 text-center" id="hip"  name="founduser[hip]" value="<%=founduser.hip%>"  >
+                <hr class="m-0">
+              </div>
+            </div>
+
+              <div class="form-group content row mb-0 col-6">
+                <label for="activityFactor" class="col-sm-4 col-form-label">Activity Factor</label>
+                <div class="col-sm-8">
+                 <input type="number"class="form-control w-75 text-center " id="activityFactor"  name="founduser[activityFactor]" value="<%=founduser.activityFactor%>"  >
+                <hr class="m-0">
+              </div>
+              </div>
+
+              <div class="form-group content row mb-0 col-6">
+                <label for="bmi" class="col-sm-4 col-form-label">BMI</label>
+                <div class="col-sm-8">
+                 <input type="number" id="bmi" class="form-control w-75 text-center" name="founduser[bmi]" value="<%=founduser.bmi%>" readonly="readonly" >
+                <hr class="m-0">
+              </div>
+              </div>
+              
+              <div class="form-group content row mb-0 col-6">
+                <label for="fat-per" class="col-sm-4 col-form-label">Body Fat</label>
+                <div class="col-sm-8">
+                  <input type="number" id="fat-per" class="form-control w-75 text-center" name="founduser[fat-per]" value="<%=founduser.bodyfat%>" readonly="readonly"  >
+                </div>
+              <hr class="m-0">
+            </div>
+        </div>
+        <div class="col-3"></div>
+          <button class="btn m-auto" onclick="window.location.href='/viewProfile';" style="background-color:rgba(227, 125, 95);color:white">Save</button>
+
+</div>
+  
 <script>
+  $(document).ready(function(){
+    $("#bmr").val(<%-founduser.bmr%>+" KCal")
+    if(<%-JSON.stringify(founduser.goal)%>=="wGain"){
+      $("#goal").val("Gain weight")
+    }
+    else if(<%-JSON.stringify(founduser.goal)%>=="wLoss"){
+      $("#goal").val("Loose weight")
+    }
+    else{
+      $("#goal").val("Maintain weight")
+    }
+
+     if (<%-founduser.activityFactor%> == 1.2) {
+         $("#carbs").html(<%-founduser.inactive_carbsRatio%>)
+         $("#fats").html(<%-founduser.inactive_fatsRatio%>)
+         $("#protiens").html(<%-founduser.inactive_protiensRatio%>)
+      } 
+       else if (<%-founduser.activityFactor%>== 1.375 || <%-founduser.activityFactor%> == 1.55) {
+         $("#carbs").html(<%-founduser.med_carbsRatio%>)
+         $("#fats").html(<%-founduser.med_fatsRatio%>)
+         $("#protiens").html(<%-founduser.med_protiensRatio%>) 
+
+        } else if (<%-founduser.activityFactor%> == 1.72 || <%-founduser.activityFactor%> == 1.9) {
+          $("#carbs").html(<%-founduser.high_carbsRatio%>)
+         $("#fats").html(<%-founduser.high_fatsRatio%>)
+         $("#protiens").html(<%-founduser.high_protiensRatio%>)
+        }
+  
+      })
   function knowBmi(){
     var bmi=(document.getElementById('kgs').value)/
     ((document.getElementById('cms').value/100)*

@@ -7,8 +7,8 @@
 <div class="alert alert-primary" role="alert" id="no-record">
   No records added <a href="/addMeal" >Add now</a>
 </div>
-<div class="row w-50">
-        <div id="type-graph-div" class="col-6">
+<div class="row w-75">
+        <div id="type-graph-div" class="col-4">
               <select id="type-graph-select" class="form-control" name="typeGraph"  placeholder="0"> 
                 <option value="energy">Energy</option>
                  <option value="carbs">Carbohydrtaes</option>
@@ -23,7 +23,7 @@
               </select>
         </div>
           <!-- calendar range -->
-        <div id="range-div" class="col-6">
+        <div id="range-div" class="col-4">
               <select id="range-select"  class="form-control" name="range"  placeholder="0">
                 <option value="allDate">All dates</option>
                 <option value="today">Today</option>
@@ -31,22 +31,23 @@
                 <option data-toggle="modal" data-target="#exampleModal" id="custom" value="custom">Custom duration</option>
               </select>
         </div>
+           <div id="custom-range" class="col-4">
+      <button id="range-btn" class="btn" style="background-color: rgba(227, 125, 95);color:white">Get range</button>
     </div>
-    <div id="custom-range">
-      <button id="range-btn" class="btn mt-2" style="background-color: rgba(227, 125, 95, .8);color:white">Get range</button>
     </div>
+ 
     <div class="modal fade" id="from-to" tabindex="-1" role="dialog" aria-labelledby="from-to" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Choose any particular range </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body row">
               <div id="first" class="col-6">
-                  <div class=" calender border border-secondary px-0">
+                  <div class=" calender px-0">
                             <div class="date d-flex justify-content-between align-items-center ">
                                     <i class="prev-date fa fa-angle-left  ml-3" aria-hidden="true"></i>
                                       <div class="dateString">
@@ -94,20 +95,22 @@
                        
           </div>
           <div class="d-inline-flex justify-content-around from-to-date">
-            <span id="from"></span>
+            <span id="from"  class="rounded p-1" style="border: .08rem solid rgba(227, 125, 95) ;"></span>
             <span>To</span>
-            <span id="to"></span>
+            <span id="to" class="rounded p-1" style="border: .08rem solid rgba(227, 125, 95) ;"></span>
           </div>
-           <div id="err-mssg">This duration is senseless</div>
+           <div class="alert m-2 p-0 w-50 " style="background-color: rgba(227, 125, 95); color: whitesmoke;"role="alert" id="err-mssg">
+              This duration is senseless!!
+           </div>
            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" id="save" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"style="background-color:white;color:Black;">Close</button>
+            <button type="button" id="save" class="btn "style="background-color:rgba(227, 125, 95);color:white;">Save</button>
            </div>
         </div>
       </div>
     </div>
    
-    <div id="show-graph" class="mt-5 mr-5"> 
+    <div id="show-graph" class="mt-5 mr-5 h-100"> 
            
     </div>
    
@@ -131,6 +134,9 @@
         let to="";
         let valid_from;
         let valid_to;
+        let from_date;
+        let to_date;
+        let this_date;
     
 $(document).ready(function(){
         getchart("showCalorie",selected,from,to,"calories")//onload calorie grpah in showg-graph
@@ -262,7 +268,7 @@ $(document).ready(function(){
 
                console.log("winnnn "+value0+value1+" "+value2+" "+value3+" "+value4)
                if(<%-findeduser.macroNutrientInfo.length%>){
-                 $("#show-graph").html("<img id='gif' src='images/load.gif'>")
+                 $("#show-graph").html("<div class='d-flex justify-content-center align-items-center'> <img id='gif' src='images/spinner.gif' width='7%'height='7%'> </div>")
               $.ajax({
 
                     type: "GET", 

@@ -3,19 +3,14 @@
 
 }
 
-.date {
-    height: 2rem;
-    font-size: .9rem;
-    background-color: #ffb84d;
-    cursor: pointer;
-}
 
 .year-month {
     font-size: .9rem;
 }
 
 .weekdays {
-    font-size: .8rem;
+    font-size: .9rem;
+    text-align: center;
 }
 
 .dateString {
@@ -32,19 +27,11 @@
     justify-content: arounds
 }
 
-.days div {
-    width: calc(100%/7);
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
 
-.today {
-    color: blue;
-}
 
-.my-class {
-    color: red;
+.my-class0,.my-class1 {
+    background-color: rgba(227, 125, 95, 0.5);
+    color:white
 }
 
 .prev0,
@@ -71,41 +58,15 @@
     font-weight: bold;
 }
 
-.dateString {
-    max-width: 100%;
-}
-
-.myString {
-    max-width: 100%;
-}
-
-.weekdays {
-    text-align: center;
-}
-
-.weekdays div {
-    width: calc(100%/7);
-    align-items: center;
-}
-
 .days div {
     width: calc(100%/7);
     cursor: pointer;
     text-align: center;
 }
 
-.today0 {
-    background-color: rgba(227, 125, 95, .2 );
+.today0,.today1 {
+    background-color: rgba(227, 125, 95);
+    color:white;
 
 }
 
-.my-class {
-    color: red;
-}
-
-.prev0,
-.next0,
-.prev1,
-.next1 {
-    opacity: .5;
-}

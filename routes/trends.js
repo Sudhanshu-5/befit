@@ -137,6 +137,11 @@ router.get("/showCalorie", middleware.isLoggedIn, function (req, res) {
     // console.log("selctedddddddddddddddddddddddddd " + req.query.selected);
     // console.log("frommmmmmmmmmmmmmmmmmmmmmmmmmmm " + req.query.from);
     // console.log("toooooooooooooooooooooooo " + req.query.to);
+    let type_obj = {
+        total_carbs: "Carbohydrates",
+        total_fats: "Fats",
+        total_pro: "Protiens",
+    }
     userType.findOne({
         username: req.user.username
     }).populate('ondate').exec(function (err, ondateinfo) {
@@ -163,7 +168,8 @@ router.get("/showCalorie", middleware.isLoggedIn, function (req, res) {
                 selected: req.query.selected,
                 from: req.query.from,
                 to: req.query.to,
-                type: req.query.type
+                type: req.query.type,
+                type_obj:type_obj
             })
         }
     })

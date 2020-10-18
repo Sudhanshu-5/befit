@@ -23,13 +23,13 @@
           </div>
           </div>  
 
-           <div class="form-group row mb-0">
+           <!-- <div class="form-group row mb-0">
             <label for="forgot" class="col-sm-3 col-form-label">Password</label>
             <div class="col-sm-9 py-2 text-center">
                <a href="/forgotPass" id="forgot">Update password</a> 
             <hr class="m-0">
           </div>
-          </div> 
+          </div>  -->
 
            <div class="form-group row mb-0">
                 <label for="dob" class="col-sm-3 col-form-label">D-O-B</label>
@@ -48,26 +48,27 @@
       
      </div>
      <div class="col-4">  </div>
-     <div class="targets col-5 mt-2">
+    <div class="col-3"></div>
+     <div class="col-6 row mt-4 d-flex justify-content-around" id="targets">
          
-           <div class="form-group content row mb-0 col-12">
+           <div class="form-group content row mb-0 mt-4 col-6">
                 <label for="goal" class="col-sm-4 col-form-label ">Goal</label>
                  <div class="col-sm-8">
                 <input type="text" id="goal"class="form-control text-center" name="goal" readonly="readonly" >
-                <hr class="m-0">
+                <hr class="m-0"> 
               </div>
             </div>
 
-             <div class="form-group content row mb-0 col-12">
+             <div class="form-group content row mb-0 mt-4 col-6">
                 <label for="bmr" class="col-sm-4 col-form-label">BMR</label>
                 <div class="col-sm-8 d-flex justify-content-start row">
-                  <input type="number" id="bmr" class="form-control px-0 text-right col-7" name="bmr" value="<%=founduser.bmr%>" readonly="readonly" >
-                  <div class="px-0 py-1 col-5">KCal</div> 
+                  <input id="bmr" class="form-control px-0 py-2 text-center" name="bmr"  readonly="readonly" >
                   <hr class=" w-100 m-0 ml-4">
                </div>
                 
              </div>
-           <div class="form-group content row mb-0 mt-3">
+            
+           <div class="form-group content row col-12 mb-0 mt-3">
               <div class="col-4"></div>
               <div class="col-sm-8 row">
                     <div class="col-3">Carbs</div>
@@ -76,7 +77,7 @@
               </div>
            </div>
 
-              <div class="form-group content row mb-0 mt-2">
+              <div class="form-group content row col-12 mb-0 mt-2">
                 <label  class="col-sm-4 col-form-label">Macronutrient Ratio</label>
                 <div class="col-sm-8 row">
                     <div class="col-3  d-flex justify-content-center pt-2" id="carbs"></div>
@@ -84,7 +85,7 @@
                     <div class="col-3  d-flex justify-content-center pt-2" id="protiens"></div>
                 </div>
               </div>
-               <div class="form-group content row mb-0">
+               <div class="form-group content row col-12 mb-0">
                 <label for="mn-target" class="col-sm-4 col-form-label">Macronutrient Targets</label>
                 <div class="col-sm-8 row">
                   <div class="col-3 d-flex justify-content-center pt-2"><%=founduser.c_target%></div>
@@ -93,14 +94,14 @@
                 </div>
               </div>
 
-     </div>
-     <div class="col-2"></div>
-     <div id="body" class="row col-5 mt-2 mr-auto">
+     <!-- </div> -->
+     <!-- <div class="col-2"></div> -->
+     <!-- <div id="body" class="row col-4 mt-2 mr-auto"> -->
             
             <div class="form-group content row mb-0 col-6">
                 <label for="height" class="col-sm-4 col-form-label">Height</label>
                  <div class="col-sm-8">
-                <input type="number" id="height"class="form-control w-75 mb-0" name="height" value="<%=founduser.height%>" readonly="readonly">
+                <input type="number" id="height"class="form-control w-75 mb-0 text-center" name="height" value="<%=founduser.height%>" readonly="readonly">
                 <hr class="m-0">
                 </div>
             </div>
@@ -108,7 +109,7 @@
             <div class="form-group content row mb-0 col-6">
                   <label for="weight" class="col-sm-4 col-form-label">weight</label>
                   <div class="col-sm-8">
-                  <input type="number" id="weight" class="form-control w-75" name="weight" value="<%=founduser.weight%>" readonly="readonly" >
+                  <input type="number" id="weight" class="form-control w-75 text-center" name="weight" value="<%=founduser.weight%>" readonly="readonly" >
                   <hr class="m-0">
                 </div>
             </div>
@@ -117,7 +118,7 @@
             <div class="form-group content row mb-0 col-6">
                 <label for="neck" class="col-sm-4 col-form-label">Neck</label>
                 <div class="col-sm-8">
-                <input type="number"class="form-control w-75" id="neck"  name="neck" value="<%=founduser.neck%>" readonly="readonly" >
+                <input type="number"class="form-control w-75 text-center" id="neck"  name="neck" value="<%=founduser.neck%>" readonly="readonly" >
                 <hr class="m-0">
               </div>
             </div>
@@ -125,7 +126,7 @@
             <div class="form-group content row mb-0 col-6">
                 <label for="waist" class="col-sm-4 col-form-label">Waist</label>
                 <div class="col-sm-8">
-                 <input type="number"class="form-control w-75" id="waist"  name="waist" value="<%=founduser.waist%>" readonly="readonly" >
+                 <input type="number"class="form-control w-75 text-center" id="waist"  name="waist" value="<%=founduser.waist%>" readonly="readonly" >
                 <hr class="m-0">
               </div>
             </div> 
@@ -133,7 +134,7 @@
             <div class="form-group content row mb-0 col-6">
                 <label for="hip" class="col-sm-4 col-form-label">Hip</label>
                 <div class="col-sm-8">
-                 <input type="number"class="form-control w-75" id="hip"  name="hip" value="<%=founduser.hip%>" readonly="readonly" >
+                 <input type="number"class="form-control w-75 text-center" id="hip"  name="hip" value="<%=founduser.hip%>" readonly="readonly" >
                 <hr class="m-0">
               </div>
             </div>
@@ -141,7 +142,7 @@
               <div class="form-group content row mb-0 col-6">
                 <label for="activityFactor" class="col-sm-4 col-form-label">Activity Factor</label>
                 <div class="col-sm-8">
-                 <input type="number"class="form-control w-75 " id="activityFactor"  name="activityFactor" value="<%=founduser.activityFactor%>" readonly="readonly" >
+                 <input type="number"class="form-control w-75 text-center " id="activityFactor"  name="activityFactor" value="<%=founduser.activityFactor%>" readonly="readonly" >
                 <hr class="m-0">
               </div>
               </div>
@@ -149,7 +150,7 @@
               <div class="form-group content row mb-0 col-6">
                 <label for="bmi" class="col-sm-4 col-form-label">BMI</label>
                 <div class="col-sm-8">
-                 <input type="number" id="bmi" class="form-control w-75 " name="bmi" value="<%=founduser.bmi%>" readonly="readonly" >
+                 <input type="number" id="bmi" class="form-control w-75 text-center" name="bmi" value="<%=founduser.bmi%>" readonly="readonly" >
                 <hr class="m-0">
               </div>
               </div>
@@ -157,18 +158,19 @@
               <div class="form-group content row mb-0 col-6">
                 <label for="fat-per" class="col-sm-4 col-form-label">Body Fat</label>
                 <div class="col-sm-8">
-                  <input type="number" id="fat-per" class="form-control w-75" name="fat-per" value="<%=founduser.bodyfat%>" readonly="readonly" >
+                  <input type="number" id="fat-per" class="form-control w-75 text-center" name="fat-per" value="<%=founduser.bodyfat%>" readonly="readonly" >
                 </div>
               <hr class="m-0">
             </div>
         </div>
-         <button class="btn m-auto"onclick="window.location.href='/editProfile';">update profile</button>
+        <div class="col-3"></div>
+         <button class="btn m-auto"onclick="window.location.href='/editProfile';" style="background-color:rgba(227, 125, 95);color:white">Edit profile</button>
 </div>
 
 </div>
 <script>
   $(document).ready(function(){
-
+    $("#bmr").val(<%-founduser.bmr%>+" KCal")
     if(<%-JSON.stringify(founduser.goal)%>=="wGain"){
       $("#goal").val("Gain weight")
     }

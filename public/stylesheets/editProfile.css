@@ -3,7 +3,8 @@
     max-width: 60%;
 }
 
-#general,#targets {
+#general,
+#targets {
     border: .1rem solid rgb(180, 180, 180, 0.2);
 }
 
