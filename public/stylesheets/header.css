@@ -1,7 +1,5 @@
-   :root{
-       font-size: 16px;
-   } 
-   * {
+
+  * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -34,12 +32,10 @@ select:focus, */
 
     .navbar #brand {
         font-family: 'Black Ops One', cursive;
-        font-size: 2rem;
+        /* font-size:calc(1rem + 1vw); */
+        font-size:2rem ;
     }
-
-    #navbarSupportedContent li {
-        margin: auto
-    }
+  
 
     body {
         background-color: #F2F2F2;
@@ -63,7 +59,7 @@ select:focus, */
 
     }
 
-    .child-nav {}
+
 
     .child-nav a {
         color: #E27D60;
@@ -73,9 +69,35 @@ select:focus, */
         margin-left: 100px;
     } */
 
-    .activenav {
+    .activenav,
+    .active-meal,
+    .active-exercise,
+    .active-profile {
         border-bottom: 0 !important;
         border-color: rgba(227, 125, 95) !important;
         background-color: transparent !important;
 
     }
+    @media (max-width: 575.98px) {
+      :root{
+          font-size: 10px;
+      }
+    }
+    @media (min-width: 576px) and (max-width: 767.98px) {
+        :root {
+            font-size: 14px;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991.98px) {
+            
+    }
+
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+    }
+
+    @media (min-width: 1200px) {
+ 
+    }
+
+    

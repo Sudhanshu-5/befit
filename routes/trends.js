@@ -57,21 +57,21 @@ router.get("/targets", middleware.isLoggedIn, async (req, res) => {
         // console.log(findeduser.bmr + " " + findeduser.activityFactor);
         if (req.query.type == "meal") {
             if (findeduser.activityFactor == 1.2) {
-                targets["pTarget"] = findeduser.bmr * findeduser.inactive_protiensRatio / 400;
-                targets["fTarget"] = findeduser.bmr * findeduser.inactive_fatsRatio / 900;
-                targets["cTarget"] = findeduser.bmr * findeduser.inactive_carbsRatio / 400;
+                targets["pTarget"] = (findeduser.bmr * findeduser.inactive_protiensRatio / 400).toFixed(2);
+                targets["fTarget"] = (findeduser.bmr * findeduser.inactive_fatsRatio / 900).toFixed(2);
+                targets["cTarget"] = (findeduser.bmr * findeduser.inactive_carbsRatio / 400).toFixed(2);
 
 
             } else if (findeduser.activityFactor == 1.375 || findeduser.activityFactor == 1.55) {
 
-                targets["pTarget"] = findeduser.bmr * findeduser.med_protiensRatio / 400;
-                targets["fTarget"] = findeduser.bmr * findeduser.med_fatsRatio / 900;
-                targets["cTarget"] = findeduser.bmr * findeduser.med_carbsRatio / 400;
+                targets["pTarget"] = (findeduser.bmr * findeduser.med_protiensRatio / 400).toFixed(2);
+                targets["fTarget"] = (findeduser.bmr * findeduser.med_fatsRatio / 900).toFixed(2);
+                targets["cTarget"] = (findeduser.bmr * findeduser.med_carbsRatio / 400).toFixed(2);
 
             } else if (findeduser.activityFactor == 1.72 || findeduser.activityFactor == 1.9) {
-                targets["pTarget"] = findeduser.bmr * findeduser.high_protiensRatio / 400;
-                targets["fTarget"] = findeduser.bmr * findeduser.high_fatsRatio / 900;
-                targets["cTarget"] = findeduser.bmr * findeduser.high_carbsRatio / 400;
+                targets["pTarget"] = (findeduser.bmr * findeduser.high_protiensRatio / 400).toFixed(2);
+                targets["fTarget"] = (findeduser.bmr * findeduser.high_fatsRatio / 900).toFixed(2);
+                targets["cTarget"] = (findeduser.bmr * findeduser.high_carbsRatio / 400).toFixed(2);
             }
             findeduser.macroNutrientInfo.forEach(function (info) {
                 // console.log(info)
@@ -121,7 +121,10 @@ router.get("/targets", middleware.isLoggedIn, async (req, res) => {
                    totals["totalCaloriesBurned"] = info.totalCaloriesBurned;
                 }
 
-            })
+             })
+            if (Object.keys(totals).length == 0) {
+                totals["totalCaloriesBurned"] = 0;
+            }
             res.render("exercise/exerciseTargets", {
                 totals: totals,
                 bmr: bmr,

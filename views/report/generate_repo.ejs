@@ -1,18 +1,19 @@
-<p id="date-absence-r">
-  No record is added for this date !!
-</p>
-<div class="row">
+    <div class="alert py-2 w-50" style="background-color: rgba(227, 125, 95,.2);" role="alert"  id="date-absence-r">
+      No records are found in this range !!
+    </div>
+ 
+<div class="row mt-5">
 
-    <canvas id="report1" width="200" height="200" class="mx-auto"></canvas>
-    <canvas id="report2" width="200" height="200" class="mx-auto"></canvas>
-    <canvas id="report3" width="300" height="100" class="mx-auto"></canvas>
+    <canvas id="report1" width="400" height="200" class="mx-auto"></canvas>
+    <canvas id="report2" width="400" height="200" class="mx-auto"></canvas>
+    <!-- <canvas id="report3" width="300" height="150" class="mx-auto"></canvas>  -->
 <!-- <div class="row col-12 mt-2">
   <div class="col-6 ">Calories Consumed</div>
   <div class="col-6">Calories Burned</div>
 </div> -->
-     <div class="goal col-12 mt-5 p-0 mw-75" >
-         
+    <div  class=" py-2 border rounded goal col-8 mt-5 p-4 "  >
     </div>
+
       <div class="modal fade" id="suggestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -35,7 +36,12 @@
   
 </div>
 <script>
- 
+    avg=0;
+    efficiency=0;
+    sum=0;
+    sum2=0;
+    efficiency2=0;
+    avg2=0;
   <% let fromIndex=0;%>
   <% let toIndex=0; %>
           
@@ -48,7 +54,7 @@
 		length = <%-calorieinfo.macroNutrientInfo.length%>;
 var ctx = document.getElementById("report1").getContext("2d");
 var ctx2 = document.getElementById("report2").getContext("2d");
- var ctx3 = document.getElementById("report3").getContext('2d');
+//  var ctx3 = document.getElementById("report3").getContext('2d');
 
             function getSuggestions(calories){
                //alert(calories)
@@ -100,7 +106,7 @@ function setData(goal,con,bur,bmr){
                            let remain=(bmr+500-bur).toFixed(2) ;
                            let goal_stmt;
                            if(remain>0){
-                           goal_stmt= bur+" KCal are burned, "+remain+" KCal are more to down. <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#suggestionModal'onclick='getSuggestions("+remain+")'>Suggestions</button> ";
+                           goal_stmt= bur+" KCal are burned, "+remain+" KCal are more to down. <button type='button' class='btn' data-toggle='modal'style='background-color: rgba(227, 125, 95);color:white' data-target='#suggestionModal'onclick='getSuggestions("+remain+")'>Suggestions</button> ";
                            }
                             else if(Math.abs(remain)>100 && remain<0 ){
                              goal_stmt="You have gone too far. This may lead to weakness. For a healthy weight loss stick to target."
@@ -279,6 +285,7 @@ function setData(goal,con,bur,bmr){
             else{
               $("#date-absence-r").show();
             }
+            getEfficiency(data3.length)
     	}
 
 else{
@@ -305,9 +312,15 @@ else{
                         sum2+=<%-info.totalCaloriesBurned%>;
                      }
                     }
+                    else if(!(<%-calorieinfo.macroNutrientInfo.length%>-1)){
+                       $("#date-absence-r").show();
+                    }
                     
     <%})%>
-    avg=sum/(<%-calorieinfo.macroNutrientInfo.length%>);
+     getEfficiency(<%-calorieinfo.macroNutrientInfo.length%>)
+    }
+     function getEfficiency(length){
+    avg=sum/length;
     if(<%-JSON.stringify(calorieinfo.goal)%>=="wLoss"){
        efficiency=avg/500;
        $("#efficiency").html(efficiency)
@@ -317,17 +330,15 @@ else{
        $("#efficiency").html(efficiency)
     }
      else if(<%-JSON.stringify(calorieinfo.goal)%>=="wMaintain"){
-       avg2=sum2/(<%-calorieinfo.macroNutrientInfo.length%>);
+       avg2=sum2/length;
        efficiency=avg/<%-calorieinfo.bmr%>;
        efficiency2=avg2/<%-calorieinfo.bmr%>;
        $("#efficiency").html(efficiency)
     }
-    if( !<%-calorieinfo.macroNutrientInfo.length-1%>){
-       $("#date-absence-r").show();
-    }
-   
-    }
+  
+  }
 if(data.length){
+$("#efficiency").hide();
  var myChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
@@ -336,24 +347,22 @@ if(data.length){
       label: 'calories',
       data: data,
       backgroundColor: [
-        'rgba(20, 167, 108, .5)',
-        'rgba(255, 101, 47, .5)',
-        'rgba(241, 60, 32)'
+       "rgba(231, 113, 125, 1)",//consumed
+        'rgba(194, 202, 208, 1)',
+        'rgba(194, 185, 176, 1)'//SURPLUS
         
         
       ],
-      // borderColor: [
-      //   'rgba(255, 101, 47, 1)',
-      //   'rgba(20, 167, 108, 1))'
-      // ],
+      
+     
       borderWidth: 1
     }]
   },
   options: {
    	 elements: {
       center: {
-        text:Math.round(text*100)+"%" ,
-        color: '#FF6384' // Default is #000000
+        text:Math.round(text*100)+"%" 
+                // Default is #000000
         // fontStyle: 'Arial', // Default is Arial
         // sidePadding: 20, // Default is 20 (as a percentage)
         // minFontSize: 25, // Default is 20 (in px), set to false and text will not wrap.
@@ -361,11 +370,12 @@ if(data.length){
       }
     },
     responsive: false,
-    // maintainAspectRatio: true
+    maintainAspectRatio: true
   }
 });
 }
 if(data2.length){
+  $("#efficiency").hide();
      var myChart2 = new Chart(ctx2, {
   type: 'doughnut',
   data: {
@@ -374,26 +384,23 @@ if(data2.length){
       label: 'calories',
       data: data2,
       backgroundColor: [
-        'rgba(20, 167, 108, .5)',
-        'rgba(255, 101, 47, .5)',
-        'rgba(241, 60, 32)'
+       "rgba(231, 113, 125, 1)",//BURNED
+        'rgba(194, 202, 208, 1)',
+        'rgba(194, 185, 176, 1)'//DEFICIT
    
         
        ],
-      // borderColor: [
-      //   'rgba(255, 101, 47, 1)',
-      //   'rgba(20, 167, 108, 1))'
-      // ]
       
       borderWidth: 1
     }]
   },
   options: {
    	//cutoutPercentage: 40,
+       percentageInnerCutout:80,
      elements: {
       center: {
-        text:Math.round(text2*100)+"%" ,
-        color: '#FF6384' // Default is #000000
+        text:Math.round(text2*100)+"%"
+        // color: '#FF6384' // Default is #000000
         // fontStyle: 'Arial', // Default is Arial
         // sidePadding: 20, // Default is 20 (as a percentage)
         // minFontSize: 25, // Default is 20 (in px), set to false and text will not wrap.
@@ -401,39 +408,67 @@ if(data2.length){
       }
     },
     responsive: false,
-    // maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
+    maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
     
 
   }
 });
 }
+
 if (data3.length){
- var myChart = new Chart(ctx3, {
-    type: 'line',
-    data: {
-        labels: dates,
-        datasets: [{
-            label: 'Series 1', // Name the series
+  $("#efficiency").show();
+    if(<%-JSON.stringify(calorieinfo.goal)%>=="wMaintain"){
+      $("#efficiency-text").html("Efficiency for calories consumed and calories burned")
+     dataset=[{
+            label: 'Calories Consumed', 
             data:data3,
             fill: false,
-            borderColor: '#2196f3', // Add custom color border (Line)
-            backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+            borderColor: "#FF652F", // Add custom color border (Line)
+            backgroundColor: "#FF652F", // Add custom color background (Points and Fill)
             borderWidth: 1 // Specify bar border width
         }, 
-           { label: 'Series 2', // Name the series
+           { label: 'Calories burned',
             data:data4,
             fill: false,
             borderColor: '#2196f3', // Add custom color border (Line)
             backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
             borderWidth: 1 // Specify bar border width
     }]
+    }else if(<%-JSON.stringify(calorieinfo.goal)%>=="wLoss"){
+       $("#efficiency-text").html("Efficiency for calorie-deficit")
+         dataset=[ 
+           { label: 'Calorie Deficit',
+            data:data3,
+            fill: false,
+            borderColor: '#FF652F', // Add custom color border (Line)
+            backgroundColor: '#FF652F', // Add custom color background (Points and Fill)
+            borderWidth: 1 // Specify bar border width
+    }]    
+    }
+    else if(<%-JSON.stringify(calorieinfo.goal)%>=="wGain"){
+       $("#efficiency-text").html("Efficiency for calorie-surplus")
+      [{
+            label: 'Calories Surplus', 
+            data:data3,
+            fill: false,
+            borderColor: "#FF652F", // Add custom color border (Line)
+            backgroundColor: "#FF652F", // Add custom color background (Points and Fill)
+            borderWidth: 1 // Specify bar border width
+        }]
+    }
+ var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: dates,
+        datasets: dataset
     },
     options: {
-      // responsive: false ,// Instruct chart js to respond nicely.
+       responsive: true ,// Instruct chart js to respond nicely.
        maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
     }
 });
-}//text center pluggin
+}
+//text center pluggin
    
 Chart.pluginService.register({
       beforeDraw: function(chart) {

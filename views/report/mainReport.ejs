@@ -3,40 +3,45 @@
     <link rel="stylesheet" href="/stylesheets/mainreport.css"/>
 
 <div class="container mt-5">
-<div class="alert alert-primary" role="alert" id="no-record-r">
-  No records added <a href="/addMeal" >Add Meal</a> <a href="/addExercise" >Add Exercise</a> 
-</div>
-<div class="row">
-    <div class="col-9 row">
-            <div id="report-header" class="col-12">
-               <div id="range-div-r">
-            <span style='font-size:1.5rem'>Report # </span>  <select id="range-select-r"  class="form-contro" name="rangeReport"  placeholder="0">
-                <option value="today">Today</option>
-                <option value="allDate">All dates</option>
-               <option value="yesterday">Yesterday</option>
-                <option data-toggle="modal" data-target="#exampleModal" id="custom-report" value="custom">Custom duration</option>
-              </select>
-        </div>
-        <div id="custom-range-r">
-           <button id="range-btn-r" class="btn mt-2" style="background-color: rgba(227, 125, 95, .8);color:white">Get range</button>
-        </div>
-            </div>
-            <div class="col-12 my-5" id="show-report"></div>
+    <div class="alert py-2 w-50" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="no-record-r">
+     No records added <a href="/addMeal" >Add Meal</a> <a href="/addExercise" >Add Exercise</a> 
     </div>
-  <div class="col-3">
-     
+<!-- <div class="alert alert-primary" role="alert" id="no-record-r">
+  No records added <a href="/addMeal" >Add Meal</a> <a href="/addExercise" >Add Exercise</a> 
+</div> -->
+    <div class="row">
+        <div class="col-12 row">
+                <div id="report-header" class="row col-12">
+                    <div id="range-div-r" class="col-6 row">
+                      <div style='font-size:1.5rem' class="col-3">Report # </div>
+                      <select id="range-select-r"  class="form-control col-6" name="rangeReport"  placeholder="0">
+                        <option value="today">Today</option>
+                        <option value="yesterday">Yesterday</option>
+                        <option value="allDate">All dates</option>
+                         <option data-toggle="modal" data-target="#exampleModal" id="custom-report" value="custom">Custom duration</option>
+                      </select>
+                    </div>
+                  <div id="custom-range-r" class="col-6">
+                    <button id="range-btn-r" class="btn" style="background-color: rgba(227, 125, 95);color:white">Get range</button>
+                  </div>
+                </div>
+                
+        </div>
+        <div class="col-9 my-5" id="show-report"></div>
+      <div class="col-3 mt-5">
+          <div class="col-12 mt-5" id="efficiency-text"></div> 
+          <div id="efficiency" class="col-12">  </div>
+      </div> 
 
-  </div>
 
-
-        
-</div>
+            
+    </div>
    
     <div class="modal fade" id="from-to-r" tabindex="-1" role="dialog" aria-labelledby="from-to-r" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Choose any particular range </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -123,12 +128,12 @@
                   let value_now;
                   let p_bar;
                   let remain;
-                  let avg=0;
+                  let avg;
                   let efficiency;
-                  let sum=0;
-                  let sum2=0;
+                  let sum;
+                  let sum2;
                   let efficiency2;
-                  let avg2=0;
+                  let avg2;
       
         let selected="today";
         let from="";
@@ -227,7 +232,7 @@
     //         $("#report-header").html("<span style='font-size:1.5rem'>Report # </span>"+selected);
     //  }
      if(<%-findeduser.macroNutrientInfo.length%>){
-         $("#show-graph").html("<img id='gif' src='images/load.gif'>")
+         $("#show-report").html("<div class='d-flex justify-content-center align-items-center'> <img id='gif' src='images/spinner.gif' width='7%'height='7%'> </div>")
          $.ajax({
                     type: "GET", 
                     url: "/generateReport",

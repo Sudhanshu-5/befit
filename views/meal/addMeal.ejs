@@ -23,7 +23,7 @@
             <div class="col-6">
                 <form class="form-group" id="desc" action="/addMeal" method="POST">
                     <textarea id="ta"type="text" name="query" placeholder="EG: 1 cup dal , 2 chapatis and 1 cup rice" class="form-control" required></textarea>
-                    <select id="label"class="form-control" name="labelDescription" required>
+                    <select id="label"class="form-control mt-2" name="labelDescription" required>
                     <option value="" disabled selected hidden>Choose a meal time</option>
                     <option value="Breakfast">Breakfast</option>
                     <option value="Lunch">Lunch</option>
@@ -32,30 +32,28 @@
                     </select>
                     <!-- <div id="fromCustomFoods"> -->
                          <!-- <button type="button" id="get-custom-foods" class="btn btn-secondary form-control" >get list</button> -->
-                    <div id="selectedFood-div" >
+                    <div id="selectedFood-div" class="mt-1">
                              
                     </div>
-                     <div class="text-center">
-                        <button type="submit" class="btn btn-dark" id="submit-button" >Add</button>
+                     <div class="mt-3 ">
+                        <button type="submit" class="btn" style="background-color: rgba(227, 125, 95);color:white" id="submit-button" >Add</button>
                     </div>
                 </form>
             </div>
             <div class="col-6 d-flex flex-column align-items-center"id="food-list">
-                
-                <div id="user-food-list"class="d-flex flex-column align-items-center"> 
-                 <div class="flex-fill">Add from kitchen</div>
+                <div id="user-food-list" class="d-flex flex-column align-items-center w-50 border px-2">
+                 <h4>Add from kitchen</h4>
                     <%findedUser.userfood.forEach(function(food){%>
                     <div>
-                    <ul>
-                     <li class="food-name" id="<%=food.food_name.replace(/\s+/g, "")%>">
-                        <%=food.food_name%>
-                     </li>
-                    </ul>
+                        
+                            <li class="food-name pt-2" id="<%=food.food_name.replace(/\s+/g, "")%>">
+                                <%=food.food_name%>
+                            </li>
+                      
                     </div>
                     <%})%>
                  </div>
-                 
-            </div>
+           </div>
         </div>    
 </div>
 <!-- submit once -->
@@ -243,7 +241,12 @@ $("#selectedFood-div").on('click','#remove',function(){
                                                if (!ui.content.length) {
                                                 var noResult = { value:"",label:"No results found--- Add food to kitchen" };
                                                 ui.content.push(noResult);
+
                                                 $(".user-food .btn").addClass("add-pulse");
+                                            
+                                                setTimeout(function(){
+                                                  $(".user-food .btn").removeClass("add-pulse")
+                                                },5000);
                                                 $(".user-food .btn").on('click',function(){
                                                     $(".user-food .btn").removeClass("add-pulse")
                                                 })

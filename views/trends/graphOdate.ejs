@@ -1,6 +1,6 @@
 
  <div class="alert py-2 w-50" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="graphOdate-absence">
-       No record is added for this date !!
+       No record are added !!
     </div>
 
 <div class="conatiner">
@@ -44,11 +44,40 @@ var data = {
     data:dataset
   }]
 };
+unit={
+
+  weight:"Kg",
+  height:"cms",
+  neck:"cms",
+  waist:"cms",
+  hip:"cms",
+  bodyfat:"%",
+ 
+}
+console.log(unit["weight"]+"asssssssssssssssssssssssss"+$("#type-graph-div option:selected").val())
+
 var myBarChart = new Chart(ctx_weight, {
   type: 'line',
   data: data,
   options: {
     maintainAspectRatio: false,
+       scales: {
+       xAxes: [{
+         	scaleLabel: {
+					display: true,
+					labelString: 'Dates'
+				}
+        }],
+      yAxes: [{
+          	scaleLabel: {
+					display: true,
+					labelString: $("#type-graph-div option:selected").val()+"  in  "+unit[$("#type-graph-div option:selected").val()]
+				},
+        ticks: {
+          min: 0
+        }
+      }]
+    }
    }
 });
 </script>

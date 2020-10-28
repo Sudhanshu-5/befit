@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var maletheuser = require("../models/maleUser");
+var ondate = require("../models/onDate");
 var femaleuser = require("../models/femaleUser");
 var middleware = require("../middleware");
 var userType;
@@ -66,7 +67,7 @@ router.post("/bmr", middleware.isLoggedIn, async (req, res) => {
         activityFactor: req.body.factor
     }
     try {
-        info = userType.findOneAndUpdate({
+        info = await userType.findOneAndUpdate({
             username: req.user.username
         }, data, {
             upsert: true,
@@ -76,13 +77,14 @@ router.post("/bmr", middleware.isLoggedIn, async (req, res) => {
         console.log(er)
     }
     try {
-        let updatedOnDate = await onDate.findOneAndUpdate({
+        let updatedOnDate = await ondate.findOneAndUpdate({
             date: dateNow.toLocaleDateString(),
             username: req.user.username
-        }, req.body.data, {
+        }, data, {
             upsert: true,
             new: true
         });
+        console.log(updatedOnDate)
     } catch (err) {
         console.log(err)
     }

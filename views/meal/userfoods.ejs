@@ -3,7 +3,7 @@
 
 
 <div class="container row">
-  <div class="col-9 mt-2">
+  <div class="col-9 mt-5">
     <div id="add">
     <h4 class="mb-4 ">Add custom foods and recipies to kitchen </h4>
     <form  action="/customFoods" method="POST">
@@ -87,8 +87,8 @@
     </form>
   </div>
 </div>
-  <div class="col-3 border mt-3 " id="kitchen-list">
-    <h4 class="text-center "> Kitchen </h4>
+  <div class="col-3 border mt-5 " id="kitchen-list">
+    <h4 class="text-center ">Custom foods</h4>
           <%myfoods.userfood.forEach(function(food){%>
         <div class="food-name text-center ">
             <%=food.food_name%>

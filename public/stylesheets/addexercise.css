@@ -10,7 +10,7 @@
     height: 20vh;
 }
 
-#selectedExercise-div {}
+
 
 #selectedExercise-div li {
     list-style: none;
@@ -30,34 +30,45 @@
     width: 35%;
 }
 
-#body-info {
-    font-size: .8rem;
+/* #body-info {
+    /* font-size: .8rem; 
     width: 60%;
-}
+/* } */
 
-#body-info p {
+/* #body-info p {
     font-size: 1.5rem;
     margin-bottom: .1rem;
     margin-top: .1rem;
 
-}
+} */
 
 #body-info input {
-    width: 8%;
-    display: inline;
+   
     border: none;
     outline: none;
     background: transparent;
-    font-size: .8;
+    /* font-size: .8rem; */
 }
-
+#selectedExercise-div input{
+     /* border: none;
+     outline: none; */
+     background: transparent;
+}
+#exercise-list{
+    overflow: auto;
+    height:50vh;
+    
+        background-clip: content-box;
+        background-color: rgba(227, 125, 95, .2);
+  
+}
 #exercise-list p {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: lighter;
     text-align: center
 }
 
-#exercise-list ul {
+#exercise-list  {
     list-style: none;
     text-align: center;
 }

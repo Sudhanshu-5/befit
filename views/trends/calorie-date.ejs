@@ -3,12 +3,12 @@
 
 <div class="container">
     <div class="alert py-2 w-50" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="date-absence">
-      No records are added for this date !!
+      No records are added !!
     </div>
      <div class="alert py-2 w-50" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="range-absence">
       No records are found in this range !!
     </div>
-    <canvas id="calorieChart" width="300" height="300"></canvas>
+    <canvas id="calorieChart" width="300" height="150"></canvas>
 </div>
 
 <script>
@@ -101,12 +101,15 @@ var ctx = document.getElementById("calorieChart").getContext("2d");
           console.log("win"+new Date(this_date));
           dates.push(<%-JSON.stringify((new Date(calorieinfo.macroNutrientInfo[i]["createdAt"]).toLocaleDateString()))%>);
                 if(<%-JSON.stringify(type)%>=="calories"){
+                  console.log("chutiye")
                     consumedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesConsumed"])%>);
                     burnedArray.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i]["totalCaloriesBurned"])%>)
                     }
                     else{
-                        macro.push(<%-JSON.stringify(info)%>[type])
+                      console.log("halat")
+                       macro.push(<%-JSON.stringify(calorieinfo.macroNutrientInfo[i])%>[type])
                     }
+                    console.log(macro)
         }
         <%}%>
          if(!dates.length){
@@ -122,13 +125,14 @@ else{
 			        dates.push('<%-(new Date(info.createdAt)).toLocaleDateString()%>');
 		        	
                  if(<%-JSON.stringify(type)%>=="calories"){
+                   
                      consumedArray.push('<%-info.totalCaloriesConsumed%>');
                       burnedArray.push('<%-info.totalCaloriesBurned%>');
                     }
                     else{
                         macro.push(<%-JSON.stringify(info)%>[type])
                     }
-              
+               console.log(macro)
                  
 		<%})%>
     }
@@ -149,7 +153,8 @@ var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: data,
   options: {
-    maintainAspectRatio: false,
+    responsive:true,
+    maintainAspectRatio: true,
     scales: {
        xAxes: [{
          	scaleLabel: {
@@ -186,8 +191,25 @@ var myBarChart = new Chart(ctx, {
         }]
     },
     options: {
-      // responsive: false ,// Instruct chart js to respond nicely.
-        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+      responsive: true,// Instruct chart js to respond nicely.
+        maintainAspectRatio:true, // Add to prevent default behaviour of full-width/height 
+          scales: {
+       xAxes: [{
+         	scaleLabel: {
+					display: true,
+					labelString: 'Dates'
+				}
+        }],
+      yAxes: [{
+          	scaleLabel: {
+					display: true,
+					labelString: <%-JSON.stringify(type_obj)%>[type]+" in grams"
+				},
+        ticks: {
+          min: 0
+        }
+      }]
+    }
     }
 });
 }

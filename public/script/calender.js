@@ -99,7 +99,7 @@ function getCalendar(k) {
         if ((new Date(Date.now()).getMonth()) !== date.getMonth()) {
             // selected = lastDateCurrentMonth;
             date2.setMonth (date.getMonth());
-             alert(date2.getMonth())
+           //  alert(date2.getMonth())
           extractWithDate(date2.getMonth(),30, date2.getFullYear(), k);
         }
         //next dates
@@ -119,8 +119,10 @@ function getCalendar(k) {
             if (document.querySelector(".my-class"+k)) {
                 document.querySelector(".my-class"+k).classList.remove("my-class"+k)
             }
+            if(elem)
+                elem.classList.add("my-class" + k)
             
-           elem.classList.add("my-class"+k)
+            
             extractWithDate(mm, i, yy, k);
         };
 

@@ -1,14 +1,14 @@
 <%- include ("./header") %>
-		  
+<!-- <link rel="stylesheet" href="/stylesheets/exercise-header.css"/>		   -->
 <nav class="navbar child-nav navbar-expand">
     <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar10">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-exercise">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse collapse" id="navbar10">
-            <ul class="navbar-nav nav-tabs nav-fill w-100">
+        <div class="navbar-collapse collapse" id="navbar-exercise">
+            <ul class="navbar-nav nav-tabs nav-fill w-50 mx-auto">
                 <li class="nav-item">
-                  <a class="tab nav-link"  id="meal"   href= "/addExercise">Add Exercise</a>
+                  <a class="tab nav-link"  id="exercise"   href= "/addExercise">Add Exercise</a>
                 </li>
                 <li class="nav-item">
                     <a class="tab nav-link" id="exercise-diary" href= "/exerciseDiary">Exercise Diary</a>
@@ -16,9 +16,9 @@
                 <li class="nav-item">
                     <a class="tab nav-link" id="gym" href="/customExercise" >Custom Exercise</a>   
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                      <a class="tab nav-link" id="instant-exercise" href="/addExercise">Insert search</a>
-                </li>
+                </li> -->
                
             </ul>
         </div>
@@ -54,5 +54,15 @@
 .fadeOut(function() {
    $(this).remove() 
 });
+ var setDefaultActive3 = function() {
+    var path3 = window.location.pathname;
+
+    var element3 = $("#navbar-exercise a[href='" + path3 + "']");
+    console.log("eee"+element3);
+    element3.addClass("active-exercise");
+ }
+ setDefaultActive3();
+ $(".activenav").removeClass("activenav");
+ $("#h-exercise").addClass("activenav");
         
   </script> 

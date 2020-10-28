@@ -2,19 +2,19 @@
 		  
 <nav class="navbar child-nav navbar-expand">
     <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar10">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-profile">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse collapse" id="navbar10">
-            <ul class="navbar-nav nav-tabs nav-fill w-100">
+        <div class="navbar-collapse collapse" id="navbar-profile">
+            <ul class="navbar-nav nav-tabs nav-fill w-50 mx-auto">
                 <li class="nav-item">
-                  <a class="nav-link lower"  id="meal"   href= "/viewProfile">Profilel</a>
+                  <a class="tab nav-link"   id="view"   href= "/viewProfile">Profilel</a>
                 </li>
                 <li class="nav-item">
-                    <a class=" nav-link lower"   id="exercise" href= "/editProfile">Edit Profile</a>
+                    <a class="tab nav-link"    id="edit" href= "/editProfile">Edit Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class=" nav-link lower"  id="trends" href="/editRatios" >Edit Ratios</a>
+                    <a class="tab nav-link"   id="ratio" href="/editRatios" >Edit Ratios</a>
                 </li>
                 
                
@@ -22,11 +22,18 @@
         </div>
     </div>
 </nav>
-     <script type="text/javascript">
-	$(function(){
-		$('.lower a').filter(function(){return this.href==location.href}).parent().addClass('active').siblings().removeClass('active')
-		$('.lower a').click(function(){
-			$(this).parent().addClass('active').siblings().removeClass('active')	
-		})
-	})
+     <script>
+
+
+	 var setDefaultActive4 = function() {
+    var path4 = window.location.pathname;
+
+    var element4 = $("#navbar-profile a[href='" + path4 + "']");
+    console.log("eee"+element4);
+    element4.addClass("active-profile");
+ }
+ setDefaultActive4();
+ $(".activenav").removeClass("activenav");
+ $("#h-profile").addClass("activenav");
+        
 	</script>

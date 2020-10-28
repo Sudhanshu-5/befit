@@ -1,52 +1,65 @@
 <%- include ("../partials/exerciseHeader") %>
 <link rel="stylesheet" href="/stylesheets/userExercise.css"/>
 
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-8">
+      <div id="add">
+      <h3 class="pl-3 pb-4">Fill  with your own custom exercise </h3>
+      <div class="col-1"></div>
+      <div class="col-10">
+      <form action="/customExercise" method="POST">
 
-<div class="row">
-  <div class="col-6">
-    <div id="add">
-    <h3>Fill  with your own custom exercise </h3>
-    <form action="/customExercise" method="POST">
-        <div>
-           <label>Exercise Name:
-           <input type="text"  name="info[exercise_name]" id="exercise_name" required >
-           </label>
-        </div>
+          <div class="form-group row">
+            <label for="exercise_name" class="col-sm-4 col-form-label">Exercise Name</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="exercise_name" required>
+            </div>
+          </div>
 
-        <div>
-          <label>Calories burned:
-          <input type="number" name="info[burnedcalories]"  id="calories"step="0.1"required  >
-          </label>
-        </div>
+          <div class="form-group row">
+            <label for="calories" class="col-sm-4 col-form-label">Calories burned</label>
+            <div class="col-sm-8">
+              <input type="number" class="form-control" id="calories" placeholder="Kcal"required>
+            </div>
+          </div>
         
-        <div>
-          <label>MET:
-               <input type="number" id="met" name="info[met]" step="0.01" required  >
-          </label>
-        </div>
+          <div class="form-group row">
+            <label for="met" class="col-sm-4 col-form-label">MET</label>
+            <div class="col-sm-8">
+              <input type="number" class="form-control" id="met" required>
+            </div>
+          </div>
+          
+          <div class="form-group row">
+            <label for="duration" class="col-sm-4 col-form-label">Duration</label>
+            <div class="col-sm-8">
+              <input type="number" class="form-control" id="duration" placeholder="min" required>
+            </div>
+          </div>
 
-        <div>
-          <label>Duration:
-               <input type="number" id="duration" placeholder="minutes" name="info[duration]" step="1" required >
-          </label>
-        </div>
+          <button type="submit" class="btn"style="background-color: rgba(227, 125, 95);color:white">Add</button>
 
-        <button type="submit" class="btn btn-primary">Add</button>
-
-    </form>
+      </div>
+      <div class="col-1"></div>
+    </div>
   </div>
-</div>
-  <div class="col-6">
+  <div class="col-1"></div>
+    <div class="col-3 border px-2" style="height: 50vh;overflow: auto; background-clip: content-box;background-color: rgba(227, 125, 95,.2);">
+    
+        <p class="text-center " style="font-size:1.4rem"> Added custom exercises</p>
+       
           <%myexercise.userexercise.forEach(function(exercise){%>
-     <ul>
-        <li class="exercise-name">
-            <%=exercise.exercise_name%>
-        </li>
-     </ul>
-    <%})%>
+  
+          <li class="d-flex justify-content-center align-items-center exercise-name py-1">
+              <%=exercise.exercise_name%>
+          </li>
+      
+      <%})%>
+
+    </div>
   </div>
 </div>
-
  
  <%- include ("../partials/footer") %>
  

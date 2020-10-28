@@ -4,17 +4,19 @@
      <link rel="stylesheet" href="/stylesheets/nutritionalFacts.css">
 <div class="container">                              
   <div id="instant-search">
-      <input id="search" type="text" class="form-control d-inline p-0" placeholder="search from database" required>
-      <button type="button" class="btn" id="instant-search-btn">Submit</button>
-        <div id="cb-toggle" class="btn-group btn-group-toggle d-flex justify-content-around" data-toggle="buttons">
+      <input id="search" type="text" class="p-2 form-control d-inline p-0" placeholder="search from database" required>
+      <button type="button" class="btn border" style="background-color: rgba(227, 125, 95);color:white"  id="instant-search-btn">Submit</button>
+        <div id="cb-toggle" class="btn-group btn-group-toggle ml-2" data-toggle="buttons">
+                                       
+                                                  <label class="btn border btn-light">
+                                                      <input type="radio" class="form-control"  name="choice" value="common" id="common-instant" checked> Common
+                                                  </label>
                                               
-                                                  <label class="btn btn-light ">
-                                                      <input type="radio" class="form-control" name="choice" value="common" id="common-instant" checked> Common
+                             
+                                                  <label class="btn ml-1 border btn-light">
+                                                      <input type="radio"class="form-control"  name="choice"value="branded" id="branded-instant"> Branded
                                                   </label>
-
-                                                  <label class="btn btn-light ">
-                                                      <input type="radio"class="form-control" name="choice"value="branded" id="branded-instant"> Branded
-                                                  </label>
+                                        
         </div>
   </div>
     <div id="results">
@@ -88,7 +90,7 @@
        
       let item=$("#search").val();
       //alert(item)
-      $("#facts").html("<img id='gif' src='images/load.gif'>")
+      $("#facts").html("<img id='gif' src='images/spinner.gif' width='5%' height='5%' >")
       $.ajax({
                 url: "/searchNutrients",
                 type: "post",

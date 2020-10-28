@@ -1,24 +1,24 @@
 <%- include ("./header") %>
-		  <link rel="stylesheet" href="/stylesheets/meal-header.css"/>
+		  <!-- <link rel="stylesheet" href="/stylesheets/meal-header.css"/> -->
 
 <nav class="navbar child-nav navbar-expand">
     <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar11">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-meal">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse collapse" id="navbar11">
-            <ul class="navbar-nav nav-tabs nav-fill w-100">
+        <div class="navbar-collapse collapse" id="navbar-meal">
+            <ul class="navbar-nav nav-tabs nav-fill w-50 mx-auto">
                 <li class="nav-item">
-                  <a class="nav-link lower"  id="meal"   href= "/addmeal">Add Meal</a>
+                  <a class="tab nav-link "  id="meal"   href= "/addMeal">Add Meal</a>
                 </li>
                 <li class="nav-item">
-                    <a class=" nav-link lower"   id="diary" href= "/diary">Meal Diary</a>
+                    <a class="tab nav-link"   id="diary" href= "/diary">Meal Diary</a>
                 </li>
                 <li class="nav-item">
-                    <a class=" nav-link lower"  id="kitchen" href="/customFoods" >Custom foods</a>
+                    <a class="tab nav-link"  id="kitchen" href="/customFoods" >Custom foods</a>
                 </li>
                 <li class="nav-item">
-                     <a class=" nav-link lower" id="instant-search-tab" href="/searchInstant">Insert search for food</a>
+                     <a class="tab nav-link " id="instant-search-tab" href="/searchInstant">Insert search for food</a>
                 </li>
                
             </ul>
@@ -56,11 +56,17 @@
    $(this).remove() 
 });
       
-	 var setDefaultActive = function() {
-    var path = window.location.pathname;
+	 var setDefaultActive2 = function() {
+    var path2 = window.location.pathname;
 
-    var element = $("#navbar11 a[href='" + path + "']");
+    var element2 = $("#navbar-meal a[href='" + path2 + "']");
+    console.log("sss"+path2);
 
-    element.addClass("active2");
-}
+    element2.addClass("active-meal");
+     }
+setDefaultActive2();
+ $(".activenav").removeClass("activenav");
+  $("#h-meal").addClass("activenav");
+
+
 	</script>

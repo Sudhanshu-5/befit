@@ -14,8 +14,9 @@ input::-webkit-inner-spin-button {
     }
 
 }
-
-
+body{
+    /* font-size:1em */
+}
 .choice {
     margin: 4%;
 }
@@ -117,8 +118,11 @@ input::-webkit-inner-spin-button {
     width: 80%;
     max-width: 80%;
     box-sizing: border-box;
-    border: .1rem solid rgba(227, 125, 95, 1);
-    background-color: rgba(227, 125, 95, .2);
+
+      background-clip: content-box;
+      background-color: rgba(227, 125, 95, .2);
+  
+    height:50vh;
 }
 
 #user-food-list .flex-fill {
@@ -133,9 +137,9 @@ input::-webkit-inner-spin-button {
     text-align: center;
 }
 
-#user-food-list ul li {
+#user-food-list li {
     list-style-type: none;
-    color: rgba(227, 125, 95);
+    /* color: rgba(227, 125, 95); */
     cursor: pointer;
 
 }
@@ -262,7 +266,7 @@ input::-webkit-inner-spin-button {
 }
 
 .add-pulse {
-    animation: radial-pulse 1s infinite;
+    animation: radial-pulse 1.5s infinite;
 
 }
 
