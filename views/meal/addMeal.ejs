@@ -20,10 +20,10 @@
 <!-- description block -->
 <div class="description">
        <div class="row">
-            <div class="col-6">
+            <div class="col-sm-12 col-md-6">
                 <form class="form-group" id="desc" action="/addMeal" method="POST">
                     <textarea id="ta"type="text" name="query" placeholder="EG: 1 cup dal , 2 chapatis and 1 cup rice" class="form-control" required></textarea>
-                    <select id="label"class="form-control mt-2" name="labelDescription" required>
+                    <select id="label"class="form-control mt-2 mw-100" name="labelDescription" required>
                     <option value="" disabled selected hidden>Choose a meal time</option>
                     <option value="Breakfast">Breakfast</option>
                     <option value="Lunch">Lunch</option>
@@ -35,13 +35,13 @@
                     <div id="selectedFood-div" class="mt-1">
                              
                     </div>
-                     <div class="mt-3 ">
+                     <div class="mt-3 d-flex justify-content-center align-items-center">
                         <button type="submit" class="btn" style="background-color: rgba(227, 125, 95);color:white" id="submit-button" >Add</button>
                     </div>
                 </form>
             </div>
-            <div class="col-6 d-flex flex-column align-items-center"id="food-list">
-                <div id="user-food-list" class="d-flex flex-column align-items-center w-50 border px-2">
+            <div class="col-sm-12 col-md-6 d-flex flex-column align-items-center"id="food-list">
+                <div id="user-food-list" class="d-flex flex-column align-items-center border px-2 ">
                  <h4>Add from kitchen</h4>
                     <%findedUser.userfood.forEach(function(food){%>
                     <div>
@@ -76,11 +76,11 @@ function submitFormFunction(event) {
 </script>
 
     <!--instant block   -->
-<div class="instant container d-flex justify-content-around">
-                <div class="autocomplete">
+<div class="instant container row">
+                <div class="autocomplete col-md-8 col-sm-12 mx-auto w-100">
                              <form  class="form-group" id="autocomplete-form">
                                 
-                                    <input id="search" class="form-control"type="text" name="query" placeholder="search from database" required>
+                                    <input id="search" class="form-control" type="text" name="query" placeholder="search from database" required>
                                         <!-- <input id="message"class="form-control" type="text" name="message"> 
                                         <button id="get-food-info" button">Submit</button> -->
                                          <div id="cb-toggle" class="btn-group btn-group-toggle d-flex justify-content-around" data-toggle="buttons">
@@ -120,14 +120,17 @@ function submitFormFunction(event) {
                                  <input type="number"id="instant-select-weight"class="form-control serving" name="weight" value="100" onClick="this.select();" step="0.01"required>
                                  grams
                                  <input type="text" id="nix-item-id" name="nixItemId" visibility:hidden position:absolute>
-                                 <button id="add-instant" class="btn" >Add food</button>
+                                 <div class="col-12">
+                                     <button id="add-instant" class="btn mt-3" >Add food</button>
+                                 </div>
+                                 
                              </form>
                              <!-- jump to add to kitchen page -->
                              
                 </div>
                 
    
-<div class="user-food">
+<div class="user-food col-md-4 col-sm-12" >
                     <form id="addToCustomFoods" action="/customFoods" method="GET">
                      <button type="submit" class="btn">Add to kitchen</button>
                     </form>

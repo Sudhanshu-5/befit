@@ -25,7 +25,7 @@
   </button> -->
   <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
 
-    <ul class="navbar-nav ml-auto nav-right sm-small" >
+    <ul class="navbar-nav ml-auto nav-right" >
       <%if(!currentUser && loginLink!="/login"){%>
       
             <li class="nav-item pr-5" >
@@ -35,7 +35,7 @@
        <%}%>
         <%if(currentUser){%>
 
-           <li id="greet"class="nav-item pr-5">
+           <li id="greet"class="nav-item pr-3">
              <%if(time>=5 && time<=11){%> Good Morning'  <%=currentUser.username%><%}%>
              <%if(time>=12 && time<=15){%> Good Afternoon' <%=currentUser.username%><%}%>
              <%if(time>=16 && time<=19){%> Good Evening' <%=currentUser.username%><%}%>
@@ -52,15 +52,16 @@
   <!-- </div> -->
             
  </nav>
+ <div id="child-nav"> 
    <%if(currentUser){%>
 <nav class="navbar child-nav navbar-expand">
-    
+<!--     
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> -->
         <div class="navbar-collapse collapse" id="navbar">
           
-            <ul class="navbar-nav nav-tabs nav-fill w-50 mx-auto">
+            <ul class="navbar-nav nav-tabs nav-fill mx-auto navbar-main">
                 <li class="nav-item">
                   <a class="tab nav-link "  id="h-meal"  href="/addMeal">Meal</a>
                 </li>
@@ -98,7 +99,7 @@
                 <p id="info"class="alert alert-success  px-4 py-1"> <%=info%></p>
         <% } %>
      <% } %>
-
+        </div>
  <script>
 
  var setDefaultActive = function() {

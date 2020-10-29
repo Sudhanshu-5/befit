@@ -114,15 +114,14 @@ body{
 
 
 #user-food-list {
+    width:50%;
 
-    width: 80%;
-    max-width: 80%;
     box-sizing: border-box;
-
-      background-clip: content-box;
-      background-color: rgba(227, 125, 95, .2);
-  
+    background-clip: content-box;
+    background-color: rgba(227, 125, 95, .2);
     height:50vh;
+   
+    
 }
 
 #user-food-list .flex-fill {
@@ -149,10 +148,10 @@ body{
     max-width: 80%;
 }
 
-.autocomplete {
+/* .autocomplete {
     max-width: 40%;
     min-width: 50%;
-}
+}  */
 
 #cb-toggle {
     max-width: 80%;
@@ -230,19 +229,21 @@ body{
     border: none;
     background-color: #E27D60;
     color: #F2F9FB;
-    max-width: 100%;
+    max-width: 80%;
     text-align: center;
     font-size: 1rem;
 }
 
-#instant-form #select {
+#select {
     margin-top: 2%;
-    width: 50%;
+    min-width: 55%;
+ width:55%;
     font-size: .8rem;
 }
 
 #instant-select-measure {
-    max-width: 30%;
+    width: 30%;
+    min-width: 40%;
     padding: 0;
 
 }
@@ -253,9 +254,12 @@ body{
     font-size: .8rem;
     font-weight: bold;
 }
+#hr1{
+    max-width: 80%;
+}
 
 #add-instant {
-    float: right;
+   margin-left: 25%;
     background-color: #E27D60;
     color: #F2F9FB
 }
@@ -273,3 +277,22 @@ body{
 /* .instant div {
     margin: 0;
 } */
+   @media (max-width: 575.98px) {
+    #user-food-list {
+        width: 75%;
+    }
+   .user-food{
+       margin-top: 10%;
+       margin-left: 20%;
+   }
+   }
+
+   @media (min-width: 576px) and (max-width: 767.98px) {
+       
+   }
+
+   @media (min-width: 768px) and (max-width: 991.98px) {}
+
+   @media (min-width: 992px) and (max-width: 1199.98px) {}
+
+   @media (min-width: 1200px) {}

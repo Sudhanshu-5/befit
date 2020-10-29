@@ -1,3 +1,4 @@
+
 #contents {
     width: 100%;
 
@@ -7,7 +8,7 @@
 
 
 #meal-info {
-    padding: 0;
+    padding-left:10%;
     box-sizing: border-box;
 
 }
@@ -88,3 +89,46 @@
 
 
 }
+@media (max-width:330px){
+       #diary{
+        font-size: 10px;
+       }
+}
+@media (max-width: 575.98px) {
+     .calender {
+         margin-top: 10%;
+         width: 70%;
+         font-size: .8rem;
+     }
+     .date{
+        height: 3em;
+     }
+     #meal-info{
+         padding-left:0;
+         padding-right: 0;
+     }
+     #diary{
+         margin-top: 10%;
+         width: 100%;;
+        
+     }
+     .nutrient div{
+         width:60%; 
+     }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .calender {
+      width: 50%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+     :root {
+         font-size: 14px;
+     }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {}
+
+@media (min-width: 1200px) {}

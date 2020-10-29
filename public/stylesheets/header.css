@@ -1,5 +1,4 @@
-
-  * {
+* {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -35,7 +34,7 @@ select:focus, */
         /* font-size:calc(1rem + 1vw); */
         font-size:2rem ;
     }
-  
+    
 
     body {
         background-color: #F2F2F2;
@@ -58,7 +57,9 @@ select:focus, */
         color: #F2F9FB;
 
     }
-
+.navbar-main,.navbar-meal,.navbar-exercise,.navbar-profile {
+    width: 50%;
+}
 
 
     .child-nav a {
@@ -80,8 +81,19 @@ select:focus, */
     }
     @media (max-width: 575.98px) {
       :root{
-          font-size: 10px;
+          font-size: 12px;
       }
+       .navbar-main
+       {
+           width: 100%;
+       }
+       .navbar-meal,
+       .navbar-exercise,
+       .navbar-profile {
+           width: 75%;
+       }
+       
+
     }
     @media (min-width: 576px) and (max-width: 767.98px) {
         :root {
