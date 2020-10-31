@@ -9,7 +9,9 @@
     width: 60%;
     height: 20vh;
 }
-
+#exercise-label{
+    width:60%;
+}
 
 
 #selectedExercise-div li {

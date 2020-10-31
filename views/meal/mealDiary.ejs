@@ -367,14 +367,14 @@ function extractWithDate(mm, dd, yy) {
                      labelArray.push(<%-JSON.stringify(meals.label)%>)
                      }
             <%})%>
-            console.log("labelArray for date: "+dateSelectedFromCalender+" is"+labelArray) 
+            // console.log("labelArray for date: "+dateSelectedFromCalender+" is"+labelArray) 
             let labelFrequency={};
 
             for(key of labelArray ){
               labelFrequency[key]=(labelFrequency[key]||0)+1;
             }
 
-            console.log("labelFrequency"+JSON.stringify(labelFrequency));
+            // console.log("labelFrequency"+JSON.stringify(labelFrequency));
               if(!labelFrequency.Breakfast) {
                 document.getElementById("b-foods").innerHTML="";
                 document.getElementById("b-nutrients").innerHTML="";

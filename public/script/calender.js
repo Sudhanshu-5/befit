@@ -40,9 +40,10 @@ function getCalendar(k) {
         const mm = date.getMonth();
         const yy = date.getFullYear();
         const dd = date.getDate();
-
-        if (date === date3 || date === date2) {
-            document.getElementsByClassName("dateString")[k].innerHTML = getDateString(mm, dd, yy);
+        console.log(date.getMonth()+ (new Date).getMonth())
+        if ((date === date3 || date === date2) && date.getMonth() === (new Date).getMonth()) {
+            console.log("dagabaaaz")
+            document.getElementsByClassName("dateString")[k].innerHTML = getDateString(dd, yy);
             extractWithDate(mm, dd, yy);
         }
 
@@ -113,15 +114,16 @@ function getCalendar(k) {
         //console.log(count);
        
         window.clicker = (i, k ,elem) => {
-                
-            document.getElementsByClassName("dateString")[k].innerHTML = getDateString(date.getMonth(), i, date.getFullYear());
+            // alert(i+" "+k);
+            document.getElementsByClassName("dateString")[k].innerHTML = getDateString(i, date.getFullYear(),date.getMonth());
             //console.log("mm" + mm);
-            if (document.querySelector(".my-class"+k)) {
-                document.querySelector(".my-class"+k).classList.remove("my-class"+k)
-            }
-            if(elem)
-                elem.classList.add("my-class" + k)
-            
+            // if (document.querySelector(".my-class"+k)) {
+            //     document.querySelector(".my-class"+k).classList.remove("my-class"+k)
+            // }
+            // if(elem)
+            //     elem.classList.add("my-class" + k)
+            $(".my-class").removeClass('my-class');
+            $(".current-date"+k).eq(i-1).addClass('my-class')
             
             extractWithDate(mm, i, yy, k);
         };
@@ -132,7 +134,7 @@ function getCalendar(k) {
 
     document.getElementsByClassName("prev-month")[k].addEventListener("click", () => {
         date1.setMonth(date1.getMonth() - 1);
-        //  console.log("date" + date1);
+        
         monthChange(date1);
     });
 
@@ -152,46 +154,69 @@ function getCalendar(k) {
     });
     const yearChange = (date1) => {
         //console.log("yearwala" + date1)
-        document.getElementsByClassName("myString")[k].innerHTML = getMYString(months[date1.getMonth()], date1.getFullYear());
+        // document.getElementsByClassName("myString")[k].innerHTML = getMYString(months[date1.getMonth()], date1.getFullYear());
         getDates(date1);
     }
     const monthChange = (date1) => {
-        //console.log("monthwala" + date1)
-        document.getElementsByClassName("myString")[k].innerHTML = getMYString(months[date1.getMonth()], date1.getFullYear());
+    console.log("monthwala" + date1)
+     
+        // document.getElementsByClassName("myString")[k].innerHTML = getMYString(months[date1.getMonth()], date1.getFullYear());
         getDates(date1);
     }
     document.getElementsByClassName("prev-date")[k].addEventListener("click", () => {
-        
+        date3 = new Date();
         getDates(date3);
         if (temp) temp.classList.remove("my-class");
         var selected = date2.getDate() - 2;
 
         if (selected == -1) {
-            date1.setMonth(date1.getMonth() - 1);
-            monthChange(date1);
-            
+             const lastDateCurrentMonth = new Date(
+            date1.getFullYear(),
+            date1.getMonth()+1,
+            0
+            ).getDate();
+            date2.setDate(lastDateCurrentMonth);
+          
         }
         else {  
             var element = document.getElementsByClassName("current-date" + k)[selected];
             temp = element;
             element.classList.add("my-class");
-            document.getElementsByClassName("dateString")[k].innerHTML = getDateString(date2.getMonth(), selected + 1, date2.getFullYear());
+            document.getElementsByClassName("dateString")[k].innerHTML = getDateString(selected + 1, date2.getFullYear());
 
             date2.setDate(selected + 1);
             extractWithDate(date2.getMonth(), selected + 1, date2.getFullYear(), k);
-        }
+         }
      });
     document.getElementsByClassName("next-date")[k].addEventListener("click", () => {
-        getDates(date3);
-        if (temp) temp.classList.remove("my-class");
-        var selected = date2.getDate();
-        var element = document.getElementsByClassName("current-date" + k)[selected];
-        temp = element;
-        element.classList.add("my-class");
-        document.getElementsByClassName("dateString")[k].innerHTML = getDateString(date2.getMonth(), selected + 1, date2.getFullYear());
-        date2.setDate(selected + 1);
-        extractWithDate(date2.getMonth(), selected + 1, date2.getFullYear(), k);
+        const firstDateCurrentMonth = new Date(
+                date1.getFullYear(),
+                date1.getMonth() + 1
+        ).getDate();
+        const lastDateCurrentMonth = new Date(
+                date1.getFullYear(),
+            date1.getMonth() + 1,
+                0
+        ).getDate();
 
+        date3 = new Date();
+            getDates(date3);
+            if (temp) temp.classList.remove("my-class");
+        var selected = date2.getDate();
+        console.log(selected + " "+lastDateCurrentMonth+1)
+        if (selected == lastDateCurrentMonth) {
+           
+            date2.setDate(firstDateCurrentMonth);
+          
+        } else {
+            console.log(selected)
+            var element = document.getElementsByClassName("current-date" + k)[selected];
+            temp = element;
+            element.classList.add("my-class");
+            document.getElementsByClassName("dateString")[k].innerHTML = getDateString(selected + 1, date2.getFullYear());
+            date2.setDate(selected + 1);
+            extractWithDate(date2.getMonth(), selected + 1, date2.getFullYear(), k);
+        }
     });
 
     getDates(date3);
@@ -201,8 +226,14 @@ function getCalendar(k) {
         return dateString;
     }
 
-    function getDateString(mm, dd, yy) {
-        var dateString = months[mm] + " " + dd + " " + yy;
+    function getDateString( dd, yy, mm) {
+        console.log("thisssssssss")
+        var dateString;
+        if (mm) {
+             dateString = months[mm] + " " + dd + " " + yy;
+        }else
+            dateString = months[(new Date).getMonth()] + " " + dd + " " + yy;
+        
         return dateString;
 
     }
