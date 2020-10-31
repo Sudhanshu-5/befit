@@ -46,4 +46,5 @@
 #kitchen-list {
     background-clip: content-box;
     background-color: rgba(227, 125, 95, .2);
+    height:50vh;
 }

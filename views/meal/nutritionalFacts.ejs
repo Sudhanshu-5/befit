@@ -1,23 +1,26 @@
  <div class="row">
-   <div class="row col-9">
+   <div class="row col-md-9 col-sm-12">
         <div class="col-12 p-0">
-            <div class="row w-50 mb-1">
-                <div class="col-3" id="thumb"><img src="<%=data.photo.thumb%>" width="70%" alt=""></div>
-                <div class="col-9">
+            <div class="row w-75 mb-1 ml-3">
+                <div class="col-3 mt-1" id="thumb"><img src="<%=data.photo.thumb%>" width="70%"  alt=""></div>
+                <div class="col-9 mb-1">
                     <div id="searched-food" style="font-size:1.5rem;"><%=data.food_name%></div>
                     <div id="searched-brand"><%=data.brand_name%></div>
                 </div>
             </div>
-                &nbsp;For &nbsp;
+                
 
-                <input type="number" class="form-control w-25 d-inline" id="x-qty" value="<%=data.serving_qty%>">
-                <select id="x-measure" class="form-control w-25 d-inline"></select>
+                <div class="row">
+                  <div class=" col-2   pr-0 pl-4 pt-1 text-center">For</div>
+                  <input type="number" class="form-control  d-inline col-2  text-center pl-0" id="x-qty" value="<%=data.serving_qty%>">
+                  <select id="x-measure" class="form-control  col-6  ml-1"></select>
+                </div>
             
         </div>
 
   <div id="kaccha-chittha" class="row col-12 mt-2"> 
         
-          <div class="col-6 general-div" >
+          <div class="col-md-6 col-sm-12 general-div" >
               <div class="nutrition-head">General</div>
               <div id="general"class="row p-2 small">
 
@@ -25,14 +28,14 @@
           </div>
           
           
-            <div class="col-6 carbs-div">
+            <div class="col-md-6 col-sm-12 carbs-div">
             <div class="nutrition-head">Carbohydrate</div>
             <div id="carbs" class="row p-2 small">
               
             </div>
           </div>
 
-          <div class="col-6 fats-div">
+          <div class="col-md-6 col-sm-12 fats-div">
               <div class="nutrition-head">Fats</div>
               <div id="fats" class="row p-2 small">
                   
@@ -40,21 +43,23 @@
           </div>
         
           
-            <div class="col-6 protiens-div">
+            <div class="col-md-6 col-sm-12 protiens-div">
               <div class="nutrition-head">Protiens</div>
               <div id="protiens"class="row p-2 small">
                   
               </div>
           </div>
 
-          <div class="col-6 minerals-div">
+          <div class="col-md-6 col-sm-12 minerals-div">
                   <div class="nutrition-head">Minerals</div>
                   <div id="minerals"class="row p-2 small">
                       
                   </div>  
           </div>
 
-          <div class="col-6 vitamins-div">
+          <div class="col-md-6 col-sm-12
+          
+           vitamins-div">
               <div class="nutrition-head">Vitamins</div>
               <div id="vitamins"class="row p-2 small">
               </div>
@@ -353,7 +358,7 @@ var carbs=" ",fats=" ",general=" ",minerals=" ",protiens=" ",vitamins=" ";
   i_options_measure="<option id='first' value='' disabled selected hidden>Choose a measure</option>"; 
 
 //serving option
-
+ 
        i_options_measure+="<option class='measure'selected value="+<%-JSON.stringify(data.serving_weight_grams)%>+" >"+<%-JSON.stringify(data.serving_unit)%>+" , "+<%-JSON.stringify(data.serving_weight_grams)%>+"g</option>";
 
      

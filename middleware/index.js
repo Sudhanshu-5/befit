@@ -29,4 +29,13 @@ middlewareObj.counterLoggedIn = function (req, res, next) {
     res.redirect('/dashboard')
 }
 
+middlewareObj.isMe = function (req, res, next) {
+    if (req.user) {
+        if(req.user.isme)
+         return next();
+    }
+     req.flash("error", "You are not allowed to do that");
+    res.redirect('/dashboard')
+}
+
 module.exports = middlewareObj;

@@ -3,12 +3,12 @@
 
 
 <div class="container row">
-  <div class="col-9 mt-5">
+  <div class="col-lg-9 col-md-12 mt-5">
     <div id="add">
-    <h4 class="mb-4 ">Add custom foods and recipies to kitchen </h4>
+    <h4 class="mb-4 ">Add custom foods and recipies. </h4>
     <form  action="/customFoods" method="POST">
       <div class="row">
-       <div class="col-6">
+       <div class="col-md-6 col-sm-12">
         <div class="form-group row">
            <label for="food_name" class="col-sm-4 col-form-label">Food Name</label>
            <div class="col-sm-8">
@@ -58,7 +58,7 @@
           </div>
         </div>
       </div>
-      <div class="col-6 mt-5 pl-0 ">
+      <div class="col-md-6 col-sm-12 mt-5 pl-0 ">
         <div id="icon" class="mt-5 d-flex justify-content-between rounded mr-0 pr-0 ">
        
         <i class="fas fa-plus-circle p-1" style="cursor:pointer;" id="add-icon"></i>
@@ -81,13 +81,13 @@
         </div>
       </div>
       </div>
-      <div class="row w-50" >
-        <button type="submit"id="add-btn" class="btn mx-auto my-0 ">Add</button>
+      <div class="row w-100" >
+        <button type="submit"id="add-btn" class="btn mx-auto my-0 ">Add to custom</button>
     </div>
     </form>
   </div>
 </div>
-  <div class="col-3 border mt-5 " id="kitchen-list">
+  <div class="col-lg-3 col-md-4 col-sm-4 border mt-5" id="kitchen-list">
     <h4 class="text-center ">Custom foods</h4>
           <%myfoods.userfood.forEach(function(food){%>
         <div class="food-name text-center ">
@@ -115,19 +115,19 @@ $(document).ready(function(){
 	     .attr("id", "winput");
 
 	qInputField.after().html(
-       '<input type="number"  class="input'+i+' p-1 mt-1" name="qty[] " placeholder="qty">'
+       '<input type="number"  class="input'+i+' p-1 mt-1" name="qty[] " placeholder="qty" required>'
        );
 
     qInputField.appendTo("#qty");
 
 	mInputField.after().html(
-       '<input type="text"  class="input'+i+' p-1 mt-1"name="serving_unit[]" placeholder="cup/tbps/pieces">'
+       '<input type="text"  class="input'+i+' p-1 mt-1"name="serving_unit[]" placeholder="cup/tbps/pieces" required>'
        );
 
     mInputField.appendTo("#measure");
    
   wInputField.after().html(
-       '<input  type="number" class="input'+i+' p-1 mt-1"name="serving_weight[]" placeholder="g">'
+       '<input  type="number" class="input'+i+' p-1 mt-1"name="serving_weight[]" placeholder="g" required>'
        );
     wInputField.appendTo("#weight");
     i++;

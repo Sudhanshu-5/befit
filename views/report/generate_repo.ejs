@@ -2,32 +2,32 @@
       No records are found in this range !!
     </div>
  
-<div class="row mt-5">
-
-    <canvas id="report1" width="400" height="200" class="mx-auto"></canvas>
-    <canvas id="report2" width="400" height="200" class="mx-auto"></canvas>
+<div class="row mt-5 report">
+    
+    <canvas id="report1"></canvas>
+    <canvas id="report2" ></canvas>
+    
     <!-- <canvas id="report3" width="300" height="150" class="mx-auto"></canvas>  -->
 <!-- <div class="row col-12 mt-2">
   <div class="col-6 ">Calories Consumed</div>
   <div class="col-6">Calories Burned</div>
 </div> -->
-    <div  class=" py-2 border rounded goal col-8 mt-5 p-4 "  >
+    <div  class=" py-4 goal border col-md-8 col-12 mt-5 mx-auto ">
     </div>
-
-      <div class="modal fade" id="suggestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade mt-5" id="suggestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Suggestions..</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body" id="suggestions-result">
-                 <img src="images/spinner.gif" width="10%" height="10%" class="mx-auto">
+              <div class="modal-body mx-auto" id="suggestions-result" >
+                 <img src="images/spinner.gif" width="40%" height="40%">
               </div> 
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn" data-dismiss="modal" style="background-color: rgba(227, 125, 95);color:white"> Close</button>
               </div>
             </div>
           </div>
@@ -106,7 +106,7 @@ function setData(goal,con,bur,bmr){
                            let remain=(bmr+500-bur).toFixed(2) ;
                            let goal_stmt;
                            if(remain>0){
-                           goal_stmt= bur+" KCal are burned, "+remain+" KCal are more to down. <button type='button' class='btn' data-toggle='modal'style='background-color: rgba(227, 125, 95);color:white' data-target='#suggestionModal'onclick='getSuggestions("+remain+")'>Suggestions</button> ";
+                           goal_stmt= bur+" KCal are burned, "+remain+" KCal are more to down. <button type='button' class='btn mx-4' data-toggle='modal'style='background-color: rgba(227, 125, 95);color:white' data-target='#suggestionModal'onclick='getSuggestions("+remain+")'>Suggestions</button> ";
                            }
                             else if(Math.abs(remain)>100 && remain<0 ){
                              goal_stmt="You have gone too far. This may lead to weakness. For a healthy weight loss stick to target."
@@ -197,7 +197,8 @@ function setData(goal,con,bur,bmr){
             let today_dates  ;
             let info_date;
             let count=0;
-
+    $(".goal").show();
+    $(".efficiency-div").hide();
       <%calorieinfo.macroNutrientInfo.forEach(function(info){%>
         today_dates=today.toLocaleDateString();
         info_date=<%-JSON.stringify((new Date(info.createdAt)).toLocaleDateString())%>;
@@ -216,6 +217,8 @@ function setData(goal,con,bur,bmr){
 
 		else if(<%-JSON.stringify(selected)%> == "yesterday"){    
             let count=0;
+            $(".goal").show();
+            $(".efficiency-div").hide();
             <%calorieinfo.macroNutrientInfo.forEach(function(info){%>
                    if( yesterday.toLocaleDateString() == '<%-(new Date(info.createdAt)).toLocaleDateString()%>'){
                    setData(<%-JSON.stringify(calorieinfo.goal)%>,<%-info.totalCaloriesConsumed%>,<%-info.totalCaloriesBurned%>, <%-calorieinfo.bmr%>)
@@ -230,6 +233,8 @@ function setData(goal,con,bur,bmr){
       }
      
     else if(<%-JSON.stringify(selected)%> == "custom" && <%-JSON.stringify(from)%> && <%-JSON.stringify(to)%>){
+      $(".goal").hide();
+      $(".efficiency-div").show();
          console.log("inside custpm")
         <% for(let i=0 ; i<calorieinfo.macroNutrientInfo.length ;i++){ %>
           //  console.log("andar"+<%-fromIndex%>)
@@ -289,6 +294,8 @@ function setData(goal,con,bur,bmr){
     	}
 
 else{
+  $(".goal").hide();
+  $(".efficiency-div").show();
     <%calorieinfo.macroNutrientInfo.forEach(function(info){%>
                // console.log(<%-JSON.stringify((new Date(info.createdAt)).toLocaleDateString())%>+(new Date()).toLocaleDateString())
               if(<%-JSON.stringify((new Date(info.createdAt)).toLocaleDateString())%>!==(new Date()).toLocaleDateString()){
@@ -338,7 +345,6 @@ else{
   
   }
 if(data.length){
-$("#efficiency").hide();
  var myChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
@@ -375,7 +381,7 @@ $("#efficiency").hide();
 });
 }
 if(data2.length){
-  $("#efficiency").hide();
+
      var myChart2 = new Chart(ctx2, {
   type: 'doughnut',
   data: {
@@ -416,7 +422,6 @@ if(data2.length){
 }
 
 if (data3.length){
-  $("#efficiency").show();
     if(<%-JSON.stringify(calorieinfo.goal)%>=="wMaintain"){
       $("#efficiency-text").html("Efficiency for calories consumed and calories burned")
      dataset=[{
@@ -464,7 +469,7 @@ if (data3.length){
     },
     options: {
        responsive: true ,// Instruct chart js to respond nicely.
-       maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
+       maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
     }
 });
 }

@@ -88,13 +88,15 @@ let loginLink = "not logged";
 //!passing data to all the tempelates
 app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
-
+    
+    
 
     res.locals.loginLink = loginLink
 
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
     res.locals.info = req.flash("info");
+
     res.locals.flag = true;
     if (req.user) {
         console.log(req.user);

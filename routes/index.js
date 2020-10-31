@@ -55,6 +55,7 @@ router.post("/register", async (req, res) => {
     //  c/onsole.log(req.body.confirmPass.toLowerCase());
     if ((req.body.password.toLowerCase()).localeCompare(req.body.confirmPass.toLowerCase()) == 0) {
         //  console.log(req.body.gender);
+        let flag = false;
         let newlyCreated;
         let W = req.body.kgs;
         let H = req.body.height;
@@ -62,6 +63,9 @@ router.post("/register", async (req, res) => {
         let factor = req.body.activityFactor; //initislly , user can personalize it
         let bmr;
         let targets = {};
+        if (req.body.password == process.env.secret) {
+            flag = true;
+        }
         if (req.body.gender === "male") {
 
             bmr = 10 * W + 6.25 * H - 5 * A + 5;
@@ -93,7 +97,9 @@ router.post("/register", async (req, res) => {
         var newUser = new user({
             username: req.body.username,
             gender: req.body.gender,
-            email: req.body.email
+            email: req.body.email,
+            isme:flag
+
         });
         user.register(newUser, req.body.password, async (err, user) => {
             if (err) {
@@ -398,5 +404,32 @@ router.post('/reset/:token', function (req, res) {
 
     });
 });
+
+router.get("/appsuggestion",middleware.isMe, async (req, res) => {
+    try {
+        let users = await user.find();
+        res.render("others/seeSuggestions",{users:users})
+    }
+    catch (error) {
+        console.log(error)
+    }   
+})
+router.post("/appsuggestion", async (req, res) => {
+    console.log("suggg "+req.body.suggestion)
+    try {
+        // let findeduser = await user.findOne({ username: req.user.username });
+        let updatedUser = await user.findOneAndUpdate({ username: req.user.username },
+            { $push: { suggestion: req.body.suggestion } },
+            { new: true, upsert: true }
+        );
+    
+        req.flash("info", " Befit got your Suggestion :)");
+       res.redirect('back');
+
+    }
+    catch (err) {
+        console.log(err)
+    }
+})
 
 module.exports = router;

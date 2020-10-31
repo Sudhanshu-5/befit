@@ -27,7 +27,7 @@
 }
 
 #exercise-desc select {
-    width: 35%;
+    width: 60%;
 }
 
 /* #body-info {
@@ -41,7 +41,9 @@
     margin-top: .1rem;
 
 } */
-
+#body-info{
+    width:30%
+}
 #body-info input {
    
     border: none;
@@ -72,3 +74,33 @@
     list-style: none;
     text-align: center;
 }
+ @media (max-width: 575.98px) {
+     #exercise-desc textarea {
+         
+         height: 10vh;
+         
+     }
+    #body-info {
+        width: 60%
+    }
+    #exercise-list{
+        width:75%;
+        margin:0 auto;
+    }
+
+ }
+
+ @media (min-width: 576px) and (max-width: 767.98px) {
+      #body-info {
+          width: 60%
+      }
+      .exercise-ta{
+          margin:0 auto;
+      }
+ }
+
+ @media (min-width: 768px) and (max-width: 991.98px) {}
+
+ @media (min-width: 992px) and (max-width: 1199.98px) {}
+
+ @media (min-width: 1200px) {}

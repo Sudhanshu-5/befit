@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
+const femaleUser = require("./femaleUser");
 var userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -14,6 +15,14 @@ var userSchema = new mongoose.Schema({
         type: String,
         unique: [true, "Email must be unique"],
         required: true
+    },
+    suggestion: {
+        type: [ String ]
+    },
+    isme: {
+        type: Boolean,
+        default: false
+
     },
     resetPasswordToken: String,
     resetPasswordExpires: Date,

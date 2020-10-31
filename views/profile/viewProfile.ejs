@@ -4,20 +4,21 @@
 <div class="container" id="profile">
       <!-- genral -->
  <div class="row">
-   <div class="col-4"></div>
-     <div id="general" class="px-2 py-3 m-auto col-4 ">
+
+    <div class="col-12 mx-auto row">
+     <div id="general" class="px-2 py-3 mx-auto col-10 col-md-6 ">
           
           <div class="form-group row mb-0">
-            <label for="username" class="col-sm-3 col-form-label ">Username</label>
-            <div class="col-sm-9">
+            <label for="username" class="col-3 col-form-label ">Username</label>
+            <div class="col-9">
               <input type="text"class="form-control text-center" id="username"  name="username" value="<%=founduser.username%>" readonly="readonly" >
-              <hr class="m-0">
+              <hr class="m-0 ml-3">
             </div>
           </div>
 
           <div class="form-group row mb-0">
-            <label for="email" class="col-sm-3 col-form-label">Email</label>
-            <div class="col-sm-9">
+            <label for="email" class="col-3 col-form-label">Email</label>
+            <div class="col-9">
               <input type="email" id="email"class="form-control text-center" name="email" value="<%=currentUser.email%>" readonly="readonly" >
             <hr class="m-0">
           </div>
@@ -32,138 +33,148 @@
           </div>  -->
 
            <div class="form-group row mb-0">
-                <label for="dob" class="col-sm-3 col-form-label">D-O-B</label>
-                 <div class="col-sm-9">
+                <label for="dob" class="col-3 col-form-label">DOB</label>
+                 <div class="col-9">
                 <input type="text" id="dob"class="form-control text-center" name="DOB" value="<%=founduser.DOB%>" readonly="readonly" >
                 <hr class="m-0">
               </div>
           </div>
            <div class="form-group row mb-0 ">
-                <label for="gender" class="col-sm-3 col-form-label">Gender</label>
-                 <div class="col-sm-9">
+                <label for="gender" class="col-3 col-form-label">Gender</label>
+                 <div class="col-9">
                 <input type="text" id="gender"class="form-control  text-center" name="gender" value="<%=currentUser.gender%>" readonly="readonly" >
                 <hr class="m-0">
               </div>
           </div>
       
      </div>
-     <div class="col-4">  </div>
-    <div class="col-3"></div>
-     <div class="col-6 row mt-4 d-flex justify-content-around" id="targets">
-         
+     </div>
+  
+    <div class="col-12 row mx-auto">
+     <div class=" mx-auto col-12 col-md-10 row mt-4 d-flex justify-content-around" id="targets">
+          <!-- <div class="col-12 text-right small">
+           *All units are in Kgs and cms
+          </div> -->
            <div class="form-group content row mb-0 mt-4 col-6">
-                <label for="goal" class="col-sm-4 col-form-label ">Goal</label>
-                 <div class="col-sm-8">
-                <input type="text" id="goal"class="form-control text-center" name="goal" readonly="readonly" >
+                <label for="goal" class="col-sm-4 col-12 col-form-label text-center">Goal</label>
+                 <div class="col-sm-8 col-12 px-0">
+                   <input type="text" id="goal"class="form-control text-center px-0" name="goal" readonly="readonly" >
                 <hr class="m-0"> 
               </div>
             </div>
 
              <div class="form-group content row mb-0 mt-4 col-6">
-                <label for="bmr" class="col-sm-4 col-form-label">BMR</label>
-                <div class="col-sm-8 d-flex justify-content-start row">
-                  <input id="bmr" class="form-control px-0 py-2 text-center" name="bmr"  readonly="readonly" >
-                  <hr class=" w-100 m-0 ml-4">
+                <label for="bmr" class="col-sm-4 col-12 text-center col-form-label ">BMR</label>
+                <div class="col-sm-8 col-12 px-0">
+                  <input id="bmr" class="form-control px-0  text-center" name="bmr"  readonly="readonly" >
+                  <hr class="m-0">
                </div>
                 
              </div>
             
-           <div class="form-group content row col-12 mb-0 mt-3">
-              <div class="col-4"></div>
-              <div class="col-sm-8 row">
-                    <div class="col-3">Carbs</div>
-                    <div class="col-3">Fats</div>
-                    <div class="col-3">Protiens</div>
-              </div>
-           </div>
-
-              <div class="form-group content row col-12 mb-0 mt-2">
-                <label  class="col-sm-4 col-form-label">Macronutrient Ratio</label>
-                <div class="col-sm-8 row">
-                    <div class="col-3  d-flex justify-content-center pt-2" id="carbs"></div>
-                    <div class="col-3  d-flex justify-content-center pt-2" id="fats"></div>
-                    <div class="col-3  d-flex justify-content-center pt-2" id="protiens"></div>
-                </div>
-              </div>
-               <div class="form-group content row col-12 mb-0">
-                <label for="mn-target" class="col-sm-4 col-form-label">Macronutrient Targets</label>
-                <div class="col-sm-8 row">
-                  <div class="col-3 d-flex justify-content-center pt-2"><%=founduser.c_target%></div>
-                  <div class="col-3  d-flex justify-content-center pt-2"><%=founduser.f_target%></div>
-                  <div class="col-3  d-flex justify-content-center pt-2"><%=founduser.p_target%></div>
-                </div>
-              </div>
+           
 
      <!-- </div> -->
      <!-- <div class="col-2"></div> -->
      <!-- <div id="body" class="row col-4 mt-2 mr-auto"> -->
             
             <div class="form-group content row mb-0 col-6">
-                <label for="height" class="col-sm-4 col-form-label">Height</label>
-                 <div class="col-sm-8">
-                <input type="number" id="height"class="form-control w-75 mb-0 text-center" name="height" value="<%=founduser.height%>" readonly="readonly">
-                <hr class="m-0">
+                <label for="height" class="col-sm-4 col-12 text-center col-form-label">Height</label>
+                 <div class="col-sm-8 col-12 px-0 row ml-1">
+                <input type="number" id="height" class="form-control w-100 mb-0 text-right col-6 pr-0" name="height" value="<%=founduser.height%>" readonly="readonly">
+                <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="cm" readonly>
+                <hr class="m-0 col-12 px-0">
                 </div>
             </div>
 
             <div class="form-group content row mb-0 col-6">
-                  <label for="weight" class="col-sm-4 col-form-label">weight</label>
-                  <div class="col-sm-8">
-                  <input type="number" id="weight" class="form-control w-75 text-center" name="weight" value="<%=founduser.weight%>" readonly="readonly" >
-                  <hr class="m-0">
+                  <label for="weight" class="col-sm-4 col-12 text-center col-form-label">weight</label>
+                  <div class="col-sm-8 col-12 px-0 row ml-1">
+                  <input type="number" id="weight" class="form-control w-100 text-right col-6 pr-0" name="weight" value="<%=founduser.weight%>" readonly="readonly" >
+                  <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="cm" readonly>
+                  <hr class="m-0 col-12">
                 </div>
             </div>
 
             
             <div class="form-group content row mb-0 col-6">
-                <label for="neck" class="col-sm-4 col-form-label">Neck</label>
-                <div class="col-sm-8">
-                <input type="number"class="form-control w-75 text-center" id="neck"  name="neck" value="<%=founduser.neck%>" readonly="readonly" >
-                <hr class="m-0">
+                <label for="neck" class="col-sm-4 col-12 text-center col-form-label">Neck</label>
+                <div class="col-sm-8 col-12 px-0 row  ml-1">
+                <input type="number"class="form-control w-100 text-right col-6 pr-0" id="neck"  name="neck" value="<%=founduser.neck%>" readonly="readonly" >
+                <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="cm" readonly>
+                <hr class="m-0 col-12">
               </div>
             </div>
 
             <div class="form-group content row mb-0 col-6">
-                <label for="waist" class="col-sm-4 col-form-label">Waist</label>
-                <div class="col-sm-8">
-                 <input type="number"class="form-control w-75 text-center" id="waist"  name="waist" value="<%=founduser.waist%>" readonly="readonly" >
-                <hr class="m-0">
+                <label for="waist" class="col-sm-4 col-12 text-center col-form-label">Waist</label>
+                <div class="col-sm-8 col-12 px-0 row ml-1">
+                 <input type="number"class="form-control w-100 text-right col-6 pr-0" id="waist"  name="waist" value="<%=founduser.waist%>" readonly="readonly" >
+                <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="cm" readonly>
+                <hr class="m-0 col-12">
               </div>
             </div> 
 
             <div class="form-group content row mb-0 col-6">
-                <label for="hip" class="col-sm-4 col-form-label">Hip</label>
-                <div class="col-sm-8">
-                 <input type="number"class="form-control w-75 text-center" id="hip"  name="hip" value="<%=founduser.hip%>" readonly="readonly" >
-                <hr class="m-0">
+                <label for="hip" class="col-sm-4 col-12 text-center col-form-label">Hip</label>
+                <div class="col-sm-8 col-11 px-0 row ml-1">
+                <input type="number"class="form-control w-100 text-right pr-0 col-6" id="hip"  name="hip" value="<%=founduser.hip%>" readonly="readonly" >
+                 <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="cm" readonly>
+                 <hr class="m-0 col-12">
               </div>
             </div>
 
               <div class="form-group content row mb-0 col-6">
-                <label for="activityFactor" class="col-sm-4 col-form-label">Activity Factor</label>
-                <div class="col-sm-8">
-                 <input type="number"class="form-control w-75 text-center " id="activityFactor"  name="activityFactor" value="<%=founduser.activityFactor%>" readonly="readonly" >
-                <hr class="m-0">
+                <label for="activityFactor" class="col-sm-4 col-12 text-center col-form-label">Activity Factor</label>
+                <div class="col-sm-8 col-12 px-0">
+                 <input type="number"class="form-control w-100 text-center " id="activityFactor"  name="activityFactor" value="<%=founduser.activityFactor%>" readonly="readonly" >
+                <hr class="m-0 col-12">
               </div>
               </div>
 
               <div class="form-group content row mb-0 col-6">
-                <label for="bmi" class="col-sm-4 col-form-label">BMI</label>
-                <div class="col-sm-8">
-                 <input type="number" id="bmi" class="form-control w-75 text-center" name="bmi" value="<%=founduser.bmi%>" readonly="readonly" >
+                <label for="bmi" class="col-sm-4 col-12 text-center col-form-label">BMI</label>
+                <div class="col-sm-8 col-12 px-0">
+                 <input type="number" id="bmi" class="form-control w-100 text-center" name="bmi" value="<%=founduser.bmi%>" readonly="readonly" >
                 <hr class="m-0">
               </div>
               </div>
               
               <div class="form-group content row mb-0 col-6">
-                <label for="fat-per" class="col-sm-4 col-form-label">Body Fat</label>
-                <div class="col-sm-8">
-                  <input type="number" id="fat-per" class="form-control w-75 text-center" name="fat-per" value="<%=founduser.bodyfat%>" readonly="readonly" >
+                <label for="fat-per" class="col-sm-4 col-12 text-center col-form-label">Body Fat</label>
+                <div class="col-sm-8 col-12 px-0">
+                  <input type="text" id="fat-per" class="form-control w-100 text-center" name="fat-per" readonly="readonly" >
                 </div>
               <hr class="m-0">
             </div>
+
+            <div class="form-group content row col-12 mx-auto mb-0 mt-3 pad0">
+              <div class="col-5"></div>
+              <div class="col-7 row">
+                    <div class="col-sm-3 col-4  text-center  px-0">Carbs</div>
+                    <div class="col-sm-3 col-4 text-center  px-0">Fats</div>
+                    <div class="col-sm-3 col-4 text-center  px-0">Protiens</div>
+              </div>
+           </div>
+
+              <div class="form-group content row col-12 mb-0 mt-2 pad0">
+                <label  class="col-5 col-form-label pr-2">Macronutrient Ratio</label>
+                <div class="col-7 row">
+                    <div class="col-sm-3 col-4  d-flex justify-content-center pt-2 px-0" id="carbs"></div>
+                    <div class="col-sm-3 col-4  d-flex justify-content-center pt-2 px-0" id="fats"></div>
+                    <div class="col-sm-3 col-4  d-flex justify-content-center pt-2 px-0" id="protiens"></div>
+                </div>
+              </div>
+               <div class="form-group content row col-12 mb-0 pad0">
+                <label for="mn-target" class="col-5  col-form-label pr-2">Macronutrient Targets</label>
+                <div class="col-7 row">
+                  <div class="col-sm-3 col-4 d-flex justify-content-center pt-2  px-0"><%=founduser.c_target%> g</div>
+                  <div class="col-sm-3 col-4 d-flex justify-content-center pt-2  px-0"><%=founduser.f_target%> g</div>
+                  <div class="col-sm-3 col-4 d-flex justify-content-center pt-2  px-0"><%=founduser.p_target%> g</div>
+                </div>
+              </div>  
         </div>
-        <div class="col-3"></div>
+        </div>
          <button class="btn mx-auto mt-2"onclick="window.location.href='/editProfile';" style="background-color:rgba(227, 125, 95);color:white">Edit profile</button>
 </div>
 
@@ -171,6 +182,9 @@
 <script>
   $(document).ready(function(){
     $("#bmr").val(<%-founduser.bmr%>+" KCal")
+    $("#fat-per").val(<%=founduser.bodyfat%>+" %")
+    
+    
     if(<%-JSON.stringify(founduser.goal)%>=="wGain"){
       $("#goal").val("Gain weight")
     }

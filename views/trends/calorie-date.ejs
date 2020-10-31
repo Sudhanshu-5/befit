@@ -2,13 +2,15 @@
 
 
 <div class="container">
-    <div class="alert py-2 w-50" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="date-absence">
+    <div class="alert py-2" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="date-absence">
       No records are added !!
     </div>
-     <div class="alert py-2 w-50" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="range-absence">
+     <div class="alert py-2" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="range-absence">
       No records are found in this range !!
     </div>
-    <canvas id="calorieChart" width="300" height="150"></canvas>
+    <div class="chart-container">
+    <canvas id="calorieChart"  class="m-0" ></canvas>
+    </div>
 </div>
 
 <script>
@@ -154,14 +156,14 @@ var myBarChart = new Chart(ctx, {
   data: data,
   options: {
     responsive:true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     scales: {
        xAxes: [{
          	scaleLabel: {
 					display: true,
 					labelString: 'Dates'
 				},
-            barThickness : 73
+            barThickness : 40
         }],
       yAxes: [{
           	scaleLabel: {
@@ -192,7 +194,7 @@ var myBarChart = new Chart(ctx, {
     },
     options: {
       responsive: true,// Instruct chart js to respond nicely.
-        maintainAspectRatio:true, // Add to prevent default behaviour of full-width/height 
+        maintainAspectRatio:false, // Add to prevent default behaviour of full-width/height 
           scales: {
        xAxes: [{
          	scaleLabel: {

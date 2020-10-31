@@ -458,7 +458,7 @@ router.get("/customExercise", middleware.isLoggedIn, function (req, res) {
 router.post("/customExercise", middleware.isLoggedIn, function (req, res) {
 
     let completeObj = req.body.info;
-
+ 
     userexercise.create(
         completeObj,
         function (err, info) {

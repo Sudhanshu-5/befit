@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="/stylesheets/mainreport.css"/>
 
 <div class="container mt-5">
-    <div class="alert py-2 w-50" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="no-record-r">
+    <div class="alert py-2" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="no-record-r">
      No records added <a href="/addMeal" >Add Meal</a> <a href="/addExercise" >Add Exercise</a> 
     </div>
 <!-- <div class="alert alert-primary" role="alert" id="no-record-r">
@@ -11,31 +11,31 @@
 </div> -->
     <div class="row">
         <div class="col-12 row">
-                <div id="report-header" class="row col-12">
-                    <div id="range-div-r" class="col-6 row">
-                      <div style='font-size:1.5rem' class="col-3">Report # </div>
-                      <select id="range-select-r"  class="form-control col-6" name="rangeReport"  placeholder="0">
+                <div id="report-header" class="row col-12  w-100">
+                    <div id="range-div-r" class="col-md-9 col-sm-12 pr-0 row">
+                      <div style='font-size:1.5rem' class="col-lg-4 col-sm-4 col-5 text-right ">Report #</div>
+                      <select id="range-select-r"  class="form-control col-lg-6 col-sm-6 col-7 w-100" name="rangeReport"  placeholder="0">
                         <option value="today">Today</option>
                         <option value="yesterday">Yesterday</option>
                         <option value="allDate">All dates</option>
                          <option data-toggle="modal" data-target="#exampleModal" id="custom-report" value="custom">Custom duration</option>
                       </select>
                     </div>
-                  <div id="custom-range-r" class="col-6">
+                  <div id="custom-range-r" class="col-md-3 col-sm-12 ">
+                    <div class="d-flex justify-content-center">
                     <button id="range-btn-r" class="btn" style="background-color: rgba(227, 125, 95);color:white">Get range</button>
+                  </div>
                   </div>
                 </div>
                 
         </div>
-        <div class="col-9 my-5" id="show-report"></div>
-      <div class="col-3 mt-5">
-          <div class="col-12 mt-5" id="efficiency-text"></div> 
-          <div id="efficiency" class="col-12">  </div>
-      </div> 
-
-
-            
-    </div>
+         <div class="col-md-6 col-12  efficiency-div row">
+          <div class=" col mt-3" id="efficiency-text"></div> 
+          <div id="efficiency" class=" col">  </div>
+        </div> 
+        <div class=" col-10 mx-auto " id="show-report"></div>
+       
+        </div>
    
     <div class="modal fade" id="from-to-r" tabindex="-1" role="dialog" aria-labelledby="from-to-r" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -103,7 +103,7 @@
            <div id="err-mssg-r">This duration is senseless</div>
            <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" id="save-r" class="btn btn-primary">Save changes</button>
+            <button type="button" id="save-r" class="btn" style="background-color: rgba(227, 125, 95);color:white">Save changes</button>
            </div>
         </div>
       </div>
@@ -232,7 +232,7 @@
     //         $("#report-header").html("<span style='font-size:1.5rem'>Report # </span>"+selected);
     //  }
      if(<%-findeduser.macroNutrientInfo.length%>){
-         $("#show-report").html("<div class='d-flex justify-content-center align-items-center'> <img id='gif' src='images/spinner.gif' width='7%'height='7%'> </div>")
+         $("#show-report").html("<div class='d-flex justify-content-center align-items-center mt-5'> <img id='gif' src='images/spinner.gif' width='7%'height='7%'> </div>")
          $.ajax({
                     type: "GET", 
                     url: "/generateReport",

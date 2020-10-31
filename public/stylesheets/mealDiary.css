@@ -1,4 +1,6 @@
-
+#diary{
+    overflow: hidden;
+}
 #contents {
     width: 100%;
 
