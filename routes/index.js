@@ -246,7 +246,7 @@ router.get("/login", middleware.counterLoggedIn, function (req, res) {
 
 //!handling login logic
 router.post("/login", passport.authenticate("local", {
-    successRedirect: "/dashboard",
+    successRedirect: "/addMeal",
     failureRedirect: "/login",
     successFlash: true,
     failureFlash: true

@@ -69,7 +69,7 @@ router.get("/addExercise", middleware.isLoggedIn, async (req, res) => {
 
 //!call nutrient api  add details to db
 router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
-
+    console.log("asmmdksadkn")
     let usum = 0;
     let uExerciseName = [];
     let uDuration = [];
@@ -134,11 +134,11 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
 
         },
         data: {
-            query: info,
-            gender: req.user.gender,
-            weight_kg: req.body.weight,
-            height_cm: req.body.height,
-            age: req.body.age
+            "query": info,
+            "gender": req.user.gender,
+            "weight_kg": req.body.weight,
+            "height_cm": req.body.height,
+            "age": req.body.age
         }
 
     }).then(function (response) {
@@ -154,130 +154,103 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
 
 
     }).catch(function (error) {
-
-        if (exercises.length > 0) {
-            req.flash('error', 'add ur exercise  with correct spellings')
-            res.redirect('back')
-        }
+        console.log(error)
+  
 
     }).finally(function () {
-        totalBurnedcalories = totalBurnedcalories + usum;
+        console.log(exercises.length +"   "+uExerciseName.length)
+        if (!exercises.length && !uExerciseName.length) {
+            console.log("asdjksadn")
+            req.flash('error', 'exercise cannot be found in our database. Add in custom  exercise.')
+            res.redirect('back')
+        }
+        else {
+            totalBurnedcalories = totalBurnedcalories + usum;
 
-        caloriesBurned = caloriesBurned.concat(uCaloriesBurned)
-        // console.log("------------" + caloriesBurned);
-        durations = durations.concat(uDuration);
-        // console.log("----------" + durations)
-        exercises = exercises.concat(uExerciseName);
-        // console.log("-----------" + exercises);
-        met = met.concat(uMet);
-        if (exercises.length) {
-            var data = {
-                caloriesBurnedPerExercise: caloriesBurned,
-                duration: durations,
-                exerciseName: exercises,
-                met: met,
-                session: label,
-                totalCaloriesBurned: totalBurnedcalories,
-                time:time
-            }
-            //!create exercise info
-            exerciseinfo.create(data,
-                function (err, data) {
-                    if (err) {
-                        console.log("error" + err)
-                    } else {
-                        //console.log("exerciseinfo" + data);
-                        //!push and save exercise info to maletheuser
-                        userType.findOne({
-                            username: req.user.username
-                        }, function (err, findedUser) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                findedUser.exerciseinfo.push(data);
-                                findedUser.save(function (err, addedData) {
-                                    if (err) {
-                                        console.log(err);
-                                    } else {
-                                        //console.log("pushedandsavedData" + addedData);
-                                    }
-                                });
-                                //!total values
-                                userType.findOne({
-                                    username: req.user.username
-                                }).populate("exerciseinfo").populate("macroNutrientInfo").exec(function (err, workoutinfo) {
-                                    if (err) {
-                                        console.log(err);
-                                    } else {
-                                        //console.log("workoutinfo----------- " + workoutinfo);
-                                        var totalCalorie = parseFloat(data.totalCaloriesBurned);
-                                        // console.log("totalCaloriesss " + totalCalorie);
-
-                                        console.log("999999999999999999999 " + dateNow.toLocaleDateString())
-                                        if (workoutinfo.macroNutrientInfo.length > 0) {
-                                            console.log("lengthjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
-                                            workoutinfo.exerciseinfo.forEach(function (info) {
-                                                // console.log("99999999999999999999 " + (new Date(info.createdAt)).toLocaleDateString())
-                                                if ((new Date(info.createdAt)).toLocaleDateString().localeCompare(dateNow.toLocaleDateString()) == 0) {
-                                                    totalCalorie = totalCalorie + parseFloat(info.totalCaloriesBurned);
-                                                }
-
-
-                                            });
+            caloriesBurned = caloriesBurned.concat(uCaloriesBurned)
+            // console.log("------------" + caloriesBurned);
+            durations = durations.concat(uDuration);
+            // console.log("----------" + durations)
+            exercises = exercises.concat(uExerciseName);
+            // console.log("-----------" + exercises);
+            met = met.concat(uMet);
+            if (exercises.length) {
+                var data = {
+                    caloriesBurnedPerExercise: caloriesBurned,
+                    duration: durations,
+                    exerciseName: exercises,
+                    met: met,
+                    session: label,
+                    totalCaloriesBurned: totalBurnedcalories,
+                    time: time
+                }
+                //!create exercise info
+                exerciseinfo.create(data,
+                    function (err, data) {
+                        if (err) {
+                            console.log("error" + err)
+                        } else {
+                            //console.log("exerciseinfo" + data);
+                            //!push and save exercise info to maletheuser
+                            userType.findOne({
+                                username: req.user.username
+                            }, function (err, findedUser) {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    findedUser.exerciseinfo.push(data);
+                                    findedUser.save(function (err, addedData) {
+                                        if (err) {
+                                            console.log(err);
+                                        } else {
+                                            //console.log("pushedandsavedData" + addedData);
                                         }
+                                    });
+                                    //!total values
+                                    userType.findOne({
+                                        username: req.user.username
+                                    }).populate("exerciseinfo").populate("macroNutrientInfo").exec(function (err, workoutinfo) {
+                                        if (err) {
+                                            console.log(err);
+                                        } else {
+                                            //console.log("workoutinfo----------- " + workoutinfo);
+                                            var totalCalorie = parseFloat(data.totalCaloriesBurned);
+                                            // console.log("totalCaloriesss " + totalCalorie);
+
+                                            console.log("999999999999999999999 " + dateNow.toLocaleDateString())
+                                            if (workoutinfo.macroNutrientInfo.length > 0) {
+                                                console.log("lengthjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
+                                                workoutinfo.exerciseinfo.forEach(function (info) {
+                                                    // console.log("99999999999999999999 " + (new Date(info.createdAt)).toLocaleDateString())
+                                                    if ((new Date(info.createdAt)).toLocaleDateString().localeCompare(dateNow.toLocaleDateString()) == 0) {
+                                                        totalCalorie = totalCalorie + parseFloat(info.totalCaloriesBurned);
+                                                    }
 
 
-                                        // console.log("totslcalore= " + totalCalorie);
+                                                });
+                                            }
 
-                                        macronutrientinfo.findOneAndUpdate({
-                                            date: dateNow.toLocaleDateString(),
-                                            username: req.user.username
-                                        }, {
-                                            totalCaloriesBurned: totalCalorie,
-                                        }, {
-                                            new: true,
-                                            upsert: true // Make this update into an upsert
-                                        }, function (err, updatedCalorieInfo) {
-                                            if (err) {
-                                                console.log(err);
-                                            } else {
-                                                // console.log("winwinwinwiwnwinwiwwiwn  " + updatedCalorieInfo);
-                                                // console.log("totslcalore= " + totalCalorie);
 
-                                                //if (foodinfo.macronutrientinfo) {
-                                                let count = 0;
-                                                if (workoutinfo.macroNutrientInfo.length == 0) {
-                                                    workoutinfo.macroNutrientInfo.push(updatedCalorieInfo);
-                                                    workoutinfo.save(function (err, saved) {
-                                                        if (err) {
-                                                            console.log(err)
-                                                        } else {
-                                                            // console.log(saved);
-                                                        }
-                                                    })
-                                                    //
+                                            // console.log("totslcalore= " + totalCalorie);
 
-                                                    // console.log("111111111111111111111111 " + (new Date(info.createdAt)) + " " + dateNow.toLocaleDateString())
-                                                    // if ((new Date(info.createdAt)).toLocaleDateString() !== dateNow.toLocaleDateString()) {
-                                                    //     console.log("kkkkkkkkkkkkdddddddddddddd")
-
-                                                    // foodinfo.save(function (err, saved) {
-                                                    //     if (err) {
-                                                    //         console.log(err)
-                                                    //     } else {
-                                                    //         console.log(saved);
-                                                    //     }
-                                                    // })
-                                                    // }
-
-                                                    // })
+                                            macronutrientinfo.findOneAndUpdate({
+                                                date: dateNow.toLocaleDateString(),
+                                                username: req.user.username
+                                            }, {
+                                                totalCaloriesBurned: totalCalorie,
+                                            }, {
+                                                new: true,
+                                                upsert: true // Make this update into an upsert
+                                            }, function (err, updatedCalorieInfo) {
+                                                if (err) {
+                                                    console.log(err);
                                                 } else {
-                                                    workoutinfo.macroNutrientInfo.forEach(function (info) {
-                                                        if (info.createdAt.toLocaleDateString() == updatedCalorieInfo.createdAt.toLocaleDateString()) {
-                                                            count++;
-                                                        }
-                                                    })
-                                                    if (count == 0) {
+                                                    // console.log("winwinwinwiwnwinwiwwiwn  " + updatedCalorieInfo);
+                                                    // console.log("totslcalore= " + totalCalorie);
+
+                                                    //if (foodinfo.macronutrientinfo) {
+                                                    let count = 0;
+                                                    if (workoutinfo.macroNutrientInfo.length == 0) {
                                                         workoutinfo.macroNutrientInfo.push(updatedCalorieInfo);
                                                         workoutinfo.save(function (err, saved) {
                                                             if (err) {
@@ -286,23 +259,57 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
                                                                 // console.log(saved);
                                                             }
                                                         })
+                                                        //
+
+                                                        // console.log("111111111111111111111111 " + (new Date(info.createdAt)) + " " + dateNow.toLocaleDateString())
+                                                        // if ((new Date(info.createdAt)).toLocaleDateString() !== dateNow.toLocaleDateString()) {
+                                                        //     console.log("kkkkkkkkkkkkdddddddddddddd")
+
+                                                        // foodinfo.save(function (err, saved) {
+                                                        //     if (err) {
+                                                        //         console.log(err)
+                                                        //     } else {
+                                                        //         console.log(saved);
+                                                        //     }
+                                                        // })
+                                                        // }
+
+                                                        // })
+                                                    } else {
+                                                        workoutinfo.macroNutrientInfo.forEach(function (info) {
+                                                            if (info.createdAt.toLocaleDateString() == updatedCalorieInfo.createdAt.toLocaleDateString()) {
+                                                                count++;
+                                                            }
+                                                        })
+                                                        if (count == 0) {
+                                                            workoutinfo.macroNutrientInfo.push(updatedCalorieInfo);
+                                                            workoutinfo.save(function (err, saved) {
+                                                                if (err) {
+                                                                    console.log(err)
+                                                                } else {
+                                                                    // console.log(saved);
+                                                                }
+                                                            })
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        })
+                                            })
                                         
-                                     }
-                                });
+                                        }
+                                    });
 
 
-                            }
-                        });
-                        req.flash('info', 'EXERCISE is added to ur  diary');
-                        res.redirect('back');
-                    }
-                });
+                                }
+                            });
+                            req.flash('info', 'Exercise is added to ur  diary');
+                            res.redirect('back');
+                        }
+                    });
+            }
+
         }
     })
+
 });
 
 router.delete("/deleteExercise", middleware.isLoggedIn, async (req, res) => {

@@ -64,7 +64,11 @@
             </div>
 
              <div class="form-group content row mb-0 mt-4 col-6">
-                <label for="bmr" class="col-sm-4 col-12 text-center col-form-label ">BMR</label>
+                <label for="bmr" class="col-sm-4 col-12 text-center col-form-label ">BMR
+                  <a class="px-2"href="#" role="button" data-trigger="focus" data-html="true" data-toggle="popover" data-placement="right" data-content="Basal metabolic rate (BMR)  is a minimum number of calories required for basic functions at rest,<br>  <a href='/bmr'>  calculate BMR</a>" >
+                    <i class="fas fa-edit"  style="color: rgba(227, 125, 95)" ></i>
+                  </a>
+                </label>
                 <div class="col-sm-8 col-12 px-0">
                   <input id="bmr" class="form-control px-0  text-center" name="bmr"  readonly="readonly" >
                   <hr class="m-0">
@@ -125,7 +129,12 @@
             </div>
 
               <div class="form-group content row mb-0 col-6">
-                <label for="activityFactor" class="col-sm-4 col-12 text-center col-form-label">Activity Factor</label>
+                <label for="activityFactor" class="col-sm-4 col-12 text-center col-form-label">PAF
+                  <a class="px-0" href="#" role="button" data-trigger="focus" data-html="true" data-toggle="popover" data-placement="right" data-content="Physical Activity Factor (PAF) is a way of expressing a person's daily physical activity in a number. <a href='/bmr'>  Edit activity factor</a>" >
+                    <i class="fas fa-edit"  style="color: rgba(227, 125, 95)" ></i>
+                  </a>
+  
+                </label>
                 <div class="col-sm-8 col-12 px-0">
                  <input type="number"class="form-control w-100 text-center " id="activityFactor"  name="activityFactor" value="<%=founduser.activityFactor%>" readonly="readonly" >
                 <hr class="m-0 col-12">
@@ -135,17 +144,22 @@
               <div class="form-group content row mb-0 col-6">
                 <label for="bmi" class="col-sm-4 col-12 text-center col-form-label">BMI</label>
                 <div class="col-sm-8 col-12 px-0">
-                 <input type="number" id="bmi" class="form-control w-100 text-center" name="bmi" value="<%=founduser.bmi%>" readonly="readonly" >
+                 <input type="text" id="bmi" class="form-control w-100 text-center" name="bmi" value="<%=founduser.bmi%>"  readonly="readonly" >
                 <hr class="m-0">
               </div>
               </div>
               
               <div class="form-group content row mb-0 col-6">
-                <label for="fat-per" class="col-sm-4 col-12 text-center col-form-label">Body Fat</label>
+                <label for="fat-per" class="col-sm-4 col-12 text-center col-form-label">Body Fat
+                  <i class="fas fa-info-circle col-2 py-2 "  style="color: rgba(227, 125, 95)"  data-toggle="modal" data-target="#fmp-modal"></i>
+
+                </label>
                 <div class="col-sm-8 col-12 px-0">
-                  <input type="text" id="fat-per" class="form-control w-100 text-center" name="fat-per" readonly="readonly" >
-                </div>
-              <hr class="m-0">
+
+                  <input type="text" id="fat-per" class="form-control w-100 text-center" name="fat-per"readonly="readonly" >
+                   <hr class="m-0">
+                  </div>
+              
             </div>
 
             <div class="form-group content row col-12 mx-auto mb-0 mt-3 pad0">
@@ -179,8 +193,36 @@
 </div>
 
 </div>
+<div class="modal fade" id="fmp-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <table class="cinfoT mx-auto mb-2"  width="320">
+                          <tbody><tr><td class="cinfoHd">Description</td><td class="cinfoHdL">Women</td><td class="cinfoHdL">Men</td></tr>
+                        
+                          <tr><td>Essential fat</td><td class="cinfoBodL">10-13%</td><td class="cinfoBodL">2-5%</td></tr>
+                          <tr><td>Athletes</td><td class="cinfoBodL">14-20%</td><td class="cinfoBodL">6-13%</td></tr>
+                          <tr><td>Fitness</td><td class="cinfoBodL">21-24%</td><td class="cinfoBodL">14-17%</td></tr>
+                          <tr><td>Average</td><td class="cinfoBodL">25-31%</td><td class="cinfoBodL">18-25%</td></tr>
+                          <tr><td>Obese</td><td class="cinfoBodL">32+%</td><td class="cinfoBodL">25+%</td></tr>
+                        </tbody>
+                      </table>
+                        <div class="text-center">
+                          <a href='/bodyfat'>Calculate Body fat percentage here</a>
+                        </div>
+      </div>
+   
+    </div>
+  </div>
+</div>
 <script>
-  $(document).ready(function(){
+  
     $("#bmr").val(<%-founduser.bmr%>+" KCal")
     $("#fat-per").val(<%=founduser.bodyfat%>+" %")
     
@@ -211,7 +253,7 @@
          $("#protiens").html(<%-founduser.high_protiensRatio%>)
         }
   
-      })
+      
 </script>
        
 <%- include ("../partials/footer") %>

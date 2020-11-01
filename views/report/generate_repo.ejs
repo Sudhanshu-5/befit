@@ -1,5 +1,8 @@
-    <div class="alert py-2 w-50" style="background-color: rgba(227, 125, 95,.2);" role="alert"  id="date-absence-r">
-      No records are found in this range !!
+    <div class="col-md-9 col-sm-12 pr-0 row">
+      <div class="col-lg-3 col-sm-3 col-4"></div>
+    <div class="alert py-2 w-50 mt-2" style="background-color: rgba(227, 125, 95,.2);" role="alert"  id="date-absence-r">
+      No records are found !!
+    </div>
     </div>
  
 <div class="row mt-5 report">
@@ -419,11 +422,11 @@ if(data2.length){
 
   }
 });
-}
+} 
 
 if (data3.length){
     if(<%-JSON.stringify(calorieinfo.goal)%>=="wMaintain"){
-      $("#efficiency-text").html("Efficiency for calories consumed and calories burned")
+      $("#efficiency-text").html("Efficiency for <a class='px-2' href='#' role='button' data-trigger='focus' data-html='true' data-toggle='popover' data-placement='right' data-content='Value for eficiency must be near to 1. It denotes you progress. ' ></a>calories consumed and calories burned")
      dataset=[{
             label: 'Calories Consumed', 
             data:data3,
@@ -440,7 +443,7 @@ if (data3.length){
             borderWidth: 1 // Specify bar border width
     }]
     }else if(<%-JSON.stringify(calorieinfo.goal)%>=="wLoss"){
-       $("#efficiency-text").html("Efficiency for calorie-deficit")
+       $("#efficiency-text").html("Efficiency for <a class='px-2' href='#' role='button' data-trigger='focus' data-html='true' data-toggle='popover' data-placement='right' data-content='Value for eficiency must be near to 1. It denotes you progress.'> <i class='fas fa-info-circle'  style='color: rgba(227, 125, 95)' ></i></a>")
          dataset=[ 
            { label: 'Calorie Deficit',
             data:data3,

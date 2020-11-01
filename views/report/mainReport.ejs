@@ -4,7 +4,7 @@
 
 <div class="container mt-5">
     <div class="alert py-2" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="no-record-r">
-     No records added <a href="/addMeal" >Add Meal</a> <a href="/addExercise" >Add Exercise</a> 
+     No records added <a href="/addMeal" > Add Meal </a> <a href="/addExercise" >/ Add Exercise</a> 
     </div>
 <!-- <div class="alert alert-primary" role="alert" id="no-record-r">
   No records added <a href="/addMeal" >Add Meal</a> <a href="/addExercise" >Add Exercise</a> 
@@ -30,7 +30,14 @@
                 
         </div>
          <div class="col-md-6 col-12  efficiency-div row">
-          <div class=" col mt-3" id="efficiency-text"></div> 
+           <div class="mt-3">
+               <a class="px-2"href="#" role="button" data-trigger="focus" data-html="true" data-toggle="popover" data-placement="right" data-content="Value for eficiency must be near to 1. It denotes your progress. " >
+                    <i class="fas fa-info-circle"  style="color: rgba(227, 125, 95)" ></i>
+           </a>
+            <div class=" px-1 col d-inline" id="efficiency-text"></div> 
+           </div>
+         
+         
           <div id="efficiency" class=" col">  </div>
         </div> 
         <div class=" col-10 mx-auto " id="show-report"></div>

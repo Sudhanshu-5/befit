@@ -2,6 +2,7 @@
     <link rel="stylesheet" href="/stylesheets/autocomplete.css">
     <link rel="stylesheet" href="/stylesheets/instantSearchFood.css">
      <link rel="stylesheet" href="/stylesheets/nutritionalFacts.css">
+<div  style="min-height: 100%;">
 <div class="container">                              
   <div id="instant-search"> 
       <input id="search" type="text" class=" form-control d-inline p-2" placeholder="search from database" required>
@@ -24,6 +25,7 @@
 
     <div id="facts" class="d-flex justify-content-center"></div>
   
+</div>
 </div>
 <script>
   let instantRadioValue;
@@ -98,13 +100,12 @@
            
             
                 success:function (result) {
-                  if(result==="error"){
-                    alert(error)
-                  }else 
+                 
                      $("#facts").html(result)
                 },
                  error: function (xhr, status) {
-                        alert("Sorry, there was a problem :("+status);
+                   console.log(status)
+                        alert("Provided food name does not exist in our database.");
                     },
     })
   }

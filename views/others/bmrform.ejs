@@ -1,9 +1,9 @@
 <%- include ("../partials/header")%>
 <div class="container">
 <div class="row">
-  <div class="col-4"></div>
-  <div class="col-4 mt-5 border p-3">
-      <h3 class="text-center">Calculate BMR</h3>
+  <div class="col-md-4 col-sm-1"></div>
+  <div class="col-md-4 col-sm-10 mt-5 border p-3">
+      <h4 class="text-center">Calculate BMR</h4>
       <form action="/bmr" method="POST">
                 <div class="form-group row mb-0">
                       <label for="age" class="col-sm-6 col-form-label">Age</label>
@@ -32,7 +32,7 @@
               <div class="form-group row mb-0">
                  
                 <label for="factor" class="col-sm-6 col-form-label">
-                  <i class="fas fa-question-circle btn btn-primary mx-1 px-1" data-toggle="modal" data-target="#myModal"></i>Activity factor
+                  <i class="fas fa-question-circle mx-1 px-1 pt-1" style="color:rgba(227, 125, 95);" data-toggle="modal" data-target="#myModal"></i>Activity factor
                 </label> 
                 <div class="col-sm-6">
                     <input type="text" id="factor" class="form-control text-center my-1" name="factor" vaue="<%=info.activityFactor%>" required >
@@ -135,11 +135,11 @@
       </div>
       <div class="d-flex justify-content-between mt-3">
       <button class="btn" style="background-color: rgba(227, 125, 95);color:white">Calculate</button>
-      <button class="btn" style="background-color: rgba(227, 125, 95);color:white"onclick="window.location.href='/editProfile';">update ur info</button>
+      <!-- <button class="btn" style="background-color: rgba(227, 125, 95);color:white"onclick="window.location.href='/editProfile';">update ur info</button> -->
       </div>
       </form>
   </div>
-  <div class="col-4"></div>
+  <div class="col-md-4 col-sm-1"></div>
 </div>
 </div>
 <%- include ("../partials/footer")%>

@@ -40,6 +40,20 @@ router.get("/bmr", middleware.isLoggedIn, function (req, res) {
         }
     })
 })
+router.get("/bodyfat", middleware.isLoggedIn, function (req, res) {
+
+    userType.findOne({
+        username: req.user.username
+    }, function (err, info) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.render("others/bodyfatForm", {
+                info: info
+            })
+        }
+    })
+})
 
 //!calculate BMR
 router.post("/bmr", middleware.isLoggedIn, async (req, res) => {
@@ -88,10 +102,44 @@ router.post("/bmr", middleware.isLoggedIn, async (req, res) => {
     } catch (err) {
         console.log(err)
     }
-    res.render("others/showbmr", {
-        info: info
-    })
+   res.redirect("/viewProfile");
 })
 
+router.post("/bodyfat", middleware.isLoggedIn, async (req, res) => {
+    let info;
+  
+    var data = {
+        waist: req.body.waist,
+        height: req.body.height,
+        neck: req.body.neck,
+        hip: req.body.hip,
+        gender: req.body.gender,
+        bodyfat: req.body.bodyfat
+    }
+    try {
+        info = await userType.findOneAndUpdate({
+            username: req.user.username
+        }, data, {
+            upsert: true,
+            new: true
+        });
+    } catch (err) {
+        console.log(er)
+    }
+    try {
+        let updatedOnDate = await ondate.findOneAndUpdate({
+            date: dateNow.toLocaleDateString(),
+            username: req.user.username
+        }, data, {
+            upsert: true,
+            new: true
+        });
+        console.log(updatedOnDate)
+    } catch (err) {
+        console.log(err)
+    }
+    res.redirect("/viewProfile");
+    
+});
 
 module.exports = router;

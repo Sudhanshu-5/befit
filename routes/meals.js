@@ -209,7 +209,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                 console.log("nameeeeeeeeeeeeeeeeeeeeeeeeeeeee " + fooditems.length)
 
             }).catch(function (error) {
-                alert(err.message)
+                
                 if (!fooditems.length && req.body.labelInstant) {
                     req.flash('error', 'add ur meal with correct spellings')
                     res.redirect('back')
@@ -287,7 +287,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
             // console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk " + error)
             console.log("ssssssssssssssssss " + fooditems.length)
             if (!fooditems.length) {
-                req.flash('error', 'add ur meal with correct spellings')
+                req.flash('error', 'Food Cannot be found in our database. Add in custom foods')
                 res.redirect('back')
             }
 
@@ -806,7 +806,8 @@ router.post("/searchNutrients", middleware.isLoggedIn, function (req, res) {
                 data: temp
             });
         }).catch(function (error) {
-          res.send(error)
+            
+            res.send(error.response.status)
         }).finally(function () {
 
         })

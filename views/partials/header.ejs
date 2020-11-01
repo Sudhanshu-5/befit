@@ -19,7 +19,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" />
 <body>
 <nav class="navbar main-nav navbar-expand">
-  <a class="navbar-brand" id="brand" href="/">BeFit</a>
+  <!-- add '/' after dashboard is complete' -->
+  <a class="navbar-brand" id="brand" href="/addMeal">BeFit</a>
   <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button> -->
@@ -112,15 +113,15 @@
 }
 
 setDefaultActive();
-   $("#error").delay(2000)
+   $("#error").delay(5000)
 .fadeOut(function() {
    $(this).remove()   
 });
- $("#success").delay(2000)
+ $("#success").delay(5000)
 .fadeOut(function() {
    $(this).remove() 
 });
- $("#info").delay(2000)
+ $("#info").delay(5000)
 .fadeOut(function() { 
    $(this).remove() 
 });

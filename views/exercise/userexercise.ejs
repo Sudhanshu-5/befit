@@ -5,7 +5,7 @@
   <div class="row mt-5">
     <div class=" col-md-8 col-sm-12 mx-auto">
       <div id="add">
-      <h3 class="pl-3 pb-4">Add custom exercise </h3>
+      <h4 class="pl-3 pb-4">Add custom exercise </h4>
       <div class="col-1"></div>
       <div class="col-10">
       <form action="/customExercise" method="POST">
@@ -50,7 +50,7 @@
   <div class="col-1"></div>
     <div class="col-md-3 col-sm-11 border px-2 custom-execise-list" style="height: 50vh;overflow: auto; background-clip: content-box;background-color: rgba(227, 125, 95,.2);">
     
-        <p class="text-center " style="font-size:1.4rem"> Added custom exercises</p>
+        <p class="text-center py-3 " style="font-size:1.4rem;color: rgba(227, 125, 95);"> Custom Exercises</p>
        
           <%myexercise.userexercise.forEach(function(exercise){%>
   
@@ -66,3 +66,9 @@
  
  <%- include ("../partials/footer") %>
  
+<script>
+   $('form').submit(function(){
+    $('button[type=submit]', this).attr('disabled', 'disabled');
+});
+
+</script>

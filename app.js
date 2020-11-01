@@ -120,25 +120,25 @@ app.use(function (req, res, next) {
 app.get("/", middleware.counterLoggedIn, function (req, res) {
     res.render("others/index");
 });
-app.get("/demo", function (req, res) {
-    res.render("demo");
-})
+// app.get("/demo", function (req, res) {
+//     res.render("demo");
+// })
 //! get ID for post to/:id/addMeal
-app.get("/dashboard", middleware.isLoggedIn,
-    function (req, res) {
-        //!find  returns array so in that case accesss using findedByName[0]
+// app.get("/dashboard", middleware.isLoggedIn,
+//     function (req, res) {
+//         //!find  returns array so in that case accesss using findedByName[0]
 
-        userType.find({
-            username: req.user.username
-        }, function (err, findedByName) {
-            if (err) {
-                console.log(err);
-            } else {
-                //console.log("findedByName[0]:" + findedByName[0]);
-                res.render("others/dashboard");
-            }
-        });
-    });
+//         userType.find({
+//             username: req.user.username
+//         }, function (err, findedByName) {
+//             if (err) {
+//                 console.log(err);
+//             } else {
+//                 //console.log("findedByName[0]:" + findedByName[0]);
+//                 res.render("others/dashboard");
+//             }
+//         });
+//     });
 async function user(req, res) {
     try {
         var extractUser = await userType.findOne({

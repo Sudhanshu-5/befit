@@ -10,7 +10,17 @@
         color: #272727;
         
     }
-
+    html{
+        height:100vh;
+    }
+body {
+    background-color: #F2F2F2;
+    font-size: 1rem;
+    color: #1A1A1D;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 15rem;
+}
     /* textarea:focus,
 select:focus, */
     textarea.form-control:focus,
@@ -28,7 +38,7 @@ select:focus, */
         box-shadow: inset 0 0 0 #fff;
         border-color: #ADADAD;
     }
-
+  
     .navbar #brand {
         font-family: 'Black Ops One', cursive;
         /* font-size:calc(1rem + 1vw); */
@@ -36,11 +46,6 @@ select:focus, */
     }
     
 
-    body {
-        background-color: #F2F2F2;
-        font-size: 1rem;
-        color: #1A1A1D;
-    }
 
     .main-nav {
         background-color: #E27D60;
