@@ -17,12 +17,16 @@
     width:70vw;
    
 } 
-
+@media (width: 320px){
+    
+}
   @media (max-width: 575.98px) {
     nav{
         width: 200vw;
     }
-    
+     .footer {
+         width:200vw !important;
+     }
     #type-graph-div,#range-div,#custom-range{
         padding:.2em;
     }

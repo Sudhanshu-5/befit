@@ -42,7 +42,7 @@ select:focus, */
     .navbar #brand {
         font-family: 'Black Ops One', cursive;
         /* font-size:calc(1rem + 1vw); */
-        font-size:2rem ;
+        font-size:1.8rem ;
     }
     
 
@@ -50,12 +50,13 @@ select:focus, */
     .main-nav {
         background-color: #E27D60;
         color: #F2F9FB;
-        font-size: 1.2rem;
-
+        font-size: 1.1rem;
+        /* min-width: 100vw; */
     }
 
     #greet {
         color: #F2F9FB;
+        padding-left: 1.5;
     }
 
     .main-nav a {

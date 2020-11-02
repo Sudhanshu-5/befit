@@ -48,6 +48,9 @@
       .alert {
           width: 75%;
       }
+       .footer {
+           width: 200vw !important;
+       }
 
 
   }

@@ -45,7 +45,8 @@
 }
 
 .my-class {
-    color: red;
+    color:rgba(227, 125, 95);
+    font-weight: 800;
 }
 
 .prev0,
