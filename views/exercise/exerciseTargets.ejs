@@ -8,7 +8,7 @@ if(<%-JSON.stringify(goal)%>=="wLoss")
        burnTarget=<%-bmr%>+500
 else
     burnTarget=<%-bmr%>
-
+    
     calorieBurnedPer = (<%-totals['totalCaloriesBurned']%>/burnTarget*100).toFixed(2);
     calp="<div class='progress-bar bg-success' role='progressbar' aria-valuenow=" +calorieBurnedPer+ " aria-valuemin='0' aria-valuemax='100'"+ 
    "style='width:"+calorieBurnedPer+"%;' ></div>";
