@@ -164,6 +164,7 @@ function getCalendar(k) {
         getDates(date1);
     }
     document.getElementsByClassName("prev-date")[k].addEventListener("click", () => {
+        alert(new Date())
         date3 = new Date();
         getDates(date3);
         if (temp) temp.classList.remove("my-class");
@@ -189,6 +190,7 @@ function getCalendar(k) {
          }
      });
     document.getElementsByClassName("next-date")[k].addEventListener("click", () => {
+        alert(new Date())
         const firstDateCurrentMonth = new Date(
                 date1.getFullYear(),
                 date1.getMonth() + 1
