@@ -731,6 +731,7 @@ router.get("/searchFood", middleware.isLoggedIn, function (req, res) {
 });
 
 
+
 router.post("/searchNutrients", middleware.isLoggedIn, function (req, res) {
     var info = req.body.query;
     var type =req.body.id; //common/breanded
@@ -774,7 +775,7 @@ router.post("/searchNutrients", middleware.isLoggedIn, function (req, res) {
         })
     }
     else{
-        console.log("comoonnnnnnnnnnnnnnnnnnnnnnnnnnnn")
+        // console.log("comoonnnnnnnnnnnnnnnnnnnnnnnnnnnn")
         axios({
             method: "post",
             url: " https://trackapi.nutritionix.com/v2/natural/nutrients",
@@ -814,7 +815,3 @@ router.post("/searchNutrients", middleware.isLoggedIn, function (req, res) {
     } 
 });
 module.exports = router;
-// 	dataPoints.push({
-//         label: "<%-(new Date(calorieinfo.macroNutrientInfo[<%-i%>].createdAt)).toLocaleDateString()%>",
-//         y: <%-calorieinfo.macroNutrientInfo[<%-i%>].totalCaloriesConsumed-calorieinfo.macroNutrientInfo[<%-i%>].totalCaloriesBurned%>
-//  });

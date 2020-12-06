@@ -93,7 +93,7 @@ router.post("/register", async (req, res) => {
             targets["fTarget"] = (bmr * 30 / 900).toFixed(2);
             targets["cTarget"] = (bmr * 45 / 400).toFixed(2);
         }
-
+          console.log("000000000000000000000000000000"+targets["pTarget"]+targets["fTarget"]+targets["cTargets"])  
         var newUser = new user({
             username: req.body.username,
             gender: req.body.gender,

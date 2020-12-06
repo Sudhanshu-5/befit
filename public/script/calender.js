@@ -190,7 +190,7 @@ function getCalendar(k) {
          }
      });
     document.getElementsByClassName("next-date")[k].addEventListener("click", () => {
-        alert(new Date())
+        alert()
         const firstDateCurrentMonth = new Date(
                 date1.getFullYear(),
                 date1.getMonth() + 1

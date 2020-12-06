@@ -107,8 +107,8 @@
             <div class="form-group content row mb-0 col-6">
                 <label for="neck" class="col-sm-4 col-12 text-center col-form-label">Neck</label>
                 <div class="col-sm-8 col-12 px-0 row  ml-1">
-                <input type="number"class="form-control w-100 text-right col-6 pr-0" id="neck"  name="neck" value="<%=founduser.neck%>"  >
-                <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="cm" >
+                <input type="number"class="form-control w-100 text-right col-6 pr-0" id="neck"  name="neck" placeholder="Not Added" >
+                <input class="form-control w-100 mb-0 text-left col-6 pl-0" id="neck-cm">
                 <hr class="m-0 col-12">
               </div>
             </div>
@@ -116,8 +116,8 @@
             <div class="form-group content row mb-0 col-6">
                 <label for="waist" class="col-sm-4 col-12 text-center col-form-label">Waist</label>
                 <div class="col-sm-8 col-12 px-0 row ml-1">
-                 <input type="number"class="form-control w-100 text-right col-6 pr-0" id="waist"  name="waist" value="<%=founduser.waist%>"  >
-                <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="cm">
+                 <input type="number"class="form-control w-100 text-right col-6 pr-0" id="waist"  name="waist" placeholder="Not Added"  >
+                <input class="form-control w-100 mb-0 text-left col-6 pl-0"  id="waist-cm">
                 <hr class="m-0 col-12">
               </div>
             </div> 
@@ -125,8 +125,8 @@
             <div class="form-group content row mb-0 col-6">
                 <label for="hip" class="col-sm-4 col-12 text-center col-form-label">Hip</label>
                 <div class="col-sm-8 col-11 px-0 row ml-1">
-                <input type="number"class="form-control w-100 text-right pr-0 col-6" id="hip"  name="hip" value="<%=founduser.hip%>"  >
-                 <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="cm" >
+                <input type="number"class="form-control w-100 text-right pr-0 col-6" id="hip"  name="hip" placeholder="Not Added"  >
+                 <input class="form-control w-100 mb-0 text-left col-6 pl-0"  id="hip-cm">
                  <hr class="m-0 col-12">
               </div>
             </div>
@@ -159,7 +159,7 @@
                 </label>
                 <div class="col-sm-8 col-12 px-0">
 
-                  <input type="text" id="fat-per" class="form-control w-100 text-center" name="fat-per" >
+                  <input type="text" id="fat-per" class="form-control w-100 text-center" name="fat-per" placeholder="Not Added" >
                    <hr class="m-0">
                   </div>
               
@@ -228,8 +228,25 @@
 <script>
   
     $("#bmr").val(<%-founduser.bmr%>+" KCal")
-    $("#fat-per").val(<%=founduser.bodyfat%>+" %")
-    
+    if(<%-JSON.stringify(founduser.bodyfat)%>)
+       $("#fat-per").val(<%=founduser.bodyfat%>+" %")
+ 
+
+       if(<%-JSON.stringify(founduser.neck)%>){
+       $("#neck").val(<%=founduser.neck%>+" %")
+       $("#neck-cm").val("cm")
+       }
+   
+
+     if(<%-JSON.stringify(founduser.waist)%>){
+       $("#waist").val(<%=founduser.waist%>+" %")
+       $("#waist-cm").val("cm")
+     }
+
+    if(<%-JSON.stringify(founduser.hip)%>){
+       $("#hip").val(<%=founduser.hip%>+" %")
+       $("#hip-cm").val("cm")
+    }
     
     if(<%-JSON.stringify(founduser.goal)%>=="wGain"){
       $("#goal").val("Gain weight")

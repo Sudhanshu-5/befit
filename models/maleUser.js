@@ -17,10 +17,10 @@ var maleUserSchema = new mongoose.Schema({
     //     ref: "calorieinfo"
     // }],
     bodyfat: {
-        type: Number,
+        type: Number
     },
     neck: {
-        type: Number,
+        type: Number
     },
     waist: {
         type: Number,

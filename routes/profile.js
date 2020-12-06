@@ -140,27 +140,27 @@ router.put("/editRatios", middleware.isLoggedIn, async (req, res) => {
         update_obj["inactive_protiensRatio"] = req.body.eratio["protiens"];
         update_obj["inactive_fatsRatio"] = req.body.eratio["fats"];
 
-        update_obj["p_target"] = findeduser.bmr * req.body.eratio["protiens"] / 400;
-        update_obj["f_target"] = findeduser.bmr * req.body.eratio["fats"] / 900;
-        update_obj["c_target"] = findeduser.bmr * req.body.eratio["carbs"] / 400;
+        update_obj["p_target"] =( findeduser.bmr * req.body.eratio["protiens"] / 400).toFixed(2);
+        update_obj["f_target"] = (findeduser.bmr * req.body.eratio["fats"] / 900).toFixed(2);
+        update_obj["c_target"] = (findeduser.bmr * req.body.eratio["carbs"] / 400).toFixed(2);
     } else if (findeduser.activityFactor == 1.375 | findeduser.activityFactor == 1.55) {
 
         update_obj["med_carbsRatio"] = req.body.eratio["carbs"];
         update_obj["med_protiensRatio"] = req.body.eratio["protiens"];
         update_obj["med_fatsRatio"] = req.body.eratio["fats"];
 
-        update_obj["p_target"] = findeduser.bmr * req.body.eratio["protiens"] / 400;
-        update_obj["f_target"] = findeduser.bmr * req.body.eratio["fats"] / 900;
-        update_obj["c_target"] = findeduser.bmr * req.body.eratio["carbs"] / 400;
+        update_obj["p_target"] = (findeduser.bmr * req.body.eratio["protiens"] / 400).toFixed(2);
+        update_obj["f_target"] = (findeduser.bmr * req.body.eratio["fats"] / 900).toFixed(2);
+        update_obj["c_target"] = (findeduser.bmr * req.body.eratio["carbs"] / 400).toFixed(2);
 
     } else {
         update_obj["high_carbsRatio"] = req.body.eratio["carbs"];
         update_obj["high_protiensRatio"] = req.body.eratio["protiens"];
         update_obj["high_fatsRatio"] = req.body.eratio["fats"];
 
-        update_obj["p_target"] = findeduser.bmr * req.body.eratio["protiens"] / 400;
-        update_obj["f_target"] = findeduser.bmr * req.body.eratio["fats"] / 900;
-        update_obj["c_target"] = findeduser.bmr * req.body.eratio["carbs"] / 400;
+        update_obj["p_target"] = (findeduser.bmr * req.body.eratio["protiens"] / 400).toFixed(2);
+        update_obj["f_target"] = (findeduser.bmr * req.body.eratio["fats"] / 900).toFixed(2);
+        update_obj["c_target"] = (findeduser.bmr * req.body.eratio["carbs"] / 400).toFixed(2);
     }
 
     var updateuser = await userType.findOneAndUpdate({
