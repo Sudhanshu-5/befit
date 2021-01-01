@@ -455,7 +455,7 @@ router.get("/customExercise", middleware.isLoggedIn, function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render("exercise/userExercise", {
+            res.render("exercise/userexercise", {
                 myexercise: populated
             })
         }
