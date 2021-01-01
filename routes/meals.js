@@ -445,7 +445,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
 
                                                         }
                                                     })
-                                                    console.log("countttttttttttttttttttttt " + count)
+                                                       // console.log("countttttttttttttttttttttt " + count)
                                                     if (count == 0) {
                                                         foodinfo.macroNutrientInfo.push(updatedCalorieInfo);
                                                         foodinfo.save(function (err, saved) {

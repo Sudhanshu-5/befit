@@ -157,7 +157,8 @@ router.post("/register", async (req, res) => {
                         DOB: req.body.date,
                         age: req.body.age,
                         bmr: bmr,
-                        activityFactor: factor
+                        activityFactor: factor,
+                         goal: req.body.goal
                     });
                     try {
                         newlyCreated = await femaleuser.create(newFemaleUser);

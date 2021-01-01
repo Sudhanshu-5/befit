@@ -332,15 +332,15 @@ else{
      function getEfficiency(length){
     avg=sum/length;
     if(<%-JSON.stringify(calorieinfo.goal)%>=="wLoss"){
-       efficiency=avg/500;
+       efficiency=(avg/500).toFixed(2);
        $("#efficiency").html(efficiency)
     }
      else if(<%-JSON.stringify(calorieinfo.goal)%>=="wGain"){
-       efficiency=avg/250;
+       efficiency=(avg/250).toFixed(2);
        $("#efficiency").html(efficiency)
     }
      else if(<%-JSON.stringify(calorieinfo.goal)%>=="wMaintain"){
-       avg2=sum2/length;
+       avg2=(sum2/length).tofixed(2);
        efficiency=avg/<%-calorieinfo.bmr%>;
        efficiency2=avg2/<%-calorieinfo.bmr%>;
        $("#efficiency").html(efficiency)
@@ -445,7 +445,8 @@ if (data3.length){
     }else if(<%-JSON.stringify(calorieinfo.goal)%>=="wLoss"){
        $("#efficiency-text").html("Efficiency for <a class='px-2' href='#' role='button' data-trigger='focus' data-html='true' data-toggle='popover' data-placement='right' data-content='Value for eficiency must be near to 1. It denotes you progress.'> <i class='fas fa-info-circle'  style='color: rgba(227, 125, 95)' ></i></a>")
          dataset=[ 
-           { label: 'Calorie Deficit',
+           {
+              label: 'Calorie Deficit',
             data:data3,
             fill: false,
             borderColor: '#FF652F', // Add custom color border (Line)
@@ -455,7 +456,7 @@ if (data3.length){
     }
     else if(<%-JSON.stringify(calorieinfo.goal)%>=="wGain"){
        $("#efficiency-text").html("Efficiency for calorie-surplus")
-      [{
+     dataset= [{
             label: 'Calories Surplus', 
             data:data3,
             fill: false,
