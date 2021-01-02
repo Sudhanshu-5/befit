@@ -69,9 +69,10 @@
                     <i class="fas fa-edit"  style="color: rgba(227, 125, 95)" ></i>
                   </a>
                 </label>
-                <div class="col-sm-8 col-12 px-0">
-                  <input id="bmr" class="form-control px-0  text-center" name="bmr"  readonly="readonly" >
-                  <hr class="m-0">
+                <div class="col-sm-8 col-12 px-0 row ml-1">
+                  <input id="bmr"type="number" class="form-control  w-100 mb-0 text-right col-6 pr-0  text-center" value="<%=founduser.bmr%>" name="bmr"  readonly="readonly" >
+                  <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="Kcal" readonly>
+                  <hr class="m-0 col-12 px-0">
                </div>
                 
              </div>
@@ -225,7 +226,6 @@
 </div>
 <script>
   
-    $("#bmr").val(<%-founduser.bmr%>+" KCal")
 
     if(<%-JSON.stringify(founduser.bodyfat)%>)
        $("#fat-per").val(<%=founduser.bodyfat%>+" %")

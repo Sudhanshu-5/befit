@@ -69,10 +69,10 @@ router.post("/register", async (req, res) => {
         if (req.body.gender === "male") {
 
             bmr = 10 * W + 6.25 * H - 5 * A + 5;
-            bmr = bmr * factor;
+            bmr = (bmr * factor)/toFixed(2);
         } else if (req.body.gender === "female") {
             bmr = 10 * W + 6.25 * H - 5 * A - 161;
-            bmr = bmr * factor;
+            bmr = (bmr * factor)/toFixed(2);
         }
 
         //get targets

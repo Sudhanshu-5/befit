@@ -8,6 +8,8 @@ var calorieinfo = require("../models/calorieInfo");
 var userfood = require("../models/userFood");
 const femaleUser = require("../models/femaleUser");
 var macronutrientinfo = require("../models/macroNutrientInfo");
+var user = require("../models/user");
+var onDate = require("../models/onDate");
 
 var userType;
 var gender = "";
@@ -66,18 +68,19 @@ router.put("/viewProfile", middleware.isLoggedIn, async (req, res) => {
         let updateuser = await user.findOneAndUpdate({
             username: req.user.username
         }, {
-            username: req.body.founduser.username
+            username: req.body.new.username
         }, {
             upsert: true,
             new: true
         });
+        console.log(req.user.username+" "+req.body.new.username)
     } catch (err) {
         console.log(err)
     }
     try {
         let updatedUsertype = await userType.findOneAndUpdate({
             username: req.user.username
-        }, req.body.founduser, {
+        }, req.body.new, {
             upsert: true,
             new: true
         });
@@ -88,7 +91,7 @@ router.put("/viewProfile", middleware.isLoggedIn, async (req, res) => {
         let updatedOnDate = await onDate.findOneAndUpdate({
             date: dateNow.toLocaleDateString(),
             username: req.user.username
-        }, req.body.founduser, {
+        }, req.body.new, {
             upsert: true,
             new: true
         });

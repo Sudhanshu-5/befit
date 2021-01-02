@@ -14,7 +14,7 @@
           <div class="form-group row mb-0">
             <label for="username" class="col-3 col-form-label ">Username</label>
             <div class="col-9">
-              <input type="text"class="form-control text-center" id="username"  name="username" value="<%=founduser.username%>" >
+              <input type="text"class="form-control text-center" id="username"  name="new[username]" value="<%=founduser.username%>" >
               <hr class="m-0 ml-3">
             </div>
           </div>
@@ -22,7 +22,7 @@
           <div class="form-group row mb-0">
             <label for="email" class="col-3 col-form-label">Email</label>
             <div class="col-9">
-              <input type="email" id="email"class="form-control text-center" name="email" value="<%=currentUser.email%>"  >
+              <input type="email" id="email"class="form-control text-center" name="new[email]" value="<%=currentUser.email%>"  >
             <hr class="m-0">
           </div>
           </div>  
@@ -38,14 +38,14 @@
            <div class="form-group row mb-0">
                 <label for="dob" class="col-3 col-form-label">DOB</label>
                  <div class="col-9">
-                <input type="text" id="dob"class="form-control text-center" name="DOB" value="<%=founduser.DOB%>" >
+                <input type="text" id="dob"class="form-control text-center" name="new[DOB]" value="<%=founduser.DOB%>" >
                 <hr class="m-0">
               </div>
           </div>
            <div class="form-group row mb-0 ">
                 <label for="gender" class="col-3 col-form-label">Gender</label>
                  <div class="col-9">
-                <input type="text" id="gender"class="form-control  text-center" name="gender" value="<%=currentUser.gender%>"  >
+                <input type="text" id="gender"class="form-control  text-center" name="new[gender]" value="<%=currentUser.gender%>"  >
                 <hr class="m-0">
               </div>
           </div>
@@ -61,7 +61,7 @@
            <div class="form-group content row mb-0 mt-4 col-6">
                 <label for="goal" class="col-sm-4 col-12 col-form-label text-center">Goal</label>
                  <div class="col-sm-8 col-12 px-0">
-                   <input type="text" id="goal"class="form-control text-center px-0" name="goal"  >
+                   <input type="text" id="goal"class="form-control text-center px-0" name="new[goal]" readonly >
                 <hr class="m-0"> 
               </div>
             </div>
@@ -72,9 +72,10 @@
                     <i class="fas fa-edit"  style="color: rgba(227, 125, 95)" ></i>
                   </a>
                 </label>
-                <div class="col-sm-8 col-12 px-0">
-                  <input id="bmr" class="form-control px-0  text-center" name="bmr"   >
-                  <hr class="m-0">
+                <div class="col-sm-8 col-12 px-0 row ml-1">
+                  <input id="bmr" type="number"class="form-control  w-100 mb-0 text-right col-6 pr-0 text-center" value="<%=founduser.bmr%>" name="new[bmr]" readonly>
+                  <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="Kcal" readonly>
+                  <hr class="m-0 col-12 px-0">
                </div>
                 
              </div>
@@ -88,8 +89,8 @@
             <div class="form-group content row mb-0 col-6">
                 <label for="height" class="col-sm-4 col-12 text-center col-form-label">Height</label>
                  <div class="col-sm-8 col-12 px-0 row ml-1">
-                <input type="number" id="height" class="form-control w-100 mb-0 text-right col-6 pr-0" name="height" value="<%=founduser.height%>" >
-                <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="cm" >
+                <input type="number" id="height" class="form-control w-100 mb-0 text-right col-6 pr-0" name="new[height]" value="<%=founduser.height%>" >
+                <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="cm" readonly >
                 <hr class="m-0 col-12 px-0">
                 </div>
             </div>
@@ -97,8 +98,8 @@
             <div class="form-group content row mb-0 col-6">
                   <label for="weight" class="col-sm-4 col-12 text-center col-form-label">weight</label>
                   <div class="col-sm-8 col-12 px-0 row ml-1">
-                  <input type="number" id="weight" class="form-control w-100 text-right col-6 pr-0" name="weight" value="<%=founduser.weight%>"  >
-                  <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="cm" >
+                  <input type="number" id="weight" class="form-control w-100 text-right col-6 pr-0" name="new[weight]" value="<%=founduser.weight%>"  >
+                  <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="kg" readonly readonly >
                   <hr class="m-0 col-12">
                 </div>
             </div>
@@ -107,8 +108,8 @@
             <div class="form-group content row mb-0 col-6">
                 <label for="neck" class="col-sm-4 col-12 text-center col-form-label">Neck</label>
                 <div class="col-sm-8 col-12 px-0 row  ml-1">
-                <input type="number"class="form-control w-100 text-right col-6 pr-0" id="neck"  name="neck" placeholder="Not Added" >
-                <input class="form-control w-100 mb-0 text-left col-6 pl-0" id="neck-cm">
+                <input type="number"class="form-control w-100 text-right col-6 pr-0" id="neck"  name="new[neck]" placeholder="Not Added" >
+                <input class="form-control w-100 mb-0 text-left col-6 pl-0" id="neck-cm" readonly>
                 <hr class="m-0 col-12">
               </div>
             </div>
@@ -116,8 +117,8 @@
             <div class="form-group content row mb-0 col-6">
                 <label for="waist" class="col-sm-4 col-12 text-center col-form-label">Waist</label>
                 <div class="col-sm-8 col-12 px-0 row ml-1">
-                 <input type="number"class="form-control w-100 text-right col-6 pr-0" id="waist"  name="waist" placeholder="Not Added"  >
-                <input class="form-control w-100 mb-0 text-left col-6 pl-0"  id="waist-cm">
+                 <input type="number"class="form-control w-100 text-right col-6 pr-0" id="waist"  name="new[waist]" placeholder="Not Added"  >
+                <input class="form-control w-100 mb-0 text-left col-6 pl-0"  id="waist-cm" readonly>
                 <hr class="m-0 col-12">
               </div>
             </div> 
@@ -125,8 +126,8 @@
             <div class="form-group content row mb-0 col-6">
                 <label for="hip" class="col-sm-4 col-12 text-center col-form-label">Hip</label>
                 <div class="col-sm-8 col-11 px-0 row ml-1">
-                <input type="number"class="form-control w-100 text-right pr-0 col-6" id="hip"  name="hip" placeholder="Not Added"  >
-                 <input class="form-control w-100 mb-0 text-left col-6 pl-0"  id="hip-cm">
+                <input type="number"class="form-control w-100 text-right pr-0 col-6" id="hip"  name="new[hip]" placeholder="Not Added"  >
+                 <input class="form-control w-100 mb-0 text-left col-6 pl-0"  id="hip-cm" readonly>
                  <hr class="m-0 col-12">
               </div>
             </div>
@@ -139,7 +140,7 @@
   
                 </label>
                 <div class="col-sm-8 col-12 px-0">
-                 <input type="number"class="form-control w-100 text-center " id="activityFactor"  name="activityFactor" value="<%=founduser.activityFactor%>"  >
+                 <input type="number"class="form-control w-100 text-center " id="activityFactor"  name="new[activityFactor]" value="<%=founduser.activityFactor%>"  >
                 <hr class="m-0 col-12">
               </div>
               </div>
@@ -147,7 +148,7 @@
               <div class="form-group content row mb-0 col-6">
                 <label for="bmi" class="col-sm-4 col-12 text-center col-form-label">BMI</label>
                 <div class="col-sm-8 col-12 px-0">
-                 <input type="text" id="bmi" class="form-control w-100 text-center" name="bmi" value="<%=founduser.bmi%>"   >
+                 <input type="text" id="bmi" class="form-control w-100 text-center" name="new[bmi]" value="<%=founduser.bmi%>"   >
                 <hr class="m-0">
               </div>
               </div>
@@ -159,7 +160,7 @@
                 </label>
                 <div class="col-sm-8 col-12 px-0">
 
-                  <input type="text" id="fat-per" class="form-control w-100 text-center" name="fat-per" placeholder="Not Added" >
+                  <input type="text" id="fat-per" class="form-control w-100 text-center" name="new[fat-per]" placeholder="Not Added" >
                    <hr class="m-0">
                   </div>
               
@@ -227,7 +228,6 @@
 
 <script>
   
-    $("#bmr").val(<%-founduser.bmr%>+" KCal")
     if(<%-JSON.stringify(founduser.bodyfat)%>)
        $("#fat-per").val(<%=founduser.bodyfat%>+" %")
  
