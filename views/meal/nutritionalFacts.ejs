@@ -355,12 +355,16 @@ $(document).ready(function(){
 
 var carbs=" ",fats=" ",general=" ",minerals=" ",protiens=" ",vitamins=" ";
 
-  i_options_measure="<option id='first' value='' disabled selected hidden>Choose a measure</option>"; 
-
+  // i_options_measure="<option id='first' value='' disabled selected hidden>Choose a measure</option>"; 
+i_options_measure=""
 //serving option
- 
-       i_options_measure+="<option class='measure'selected value="+<%-JSON.stringify(data.serving_weight_grams)%>+" >"+<%-JSON.stringify(data.serving_unit)%>+" , "+<%-JSON.stringify(data.serving_weight_grams)%>+"g</option>";
-
+console.log(<%-JSON.stringify(data)%>)
+ console.log(<%-JSON.stringify(data.alt_measures)%>)
+        i_options_measure += "<option class='measure'selected value="+<%-JSON.stringify(data.serving_weight_grams)%>+" >"+<%-JSON.stringify(data.serving_unit)%>+" , "+<%-JSON.stringify(data.serving_weight_grams)%>+"g</option>";
+       <%data.alt_measures.forEach(function (options){%>
+        console.log(<%-JSON.stringify(options)%>)
+         i_options_measure += "<option class='measure' value="+<%-JSON.stringify(options.serving_weight)%>+" >"+<%-JSON.stringify(options.measure)%>+" , "+<%-JSON.stringify(options.serving_weight)%>+"g</option>";
+       <%})%> 
      
     $("#x-measure").html(i_options_measure);
 

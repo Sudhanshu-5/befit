@@ -15,7 +15,7 @@ router.use(function (req, res, next) {
         }
         if (gender === "female") {
             userType = femaleuser
-        }
+        } 
     }
 
     next();
