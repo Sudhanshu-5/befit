@@ -20,12 +20,11 @@
   $("#graphOdate-absence").hide();
 
 	length = <%-ondateinfo.ondate.length%>;
-
-
+console.log(<%-JSON.stringify(ondateinfo.ondate)%>)
 var ctx_weight = document.getElementById("graphOdateChart").getContext("2d");
 
 	<%ondateinfo.ondate.forEach(function(info){%>
-              console.log("date "+'<%-(new Date(info.createdAt)).toLocaleDateString()%>')
+             // console.log("date "+'<%-(new Date(info.createdAt)).toLocaleDateString()%>')
 			        dates.push('<%-(new Date(info.createdAt)).toLocaleDateString()%>');
 		        	dataset.push(<%-JSON.stringify(info)%>[type]);
          

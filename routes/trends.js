@@ -162,7 +162,7 @@ router.get("/showCalorie", middleware.isLoggedIn, function (req, res) {
             console.log(err)
         } else {
             length = calorieinfo.macroNutrientInfo.length;
-            // console.log("lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
+            console.log("macro lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
             // console.log("calorieingoooooooooooooooooo " + calorieinfo)
             console.log("--------------------- " + req.query.type);
             res.render("trends/calorie-date", {
@@ -191,8 +191,8 @@ router.get("/graphOdate", middleware.isLoggedIn, function (req, res) {
             console.log(err)
         } else {
             length = ondateinfo.ondate.length;
-            // console.log("lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
-            // console.log("calorieingoooooooooooooooooo " + ondateinfo)
+             console.log("weight lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
+            // conso le.log("calorieingoooooooooooooooooo " + ondateinfo)
 
             res.render("trends/graphOdate", {
                 ondateinfo: ondateinfo,

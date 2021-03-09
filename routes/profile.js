@@ -64,6 +64,7 @@ router.get("/editProfile", middleware.isLoggedIn, function (req, res) {
 
 // !UPDATE 
 router.put("/viewProfile", middleware.isLoggedIn, async (req, res) => {
+    let count = 0;
     try {
         let updateuser = await user.findOneAndUpdate({
             username: req.user.username
@@ -91,10 +92,34 @@ router.put("/viewProfile", middleware.isLoggedIn, async (req, res) => {
         let updatedOnDate = await onDate.findOneAndUpdate({
             date: dateNow.toLocaleDateString(),
             username: req.user.username
-        }, req.body.new, {
-            upsert: true,
-            new: true
+        }, req.body.new,{
+            upsert: true
         });
+    userType.findOne({
+        username: req.user.username
+    }).populate('ondate').exec(function (err, ondateinfo) {
+        if (err) {
+            console.log(err)
+        } else {
+            ondateinfo.ondate.forEach(function (dateinfo) {
+                if (dateinfo.date == updatedOnDate.data) {
+                    dateinfo = updatedOnDate;
+                    count++;
+                }
+                    
+            })
+            if (count != 0) {
+                ondateinfo.ondate.push(updatedOnDate);
+                ondateinfo.save(function (err, saved) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        console.log(saved);
+                    }
+                })
+            }
+        }
+    })
     } catch (err) {
         console.log(err)
     }

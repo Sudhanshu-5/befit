@@ -262,7 +262,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
             }
 
         }).then(function (response) {
-
+            
 
             for (var i = 0; i < response.data["foods"].length; i++) {
 
@@ -640,7 +640,7 @@ router.get("/customFoods", middleware.isLoggedIn, function (req, res) {
     userType.findOne({
         username: req.user.username
     }).populate("userfood").exec(function (err, populated) {
-        if (err) {
+        if (err) { 
             console.log(err);
         } else {
             //console.log("populated" + populated);
