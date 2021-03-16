@@ -22,8 +22,12 @@ const {
     exists
 } = require("../models/user");
 
+router.use(bodyParser.urlencoded({
+    extended: true
+}));
 
-var userType;
+
+
 var gender;
 router.use(function (req, res, next) {
     if (req.user) {
@@ -41,20 +45,19 @@ router.use(function (req, res, next) {
 
     next();
 });
-router.use(bodyParser.urlencoded({
-    extended: true
-}));
-//!new user
+
+//!register new user
+
 router.get("/register", middleware.counterLoggedIn, function (req, res) {
     res.render("auth/register");
 })
 
 //!create new user and add to DB
+
 router.post("/register", async (req, res) => {
-    //console.log(req.body.password.toLowerCase());
-    //  c/onsole.log(req.body.confirmPass.toLowerCase());
+   
     if ((req.body.password.toLowerCase()).localeCompare(req.body.confirmPass.toLowerCase()) == 0) {
-        //  console.log(req.body.gender);
+        
         let flag = false;
         let newlyCreated;
         let W = req.body.kgs;
@@ -75,7 +78,7 @@ router.post("/register", async (req, res) => {
             bmr = (bmr * factor).toFixed(2);
         }
 
-        //get targets
+        //!get targets
         if (factor == 1.2) {
             targets["pTarget"] = (bmr * 30 / 400).toFixed(2);
             targets["fTarget"] = (bmr * 20 / 900).toFixed(2);
@@ -93,7 +96,7 @@ router.post("/register", async (req, res) => {
             targets["fTarget"] = (bmr * 30 / 900).toFixed(2);
             targets["cTarget"] = (bmr * 45 / 400).toFixed(2);
         }
-          console.log("000000000000000000000000000000"+targets["pTarget"]+targets["fTarget"]+targets["cTargets"])  
+      
         var newUser = new user({
             username: req.body.username,
             gender: req.body.gender,
