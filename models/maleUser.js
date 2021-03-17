@@ -83,7 +83,7 @@ var maleUserSchema = new mongoose.Schema({
         default: 0
     },
     goal_number:{
-        type: Number,
+        type: Number,   
         default: 0
     },//how much weight to be increase or decrese
     

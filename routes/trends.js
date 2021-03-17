@@ -156,6 +156,7 @@ router.get("/showCalorie", middleware.isLoggedIn, function (req, res) {
         if (err) {
             console.log(err)
         } else {
+            console.log(calorieinfo)
             length = calorieinfo.macroNutrientInfo.length;
             console.log("macro lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
             // console.log("calorieingoooooooooooooooooo " + calorieinfo)

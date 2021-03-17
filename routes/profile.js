@@ -168,7 +168,7 @@ router.put("/viewProfile", middleware.isLoggedIn, async (req, res) => {
             console.log(err)
         } else {
             ondateinfo.ondate.forEach(function (dateinfo) {
-                if (dateinfo.date == updatedOnDate.data) {
+                if (dateinfo.date == updatedOnDate.date) {
                     dateinfo = updatedOnDate;
                     count++;
                 }

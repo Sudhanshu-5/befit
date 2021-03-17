@@ -40,6 +40,7 @@ var dateNow = (new Date(Date.now())) //IST time
 //!addMeal for particular user
 
 router.get("/addMeal", middleware.isLoggedIn, async (req, res) => {
+  
     try {
         var findedUser = await userType.findOne({
             username: req.user.username

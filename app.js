@@ -120,17 +120,7 @@ app.use(function (req, res, next) {
 app.get("/", middleware.counterLoggedIn, function (req, res) {
     res.render("others/index");
 });
-app.get("/addMeal", middleware.isLoggedIn, async (req, res) => {
-    try {
-        var findedUser = await userType.findOneAndUpdate({
-            username: req.user.username
-        })
-        console.log("-----------:" + findedUser);
-        
-    } catch (err) {
-        console.log(err);
-    }
-});
+
 // app.get("/demo", function (req, res) {
 //     res.render("demo");
 // })
