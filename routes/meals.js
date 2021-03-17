@@ -8,9 +8,7 @@ var calorieinfo = require("../models/calorieInfo");
 var userfood = require("../models/userFood");
 const femaleUser = require("../models/femaleUser");
 var macronutrientinfo = require("../models/macroNutrientInfo");
-// const {
-//     response 
-// } = require("express");
+
 const middlewareObj = require("../middleware");
 const {
     json
@@ -37,7 +35,7 @@ router.use(function (req, res, next) {
     next();
 });
 var dateNow = (new Date(Date.now())) //IST time
-console.log("dateNow" + dateNow)
+// console.log("dateNow" + dateNow)
 
 //!addMeal for particular user
 
@@ -74,18 +72,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
     var uprotiens = [];
     var ucholestrol = [];
     var ufibres = [];
-    // if(foodFromKitchen){}
-    // let foodFromKitchen = req.body.myfoodsName;
-    // let myfoodsqty = req.body.myfoodsQty.map(Number);
-    // let myfoodsmeasure = req.body.myfoodsMeasure;
-    // console.log("999" +typeof(myfoodsmeasure))
-    // let myfoodsWeight = req.body.myfoodsWeight.map(Number);
-
-    // console.log(typeof (myfoodsqty));
-    // console.log(typeof(myfoodsmeasure));
-    // console.log(myfoodsWeight)
-
-    //if food from kitchen is also added
+ 
     if (req.body.myfoodsName) {
         let userFood = req.body.myfoodsName;
         let myfoodsqty = req.body.myfoodsQty.map(Number);
@@ -122,8 +109,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
 
                 // console.log("foofasdSDAS" + food);
                 uCalsum = (uCalsum + food.calories * factor);
-                // console.log(typeof (uCalsum) + "0000000000000000000000000" + " " + uCalsum)
-                // console.log("uSUM" + usum);
+               
                 ufooditems.push(food.food_name);
                 uqty.push(myfoodsqty[i]);
                 uservingUnit.push(myfoodsmeasure[i]);
@@ -131,7 +117,6 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                 ucalorie.push(food.calories * factor);
                 ufats.push(food.fats * factor);
                 uFatsum += food.fats * factor;
-                //  console.log(typeof (uFatsum) + "0000000000000000000000000 " + uFatsum)
 
                 ucarbs.push(food.carbs * factor);
                 uCarbsum += food.carbs * factor;
@@ -141,18 +126,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                 ucholestrol.push(food.cholestrol * factor);
                 ufibres.push(food.fibres * factor);
 
-                // console.log("fd" + ksum)
-                // console.log("sad" + kfooditems)
-                // console.log("ADS" + kqty)
-                // console.log("sad" + kservingUnit)
-                // console.log("asd" + kservingWeight);
-                // console.log("asd" + kcalorie)
-                // console.log("sad" + kfats);
-                // console.log("as" + kcarbs);
-                // console.log("sad" + kprotiens);
-                // console.log("asd" + kcholestrol);
-                // console.log("ads" + kfibres);
-
+              
 
             }
 
@@ -178,9 +152,9 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
     if (req.body.labelInstant) {
 
         if (req.body.nixItemId) {
-            console.log("branded");
+            // console.log("branded");
             label = req.body.labelInstant;
-            console.log("info" + info + label);
+            // console.log("info" + info + label);
             axios({
                 method: "get",
                 url: "https://trackapi.nutritionix.com/v2/search/item?nix_item_id=" + req.body.nixItemId,
@@ -190,10 +164,10 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                     "x-remote-user-id": "0"
                 }
             }).then(function (response) {
-                console.log("winwinwiwnwinwinwinwinwinwin " + response.data["foods"][0].nf_calories)
+                // console.log("winwinwiwnwinwinwinwinwinwin " + response.data["foods"][0].nf_calories)
                 calsum = calsum + response.data["foods"][0].nf_calories;
                 fooditems.push(response.data["foods"][0].food_name);
-                console.log("nameeeeeeeeeeeeeeeeeeeeeeeeeeeee " + fooditems)
+                // console.log("nameeeeeeeeeeeeeeeeeeeeeeeeeeeee " + fooditems)
                 servingWeight.push(response.data["foods"][0].serving_weight_grams);
                 calorie.push(response.data["foods"][0].nf_calories);
                 fats.push(response.data["foods"][0].nf_total_fat);
@@ -206,7 +180,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                 fibres.push(response.data["foods"][0].nf_dietary_fiber);
                 servingUnit.push(req.body.measure);
                 qty.push(req.body.qty);
-                console.log("nameeeeeeeeeeeeeeeeeeeeeeeeeeeee " + fooditems.length)
+                // console.log("nameeeeeeeeeeeeeeeeeeeeeeeeeeeee " + fooditems.length)
 
             }).catch(function (error) {
                 
@@ -216,11 +190,11 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                 }
 
             }).finally(function () {
-                console.log("length of branded+" + fooditems.length)
+                // console.log("length of branded+" + fooditems.length)
                 demo();
             })
         } else {
-            console.log("inside common")
+            // console.log("inside common")
 
             info = req.body.qty * req.body.weight + "g" + " " + req.body.food;
             label = req.body.labelInstant;
@@ -233,8 +207,8 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
     else if (req.body.labelDescription) {
         info = req.body.query
         label = req.body.labelDescription;
-        console.log("info" + info + label);
-        console.log("descriptiove");
+        // console.log("info" + info + label);
+        // console.log("descriptiove");
         if (!info) {
             req.flash('error', 'add something ')
             res.redirect('back')
@@ -285,7 +259,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
             //console.log("typeofffffffffffffffffffff"+typeof(calorie)+typeof(carbSum)+typeof(carb)+typeof(protiens)+typeof(proSum));
         }).catch(function (error) {
             // console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk " + error)
-            console.log("ssssssssssssssssss " + fooditems.length)
+            // console.log("ssssssssssssssssss " + fooditems.length)
             if (!fooditems.length) {
                 req.flash('error', 'Food Cannot be found in our database. Add in custom foods')
                 res.redirect('back')
@@ -298,13 +272,13 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
 
     function demo() {
 
-        console.log("inside demo with " + fooditems.length);
+        // console.log("inside demo with " + fooditems.length);
         caloriesSum = calsum + uCalsum;
         // console.log(typeof (caloriesSum) + "111111111111111111111111111111 " + caloriesSum)
         fatSum = fatSum + uFatsum;
         carbSum = carbSum + uCarbsum;
         proSum = proSum + uProsum;
-        console.log("summmmmmmmmmmmmmmmmmmmm " + caloriesSum + " " + fatSum + " " + carbSum + " " + proSum)
+        // console.log("summmmmmmmmmmmmmmmmmmmm " + caloriesSum + " " + fatSum + " " + carbSum + " " + proSum)
 
 
         fooditems = fooditems.concat(ufooditems);
@@ -369,17 +343,15 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                                     if (err) {
                                         console.log(err);
                                     } else {
-                                        console.log("userinfo" + foodinfo);
-                                        console.log("daaaaaaata " + data.calorieConsumption + typeof (data.calorieConsumption) + data.sumPro + typeof (data.sumCarbs));
+                                        // console.log("userinfo" + foodinfo);
+                                        // console.log("daaaaaaata " + data.calorieConsumption + typeof (data.calorieConsumption) + data.sumPro + typeof (data.sumCarbs));
                                         var totalCalorie = parseFloat(data.calorieConsumption); //from body
                                         var totalProtiens = data.sumPro;
                                         var totalFats = data.sumFats;
                                         var totalCarbs = data.sumCarbs;
 
-                                        // console.log("totslcalore= " + totalCalorie);
-                                        // console.log("totalFAts:" + totalFats);
-                                        // console.log("totalPro:" + totalProtiens);
-                                        console.log("totalCarbs:" + totalCarbs);
+                                     
+                                        // console.log("totalCarbs:" + totalCarbs);
 
                                         //console.log("999999999999999999999 " + dateNow.toLocaleDateString())
                                         if (foodinfo.macroNutrientInfo.length > 0) {
@@ -396,10 +368,10 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                                         }
 
 
-                                        console.log("totslcalore= " + totalCalorie);
-                                        console.log("totalFAts:" + totalFats);
-                                        console.log("totalPro:" + totalProtiens);
-                                        console.log("totalCarbs:" + totalCarbs);
+                                        // console.log("totslcalore= " + totalCalorie);
+                                        // console.log("totalFAts:" + totalFats);
+                                        // console.log("totalPro:" + totalProtiens);
+                                        // console.log("totalCarbs:" + totalCarbs);
                                         macronutrientinfo.findOneAndUpdate({
 
                                             date: dateNow.toLocaleDateString(),
@@ -431,7 +403,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                                                         if (err) {
                                                             console.log(err)
                                                         } else {
-                                                            console.log(saved);
+                                                            // console.log(saved);
                                                         }
                                                     })
 
@@ -452,7 +424,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                                                             if (err) {
                                                                 console.log(err)
                                                             } else {
-                                                                console.log(saved);
+                                                                // console.log(saved);
                                                             }
                                                         })
                                                     }
@@ -526,7 +498,7 @@ router.delete("/deleteMeal", middleware.isLoggedIn, async (req, res) => {
             if (err) {
                 console.log(err);
             } else {
-                console.log("updatedMacroNutrientInfo " + updatedMacronutrient);
+                // console.log("updatedMacroNutrientInfo " + updatedMacronutrient);
 
             }
         })
@@ -546,7 +518,7 @@ router.delete("/deleteMeal", middleware.isLoggedIn, async (req, res) => {
                 //update maconutirentinfo
                 //delete
                 //show targets
-                console.log("single docccccccccccccccccccccccc")
+                // console.log("single docccccccccccccccccccccccc")
                 updateMacronutrientInfo(i);
                 let deleteDoc = await mealinfo.findByIdAndDelete(findedMealId);
                 res.send(millisecondsOfItemsToBeRemoved) //to change update progress bars
@@ -573,7 +545,7 @@ router.delete("/deleteMeal", middleware.isLoggedIn, async (req, res) => {
                         if (err) {
                             console.log(err)
                         } else {
-                            console.log("updatedMealInfo " + updatedMealInfo);
+                            // console.log("updatedMealInfo " + updatedMealInfo);
                             var foodIndex = `foodItems.${index}`;
                             var qtyIndex = `qty.${index}`;
                             var servingUnitIndex = `servingUnit.${index}`;
@@ -604,7 +576,7 @@ router.delete("/deleteMeal", middleware.isLoggedIn, async (req, res) => {
                                     if (err) {
                                         console.log(err)
                                     } else {
-                                        console.log("updated " + updatedMealinfo)
+                                        // console.log("updated " + updatedMealinfo)
                                     }
                                 });
 
@@ -660,8 +632,8 @@ router.post("/customFoods", middleware.isLoggedIn, function (req, res) {
     let weight_array = [];
     for (let i = 0; i < req.body.qty.length; i++) {
         qty_array[i] = req.body.qty[i];
-        console.log("check" + typeof (req.body.qty))
-        console.log(typeof (qty_array[i]) + "sakjjbdhj bhbahdbhadjhjsah")
+        // console.log("check" + typeof (req.body.qty))
+        // console.log(typeof (qty_array[i]) + "sakjjbdhj bhbahdbhadjhjsah")
         weight_array[i] = req.body.serving_weight[i];
         unit_array[i] = req.body.serving_unit[i];
     }
@@ -707,7 +679,7 @@ router.get("/searchInstant", middleware.isLoggedIn, function (req, res) {
     res.render("meal/instantSearchFood")
 });
 router.get("/searchFood", middleware.isLoggedIn, function (req, res) {
-    console.log(req.query.query);
+    // console.log(req.query.query);
     var url = " https://trackapi.nutritionix.com/v2/search/instant?query=" + req.query.query + "&detailed=true";
     axios({
         method: "get",
@@ -735,8 +707,8 @@ router.get("/searchFood", middleware.isLoggedIn, function (req, res) {
 router.post("/searchNutrients", middleware.isLoggedIn, function (req, res) {
     var info = req.body.query;
     var type =req.body.id; //common/breanded
-    console.log("Query" + JSON.stringify(info));
-    console.log(type);
+    // console.log("Query" + JSON.stringify(info));
+    // console.log(type);
      if (type) {
         
         console.log("brandeddddddddd" )
@@ -750,8 +722,8 @@ router.post("/searchNutrients", middleware.isLoggedIn, function (req, res) {
                 }
         }).then(function (response) {
             var temp = response.data["foods"][0];
-            console.log(temp);
-            console.log(JSON.stringify(temp))
+            // console.log(temp);
+            // console.log(JSON.stringify(temp))
             // var a = {
             //     food: temp.food_name,
             //     total_fat: temp.nf_total_fat,
@@ -763,7 +735,7 @@ router.post("/searchNutrients", middleware.isLoggedIn, function (req, res) {
             //     protiens: temp.nf_protein,
             // }
             //console.log(a);
-            console.log(JSON.stringify(temp))
+            // console.log(JSON.stringify(temp))
             res.render("meal/nutritionalFacts", {
                 data: temp
             });

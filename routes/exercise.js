@@ -495,7 +495,7 @@ router.post("/customExercise", middleware.isLoggedIn, function (req, res) {
 //!get execise suggestion
 router.get("/suggestion", middleware.isLoggedIn, async (req, res) => {
     try {
-        console.log("janjnasdsadsadas" + req.query.calories)
+        // console.log("janjnasdsadsadas" + req.query.calories)
         let calories = req.query.calories;
         let duration_obj = {};
         let info = "30 min walking 30 min running 30 min bicycling ";

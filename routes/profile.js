@@ -10,6 +10,7 @@ const femaleUser = require("../models/femaleUser");
 var macronutrientinfo = require("../models/macroNutrientInfo");
 var user = require("../models/user");
 var onDate = require("../models/onDate");
+const { request } = require("express");
 
 var userType;
 var gender = "";
@@ -26,7 +27,7 @@ router.use(function (req, res, next) {
     next();
 });
 var dateNow = (new Date(Date.now())) //IST time
-console.log("dateNow" + dateNow)
+// console.log("dateNow" + dateNow)
 // !SHOW - profile
 router.get("/viewProfile", middleware.isLoggedIn, function (req, res) {
 
@@ -36,7 +37,7 @@ router.get("/viewProfile", middleware.isLoggedIn, function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log(founduser)
+            // console.log(founduser)
             //render show template with that campground
             res.render("profile/viewProfile", {
                 founduser: founduser
@@ -64,24 +65,89 @@ router.get("/editProfile", middleware.isLoggedIn, function (req, res) {
 
 // !UPDATE 
 router.put("/viewProfile", middleware.isLoggedIn, async (req, res) => {
-    let count = 0;
-    try {
+       
+     try {
+        var findedUser = await userType.findOne({
+            username: req.user.username
+        })
+    } catch (err) {
+                console.log(err)
+
+    }
+    let DOB = req.body.DOB
+    let A 
+    getAge(DOB)
+    function getAge(DOB) {
+    var today = new Date();
+    var birthDate = new Date(DOB);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+        A = age
+    }
+
+       let count = 0;
+        let goal;
+        let W = req.body.weight;
+        let H = req.body.height;
+        
+    let goal_number = Number(req.body.goal)
+    let bmi = (W/((H/100)*(H/100))).toFixed(2)
+   
+       try {
         let updateuser = await user.findOneAndUpdate({
             username: req.user.username
         }, {
-            username: req.body.new.username
+            username: req.body.username
         }, {
             upsert: true,
             new: true
         });
-        console.log(req.user.username+" "+req.body.new.username)
-    } catch (err) {
-        console.log(err)
+        // console.log(req.user.username+" "+req.body.new.username)
+            } catch (err) {
+                console.log(err)
+            }
+
+    if (req.body.gender === "male") {
+         bmr = 10 * W + 6.25 * H - 5 * A + 5;
+            goal_calories = ((bmr * req.body.activityFactor) + (goal_number*1000) ).toFixed(2);
+    } else if (req.body.gender === "female") {
+        bmr = 10 * W + 6.25 * H - 5 * A - 161;
+        goal_calories = ((bmr * req.body.activityFactor) + (goal_number*1000) ).toFixed(2);
     }
+    
+    if (req.body.goal < 0) goal = "Loss"
+    else if (req.body.goal > 0) goal = "Gain"
+    else if (req.body.goal == 0.0) goal = "Maintain"
+
+    
+    let update = {
+        username: req.body.username,
+        email:req.body.email,
+        DOB: req.body.DOB,
+        gender: req.body.gender,
+        goal: goal,
+        goal_calories: goal_calories,
+        goal_number :goal_number,
+        height: req.body.height,
+        weight: req.body.weight,
+        neck: req.body.neck,
+        waist: req.body.waist,
+        hip: req.body.hip,
+        activityFactor: req.body.activityFactor,
+        bmi: bmi,
+        bodyfat: req.body.fatPer,
+        bmr: bmr,
+        age:A
+       }
+
+    
     try {
         let updatedUsertype = await userType.findOneAndUpdate({
             username: req.user.username
-        }, req.body.new, {
+        }, update, {
             upsert: true,
             new: true
         });
@@ -92,7 +158,7 @@ router.put("/viewProfile", middleware.isLoggedIn, async (req, res) => {
         let updatedOnDate = await onDate.findOneAndUpdate({
             date: dateNow.toLocaleDateString(),
             username: req.user.username
-        }, req.body.new,{
+        }, update,{
             upsert: true
         });
     userType.findOne({
@@ -114,7 +180,7 @@ router.put("/viewProfile", middleware.isLoggedIn, async (req, res) => {
                     if (err) {
                         console.log(err)
                     } else {
-                        console.log(saved);
+                        // console.log(saved);
                     }
                 })
             }
@@ -158,7 +224,7 @@ router.get("/editRatios", middleware.isLoggedIn, async (req, res) => {
 });
 
 router.put("/editRatios", middleware.isLoggedIn, async (req, res) => {
-    console.log("oooooooooooooooo" + JSON.stringify(req.body.eratio));
+    // console.log("oooooooooooooooo" + JSON.stringify(req.body.eratio));
     let update_obj = {}; //contains ratios and target
     var findeduser = await userType.findOne({
         username: req.user.username
@@ -168,27 +234,27 @@ router.put("/editRatios", middleware.isLoggedIn, async (req, res) => {
         update_obj["inactive_protiensRatio"] = req.body.eratio["protiens"];
         update_obj["inactive_fatsRatio"] = req.body.eratio["fats"];
 
-        update_obj["p_target"] =( findeduser.bmr * req.body.eratio["protiens"] / 400).toFixed(2);
-        update_obj["f_target"] = (findeduser.bmr * req.body.eratio["fats"] / 900).toFixed(2);
-        update_obj["c_target"] = (findeduser.bmr * req.body.eratio["carbs"] / 400).toFixed(2);
+        update_obj["p_target"] =( goal_calories * req.body.eratio["protiens"] / 400).toFixed(2);
+        update_obj["f_target"] = (goal_calories * req.body.eratio["fats"] / 900).toFixed(2);
+        update_obj["c_target"] = (goal_calories * req.body.eratio["carbs"] / 400).toFixed(2);
     } else if (findeduser.activityFactor == 1.375 | findeduser.activityFactor == 1.55) {
 
         update_obj["med_carbsRatio"] = req.body.eratio["carbs"];
         update_obj["med_protiensRatio"] = req.body.eratio["protiens"];
         update_obj["med_fatsRatio"] = req.body.eratio["fats"];
 
-        update_obj["p_target"] = (findeduser.bmr * req.body.eratio["protiens"] / 400).toFixed(2);
-        update_obj["f_target"] = (findeduser.bmr * req.body.eratio["fats"] / 900).toFixed(2);
-        update_obj["c_target"] = (findeduser.bmr * req.body.eratio["carbs"] / 400).toFixed(2);
+        update_obj["p_target"] = (goal_calories * req.body.eratio["protiens"] / 400).toFixed(2);
+        update_obj["f_target"] = (goal_calories * req.body.eratio["fats"] / 900).toFixed(2);
+        update_obj["c_target"] = (goal_calories * req.body.eratio["carbs"] / 400).toFixed(2);
 
     } else {
         update_obj["high_carbsRatio"] = req.body.eratio["carbs"];
         update_obj["high_protiensRatio"] = req.body.eratio["protiens"];
         update_obj["high_fatsRatio"] = req.body.eratio["fats"];
 
-        update_obj["p_target"] = (findeduser.bmr * req.body.eratio["protiens"] / 400).toFixed(2);
-        update_obj["f_target"] = (findeduser.bmr * req.body.eratio["fats"] / 900).toFixed(2);
-        update_obj["c_target"] = (findeduser.bmr * req.body.eratio["carbs"] / 400).toFixed(2);
+        update_obj["p_target"] = (goal_calories * req.body.eratio["protiens"] / 400).toFixed(2);
+        update_obj["f_target"] = (goal_calories * req.body.eratio["fats"] / 900).toFixed(2);
+        update_obj["c_target"] = (goal_calories * req.body.eratio["carbs"] / 400).toFixed(2);
     }
 
     var updateuser = await userType.findOneAndUpdate({

@@ -17,10 +17,8 @@
 
 <script>
           
-          if(<%-JSON.stringify(goal)%>=="wGain")
-               conTarget=<%-bmr%>+250
-          else
-          conTarget=<%-bmr%>
+         
+          conTarget=<%-energy%>
 
                caloriePer = ( (<%-totals['totalCaloriesConsumed']%>/conTarget )*100).toFixed(2);
                carbPer=( (<%-totals['totalCarbs']%>/<%-targets['cTarget']%> )*100).toFixed(2);

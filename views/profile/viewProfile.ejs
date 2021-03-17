@@ -58,19 +58,29 @@
            <div class="form-group content row mb-0 mt-4 col-6">
                 <label for="goal" class="col-sm-4 col-12 col-form-label text-center">Goal</label>
                  <div class="col-sm-8 col-12 px-0">
-                   <input type="text" id="goal"class="form-control text-center px-0" name="goal" readonly="readonly" >
-                <hr class="m-0"> 
+                   <!-- <input type="text" id="goal"class="form-control text-center px-0" name="goal" readonly="readonly" > -->
+                <select id="select"  class="form-control" name="goal" disabled>
+                  <option value="-1.0">Lose 1 kilogram per week</option>
+                  <option value="-0.75">Lose .75 kilograms per week</option>
+                  <option value="-0.5">Lose .5 kilograms per week</option>
+                  <option value="-0.25">Lose .25 kilograms per week</option>
+                  <option value="0">Maintain my current weight</option>
+                  <option value="0.25">Gain .25 kilograms per week</option>
+                  <option value="0.5">Gain .5 kilograms per week</option>
+                  <option value="1.0">Gain 1 kilograms per week</option>
+               </select>
+               <hr class="m-0"> 
               </div>
             </div>
 
              <div class="form-group content row mb-0 mt-4 col-6">
-                <label for="bmr" class="col-sm-4 col-12 text-center col-form-label ">BMR
-                  <a class="px-2"href="#" role="button" data-trigger="focus" data-html="true" data-toggle="popover" data-placement="right" data-content="Basal metabolic rate (BMR)  is a minimum number of calories required for basic functions at rest,<br>  <a href='/bmr'>  calculate BMR</a>" >
+                <label for="target" class="col-sm-4 col-12 text-center col-form-label ">Target
+                  <!-- <a class="px-2"href="#" role="button" data-trigger="focus" data-html="true" data-toggle="popover" data-placement="right" data-content="Basal metabolic rate (BMR)  is a minimum number of calories required for basic functions at rest,<br>  <a href='/bmr'>  calculate BMR</a>" >
                     <i class="fas fa-edit"  style="color: rgba(227, 125, 95)" ></i>
-                  </a>
+                  </a> -->
                 </label>
                 <div class="col-sm-8 col-12 px-0 row ml-1">
-                  <input id="bmr"type="number" class="form-control  w-100 mb-0 text-right col-6 pr-0  text-center" value="<%=founduser.bmr%>" name="bmr"  readonly="readonly" >
+                  <input id="target"type="number" class="form-control  w-100 mb-0 text-right col-6 pr-0  text-center" value="<%=founduser.goal_calories%>" name="bmr"  readonly="readonly" >
                   <input class="form-control w-100 mb-0 text-left col-6 pl-0" value="Kcal" readonly>
                   <hr class="m-0 col-12 px-0">
                </div>
@@ -132,14 +142,72 @@
 
               <div class="form-group content row mb-0 col-6">
                 <label for="activityFactor" class="col-sm-4 col-12 text-center col-form-label">PAF
-                  <a class="px-0" href="#" role="button" data-trigger="focus" data-html="true" data-toggle="popover" data-placement="right" data-content="Physical Activity Factor (PAF) is a way of expressing a person's daily physical activity in a number. <a href='/bmr'>  Edit activity factor</a>" >
+                   <i class="fas fa-question-circle px-2" style="color: rgba(227, 125, 95) ;"data-toggle="modal" data-target="#activity-modal"></i>
+                  <div class="modal fade w-100" id="activity-modal">
+    <div class="modal-dialog">
+      <div class="modal-content activity-factor-modal w-100">
+  
+        <div class="modal-header">
+          <h4 class="modal-title">Know your activity-factor</h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+        <div class="modal-body border ">
+          <div class="row p-1 pb-0">
+            <div class="col-4 p-1">Amount of Exercise/Activity</div>
+            <div class="col-6 p-1 pl-4 ">Description</div>
+            <div class="col-2 p-1">Activity Factor</div>
+          </div>
+          <div class="row p-0">
+            <hr class="col-12 p-0 m-0">
+          </div>
+          <div class="row p-1 pb-0">
+            <div class="col-4 p-1">Sedentary</div>
+            <div class="col-6 p-1">Little or no Exercise / desk job</div>
+            <div class="col-2 p-1 text-center font-weight-bold">1.2</div>
+          </div>
+          <div class="row p-1 pb-0">
+            <div class="col-4 p-1">Lightly active</div>
+            <div class="col-6 p-1">Light exercise / sports 1 – 3 days / week</div>
+            <div class="col-2 p-1 text-center font-weight-bold">1.375</div>
+          </div>
+          <div class="row p-1 pb-0">
+            <div class="col-4 p-1">Moderately active</div>
+            <div class="col-6 p-1">Moderate Exercise, sports 3 – 5 days / week</div>
+            <div class="col-2 p-1 text-center font-weight-bold">1.55</div>
+          </div>
+          <div class="row p-1 pb-0">
+            <div class="col-4 p-1">Very active</div>
+            <div class="col-6 p-1">Heavy Exercise/ sports 6 – 7 days / week</div>
+            <div class="col-2 p-1 text-center  font-weight-bold">1.72</div>
+          </div>
+          <div class="row p-1 pb-0">
+            <div class="col-4 p-1">Extremely active</div>
+            <div class="col-6 p-1">Moderate Exercise, sports 3 – 5 days / week</div>
+            <div class="col-2 p-1 text-center font-weight-bold">1.9</div>
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn"  style="background-color: rgba(227, 125, 95);color:white" data-dismiss="modal">Close</button>
+        </div> 
+      </div>
+    </div>
+  </div>
+  <!-- <a class="px-0" href="#" role="button" data-trigger="focus" data-html="true" data-toggle="popover" data-placement="right" data-content="Physical Activity Factor (PAF) is a way of expressing a person's daily physical activity in a number. <a href='/bmr'>  Edit activity factor</a>" >
                     <i class="fas fa-edit"  style="color: rgba(227, 125, 95)" ></i>
-                  </a>
+                  </a> -->
   
                 </label>
                 <div class="col-sm-8 col-12 px-0">
-                 <input type="number"class="form-control w-100 text-center " id="activityFactor"  name="activityFactor" value="<%=founduser.activityFactor%>" readonly="readonly" >
-                <hr class="m-0 col-12">
+                 <!-- <input type="number"class="form-control w-100 text-center " id="activityFactor"  name="activityFactor" value="<%=founduser.activityFactor%>" readonly="readonly" > -->
+                <select id="select2"  class="form-control" name="activityFactor" disabled>
+                  <option value="1.2">1.2</option>
+                  <option value="1.375">1.375</option>
+                  <option value="1.55">1.55</option>
+                  <option value="1.72">1.72</option>
+                  <option value="1.9">1.9<option>
+                  </select>
+                 <hr class="m-0 col-12">
               </div>
               </div>
 
@@ -249,17 +317,18 @@
                       
 
       
-    
-    
-    if(<%-JSON.stringify(founduser.goal)%>=="wGain"){
-      $("#goal").val("Gain weight")
-    }
-    else if(<%-JSON.stringify(founduser.goal)%>=="wLoss"){
-      $("#goal").val("Loose weight")
-    }
-    else{
-      $("#goal").val("Maintain weight")
-    }
+     $("#select").val(<%- JSON.stringify(founduser.goal_number)%>);
+     $("#select2").val(<%- JSON.stringify(founduser.activityFactor)%>);
+
+    // if(<%-JSON.stringify(founduser.goal_number)%> > 0){
+    //   $("#goal").val("Gain "+<%-JSON.stringify(founduser.goal_number)%>+"kg per week")
+    // }
+    // else if(<%-JSON.stringify(founduser.goal)%> < 0){
+    //   $("#goal").val("Loose "+<%-JSON.stringify(founduser.goal_number)%>+"kg per week")
+    // }
+    // else if(<%-JSON.stringify(founduser.goal)%> == 0){
+    //   $("#goal").val("Maintain current weight")
+    // }
 
      if (<%-founduser.activityFactor%> == 1.2) {
          $("#carbs").html(<%-founduser.inactive_carbsRatio%>)

@@ -6,13 +6,11 @@
     <div class="alert py-2" style="background-color: rgba(227, 125, 95,.2);" role="alert" id="no-record-r">
      No records added <a href="/addMeal" > Add Meal </a> <a href="/addExercise" >/ Add Exercise</a> 
     </div>
-<!-- <div class="alert alert-primary" role="alert" id="no-record-r">
-  No records added <a href="/addMeal" >Add Meal</a> <a href="/addExercise" >Add Exercise</a> 
-</div> -->
+
     <div class="row">
         <div class="col-12 row">
                 <div id="report-header" class="row col-12  w-100">
-                    <div id="range-div-r" class="col-md-9 col-sm-12 pr-0 row">
+                    <div id="range-div-r" class="col-md-9 col-sm-12 pr-0 row m-auto">
                       <div style='font-size:1.5rem' class="col-lg-4 col-sm-4 col-5 text-right ">Report #</div>
                       <select id="range-select-r"  class="form-control col-lg-6 col-sm-6 col-7 w-100" name="rangeReport"  placeholder="0">
                         <option value="today">Today</option>
@@ -186,23 +184,25 @@
        function extractWithDate(mm, dd, yy,k) {
                   $(".modal-content #err-mssg-r").hide();
 
-                console.log("inside exctract fun"+mm+1+"/"+dd+"/"+yy)
+                console.log("inside exctract fun"+(mm+1)+"/"+dd+"/"+yy)
                 if(k==0){
-                  $("#from-r").text(mm+1 +"/"+dd+"/"+yy);
+                  $("#from-r").text((mm+1) +"/"+dd+"/"+yy);
                   m0=mm;
                   d0=dd;
                   y0=yy
                 }
                 else if(k==1) 
                 {
-                  $("#to-r").text(mm+1 +"/"+dd+"/"+yy)
+                  $("#to-r").text((mm+1) +"/"+dd+"/"+yy)
                   m1=mm;
                   d1=dd;
                   y1=yy;
                 }
                 
                 from=$("#from-r").text();
+  
                 to=$("#to-r").text();
+                console.log("sadnj"+from +" "+to)
                 $("#save-r").unbind().click( function () {
                   
                             $("#from-to-r").modal('hide');
@@ -218,7 +218,7 @@
 
      function generateReport(selected,from,to){
   
-       
+      //  alert(from + to)
        const months = [
         "January",
         "February",
@@ -246,10 +246,7 @@
                     data:{selected:selected,from:from,to:to},
                     
                     success: function (result) {
-                      
-                    $('#show-report').html(result);
-                    
-                    
+                     $('#show-report').html(result);
                     },
                     error: function (xhr, status) {
                         alert("Sorry, there was a problem :(");

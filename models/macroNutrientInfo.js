@@ -2,9 +2,18 @@
 // const dateIndia = moment.tz(Date.now(), "Asia/Calcutta");
 var mongoose = require("mongoose");
 var macroNutrientInfoSchema = new mongoose.Schema({
-    total_pro: Number,
-    total_carbs: Number,
-    total_fats: Number,
+    total_pro: {
+        type: Number,
+        default: 0
+    },
+    total_carbs: {
+        type: Number,
+        default: 0
+    },
+    total_fats:{
+        type: Number,
+        default: 0
+    },
 
     totalCaloriesConsumed: {
         type: Number,

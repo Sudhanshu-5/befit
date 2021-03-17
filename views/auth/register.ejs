@@ -95,7 +95,7 @@
                   <option>1.375</option>
                   <option>1.55</option>
                   <option>1.72</option>
-                  <option>1.9<option>
+                  <option>1.9</option>
                   </select>
            
           </div>
@@ -338,24 +338,17 @@
             <lable>Set Goal</lable>
             </div>
             <div class="pt-1 border row pb-0 px-0" style="width:80%"> 
-              <div class="col-4 p-1"> 
-                    <label class="px-2 ">
-                    <input type="radio"  name="goal" id="loss-radio" value="wLoss" required>
-                    Weight Loss
-                    </label>
-             </div>
-              <div class="col-4 p-1">
-                <label  class="px-2 ">
-                  <input type="radio" name="goal" id="maintain-radio" value="wMaintain">
-                  Maintain
-                </label>
-              </div>
-              <div class="col-4 p-1">
-                  <label  class="px-2 ">
-                  <input type="radio" name="goal" id="gain-radio" value="wGain">
-                  Weight gain
-                  </label>
-              </div>
+               <select id="goal"  class="form-control" name="goal" required>
+                  <option value="-1.0">Lose 1 kilogram per week</option>
+                  <option value="-0.75">Lose .75 kilograms per week</option>
+                  <option value="-0.5">Lose .5 kilograms per week</option>
+                  <option value="-0.25">Lose .25 kilograms per week</option>
+                  <option selected value="0.0">Maintain my current weight</option>
+                  <option value="0.25">Gain .25 kilograms per week</option>
+                  <option value="0.5">Gain .5 kilograms per week</option>
+                  <option value="1.0">Gain 1 kilograms per week</option>
+               </select>
+              
         </div>
     </div>
    </div>
@@ -577,3 +570,21 @@ function knowBodyFat(){
 
 
 <%- include ("../partials/footer")%>
+<!-- <div class="col-4 p-1"> 
+                    <label class="px-2 ">
+                    <input type="radio"  name="goal" id="loss-radio" value="wLoss" required>
+                    Weight Loss
+                    </label>
+             </div>
+              <div class="col-4 p-1">
+                <label  class="px-2 ">
+                  <input type="radio" name="goal" id="maintain-radio" value="wMaintain">
+                  Maintain
+                </label>
+              </div>
+              <div class="col-4 p-1">
+                  <label  class="px-2 ">
+                  <input type="radio" name="goal" id="gain-radio" value="wGain">
+                  Weight gain
+                  </label>
+              </div> -->

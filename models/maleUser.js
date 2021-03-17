@@ -75,7 +75,9 @@ var maleUserSchema = new mongoose.Schema({
     c_target: Number,
     f_target: Number,
     goal: String,
-
+    goal_calories: Number,
+    goal_number:Number,//how much weight to be increase or decrese
+    
     mealinfo: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "mealinfo"

@@ -21,6 +21,7 @@ const {
     findOne,
     exists
 } = require("../models/user");
+const { type } = require("os");
 
 router.use(bodyParser.urlencoded({
     extended: true
@@ -66,35 +67,47 @@ router.post("/register", async (req, res) => {
         let factor = req.body.activityFactor; //initislly , user can personalize it
         let bmr;
         let targets = {};
+        let goal
+
+        if(Number(req.body.goal) < 0)
+            goal = "Lose"
+       else if (Number(req.body.goal) > 0)
+            goal = "Gain"
+       else if (Number(req.body.goal) = 0)
+            goal = "Maintain"
+        
+        let goal_calories
+        let goal_number = Number(req.body.goal);
+        // console.log("sakndkasksakdsalkmdmsa"+req.body.goal+typeof(req.body.goal)+typeof(Number(req.body.goal)))
         if (req.body.password == process.env.secret) {
             flag = true;
         }
         if (req.body.gender === "male") {
 
             bmr = 10 * W + 6.25 * H - 5 * A + 5;
-            bmr = (bmr * factor).toFixed(2);
+            goal_calories = ((bmr * factor) + (goal_number*1000) ).toFixed(2);
         } else if (req.body.gender === "female") {
-            bmr = 10 * W + 6.25 * H - 5 * A - 161;
-            bmr = (bmr * factor).toFixed(2);
+                bmr = 10 * W + 6.25 * H - 5 * A - 161;
+            goal_calories = ((bmr * factor) + (goal_number*1000) ).toFixed(2);
         }
-
+//    console.log(goal_calories +" "+ bmr+ " "+goal_number+" "+ goal)
         //!get targets
         if (factor == 1.2) {
-            targets["pTarget"] = (bmr * 30 / 400).toFixed(2);
-            targets["fTarget"] = (bmr * 20 / 900).toFixed(2);
-            targets["cTarget"] = (bmr * 50 / 400).toFixed(2);
+            targets["pTarget"] = (goal_calories * 30 / 400).toFixed(2);
+            targets["fTarget"] = (goal_calories * 20 / 900).toFixed(2);
+            targets["cTarget"] = (goal_calories * 50 / 400).toFixed(2);
 
 
         } else if (factor == 1.375 || factor == 1.55) {
 
-            targets["pTarget"] = (bmr * 15 / 400).toFixed(2);
-            targets["fTarget"] = (bmr * 30 / 900).toFixed(2);
-            targets["cTarget"] = (bmr * 55 / 400).toFixed(2);
+            targets["pTarget"] = (goal_calories * 15 / 400).toFixed(2);
+            targets["fTarget"] = (goal_calories * 30 / 900).toFixed(2);
+            targets["cTarget"] = (goal_calories * 55 / 400).toFixed(2);
 
         } else if (factor == 1.72 || factor == 1.9) {
-            targets["pTarget"] = (bmr * 25 / 400).toFixed(2);
-            targets["fTarget"] = (bmr * 30 / 900).toFixed(2);
-            targets["cTarget"] = (bmr * 45 / 400).toFixed(2);
+            targets["pTarget"] = (goal_calories * 25 / 400).toFixed(2);
+            targets["fTarget"] = (goal_calories * 30 / 900).toFixed(2);
+            targets["cTarget"] = (goal_calories* 45 / 400).toFixed(2);
         }
       
         var newUser = new user({
@@ -134,7 +147,9 @@ router.post("/register", async (req, res) => {
                         p_target: targets["pTarget"],
                         f_target: targets["fTarget"],
                         c_target: targets["cTarget"],
-                        goal: req.body.goal
+                        goal: goal,
+                        goal_calories:goal_calories,
+                        goal_number:goal_number
                     })
 
                     try {
@@ -161,7 +176,9 @@ router.post("/register", async (req, res) => {
                         age: req.body.age,
                         bmr: bmr,
                         activityFactor: factor,
-                         goal: req.body.goal
+                        goal: goal,
+                        goal_calories:goal_calories,
+                        goal_number:goal_number
                     });
                     try {
                         newlyCreated = await femaleuser.create(newFemaleUser);
