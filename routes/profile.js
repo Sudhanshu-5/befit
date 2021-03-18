@@ -229,6 +229,7 @@ router.put("/editRatios", middleware.isLoggedIn, async (req, res) => {
     var findeduser = await userType.findOne({
         username: req.user.username
     });
+    let goal_calories = findeduser.goal_calories
     if (findeduser.activityFactor == 1.2) {
         update_obj["inactive_carbsRatio"] = req.body.eratio["carbs"];
         update_obj["inactive_protiensRatio"] = req.body.eratio["protiens"];
