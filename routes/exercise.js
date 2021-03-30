@@ -161,7 +161,7 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
         console.log(exercises.length +"   "+uExerciseName.length)
         if (!exercises.length && !uExerciseName.length) {
             console.log("asdjksadn")
-            req.flash('error', 'exercise cannot be found in our database. Add in custom  exercise.')
+            req.flash('error', 'exercise cannot be found in our database. Try to add in custom  exercise.')
             res.redirect('back')
         }
         else {

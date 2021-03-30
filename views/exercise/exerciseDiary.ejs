@@ -267,7 +267,7 @@
                         <%})%>
                               
   let milliForTargets=(new Date(dc)).getTime();
-                 getTargetProgress(milliForTargets);
+                //  getTargetProgress(milliForTargets);
             let sessionArray =[];
            <%findedUser.exerciseinfo.forEach(function (exercise){%>
              
@@ -322,7 +322,7 @@
     //alert(indexOfItemsToBeRemoved)
     millisecondsOfItemsToBeRemoved=parseInt(millisecondsOfItemsToBeRemoved)
     
-    alert(new Date(millisecondsOfItemsToBeRemoved))
+    // alert(new Date(millisecondsOfItemsToBeRemoved))
   
   $("."+classOfItemsToBeRemoved).hide();
   removeFromDatabse(millisecondsOfItemsToBeRemoved,parseInt(indexOfItemsToBeRemoved));
@@ -351,24 +351,24 @@
   }) 
  
  }
-  function getTargetProgress(milliForTargets){
-//console.log("dccccccccccccccccccccccccccccccc"+dc)
-             //$('.container #showresults').append()  
-         $.ajax({
-                type: "GET", 
-                url: "/targets",
-                data:{milliForTargets:milliForTargets,type:"exercise"},
-                 //dataType: "html",
-                  success: function (data) {
-                //  var result = $('<div />').append(data).find('#showresults').html();
-                 $('.container #showresults').html(data);
-                  },
-                  error: function (xhr, status) {
-                      alert("Sorry, there was a problem! Please reload the page");
-                  },
+//   function getTargetProgress(milliForTargets){
+// //console.log("dccccccccccccccccccccccccccccccc"+dc)
+//              //$('.container #showresults').append()  
+//          $.ajax({
+//                 type: "GET", 
+//                 url: "/targets",
+//                 data:{milliForTargets:milliForTargets,type:"exercise"},
+//                  //dataType: "html",
+//                   success: function (data) {
+//                 //  var result = $('<div />').append(data).find('#showresults').html();
+//                  $('.container #showresults').html(data);
+//                   },
+//                   error: function (xhr, status) {
+//                       alert("Sorry, there was a problem! Please reload the page");
+//                   },
               
-            });
-          }
+//             });
+//           }
 </script>
        <script src="/script/calender.js"></script>
 <script>getCalendar(0)</script>

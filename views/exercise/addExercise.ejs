@@ -11,7 +11,7 @@
                 <div class="col-md-9 col-sm-12 mx-auto w-100 d-flex flex-column mt-5">
                     
                         <div class="form-group row mx-1">
-                            <textarea type="text" class="form-control exercise-ta col-sm-6 col-12" name="query" placeholder="30 min walk / 20 min yoga " class="form-control" required></textarea>
+                            <textarea type="text" class="form-control exercise-ta col-sm-6 col-12" name="query" placeholder="30 min walk / 20 min yoga / 45 seconds crunches " class="form-control" ></textarea>
                              <div id="selectedExercise-div"class="col-sm-6 col-12">
                                 
                              </div>
@@ -140,7 +140,7 @@ $(document).ready(function() {
     
     exerciseField.after().html(
    "<li><div><input class='form-control mx-2' type='text' id="+"\""+$(this).text().trim()+"\""+"name ='myExerciseName[]' value="+"\""+$(this).text().trim()+"\""+"readonly>"+
-      "<input class='form-control' id='u-duration' name='myExerciseDuration[]' type='number' placeholder='min'>"+
+      "<input class='form-control' id='u-duration' name='myExerciseDuration[]' type='number' placeholder='min' required>"+
       "<i class='far fa-times-circle px-1' style='color: rgba(227, 125, 95);' id='remove'></li></div>");
      
 
