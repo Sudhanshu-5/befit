@@ -165,10 +165,10 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                     "x-remote-user-id": "0"
                 }
             }).then(function (response) {
-                // console.log("winwinwiwnwinwinwinwinwinwin " + response.data["foods"][0].nf_calories)
+                
                 calsum = calsum + response.data["foods"][0].nf_calories;
                 fooditems.push(response.data["foods"][0].food_name);
-                // console.log("nameeeeeeeeeeeeeeeeeeeeeeeeeeeee " + fooditems)
+               
                 servingWeight.push(response.data["foods"][0].serving_weight_grams);
                 calorie.push(response.data["foods"][0].nf_calories);
                 fats.push(response.data["foods"][0].nf_total_fat);
@@ -181,7 +181,7 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                 fibres.push(response.data["foods"][0].nf_dietary_fiber);
                 servingUnit.push(req.body.measure);
                 qty.push(req.body.qty);
-                // console.log("nameeeeeeeeeeeeeeeeeeeeeeeeeeeee " + fooditems.length)
+              
 
             }).catch(function (error) {
                 
@@ -257,10 +257,9 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
                 qty.push(response.data["foods"][i].serving_qty);
 
             }
-            //console.log("typeofffffffffffffffffffff"+typeof(calorie)+typeof(carbSum)+typeof(carb)+typeof(protiens)+typeof(proSum));
+           
         }).catch(function (error) {
-            // console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk " + error)
-            // console.log("ssssssssssssssssss " + fooditems.length)
+            
             if (!fooditems.length) {
                 req.flash('error', 'Food Cannot be found in our database. Add in custom foods')
                 res.redirect('back')
@@ -275,11 +274,11 @@ router.post("/addMeal", middleware.isLoggedIn, function (req, res) {
 
         // console.log("inside demo with " + fooditems.length);
         caloriesSum = calsum + uCalsum;
-        // console.log(typeof (caloriesSum) + "111111111111111111111111111111 " + caloriesSum)
+        
         fatSum = fatSum + uFatsum;
         carbSum = carbSum + uCarbsum;
         proSum = proSum + uProsum;
-        // console.log("summmmmmmmmmmmmmmmmmmmm " + caloriesSum + " " + fatSum + " " + carbSum + " " + proSum)
+        
 
 
         fooditems = fooditems.concat(ufooditems);

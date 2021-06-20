@@ -66,8 +66,8 @@ router.get("/targets", middleware.isLoggedIn, async (req, res) => {
             })
              energy = findeduser.goal_calories + burned_calories;
        
-        console.log(energy + "0000000000000000000000000" )
-        // console.log(findeduser.bmr + " " + findeduser.activityFactor);
+        
+       
         if (req.query.type == "meal") {
             if (findeduser.activityFactor == 1.2) {
                 targets["pTarget"] = (energy * findeduser.inactive_protiensRatio / 400).toFixed(2);
@@ -88,7 +88,7 @@ router.get("/targets", middleware.isLoggedIn, async (req, res) => {
             }
             findeduser.macroNutrientInfo.forEach(function (info) {
                 // console.log(info)
-                console.log("dateeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + (info.createdAt) + " " + dc)
+                
                 if ((new Date(info.createdAt)).toLocaleDateString().localeCompare(dc.toLocaleDateString()) == 0) {
                     console.log("ente toh krra")
                     totals["totalCaloriesConsumed"] = info.totalCaloriesConsumed;
@@ -132,9 +132,7 @@ console.log(totals)
 })
 //!calorie vs date track
 router.get("/showCalorie", middleware.isLoggedIn, function (req, res) {
-    // console.log("selctedddddddddddddddddddddddddd " + req.query.selected);
-    // console.log("frommmmmmmmmmmmmmmmmmmmmmmmmmmm " + req.query.from);
-    // console.log("toooooooooooooooooooooooo " + req.query.to);
+    
     let type_obj = {
         total_carbs: "Carbohydrates",
         total_fats: "Fats",
@@ -156,11 +154,11 @@ router.get("/showCalorie", middleware.isLoggedIn, function (req, res) {
         if (err) {
             console.log(err)
         } else {
-            console.log(calorieinfo)
+            // console.log(calorieinfo)
             length = calorieinfo.macroNutrientInfo.length;
-            console.log("macro lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
-            // console.log("calorieingoooooooooooooooooo " + calorieinfo)
-            console.log("--------------------- " + req.query.type);
+            // console.log("macro lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
+            // // console.log("calorieingoooooooooooooooooo " + calorieinfo)
+            // console.log("--------------------- " + req.query.type);
             res.render("trends/calorie-date", {
                 calorieinfo: calorieinfo,
                 length: length,
@@ -187,7 +185,7 @@ router.get("/graphOdate", middleware.isLoggedIn, function (req, res) {
             console.log(err)
         } else {
             length = ondateinfo.ondate.length;
-             console.log("weight lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
+            //  console.log("weight lengthhhhhhhhhhhhhhhhhhhhhhhh " + length);
             // conso le.log("calorieingoooooooooooooooooo " + ondateinfo)
 
             res.render("trends/graphOdate", {
@@ -202,87 +200,5 @@ router.get("/graphOdate", middleware.isLoggedIn, function (req, res) {
     })
 
 })
-//!give graph representation of  nutrient values
-// router.get("/searchInstant", middleware.isLoggedIn, function (req, res) {
-//     res.render("meal/instantSearchFood")
-// })
-// router.post("/searchNutrients", middleware.isLoggedIn, function (req, res) {
-//     var info = req.body.query; //api requirement to add info to pos
-//     axios({
-//         method: "post",
-//         url: " https://trackapi.nutritionix.com/v2/natural/nutrients",
-//         headers: {
-//             //"content-type": "text/json", 
-//             //"Content-Type": "application/json", 
-//             "x-app-id": "4b34a3d8",
-//             "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
-//             "x-remote-user-id": "0"
 
-//         },
-//         data: {
-//             query: info
-//         }
-
-//     }).then(function (response) {
-//         var temp = response.data["foods"][0];
-
-//         var a = {
-//             food: temp.food_name,
-//             total_fat: temp.nf_total_fat,
-//             saturated_fat: temp.nf_saturated_fat,
-//             cholestrol: temp.nf_cholesterol,
-//             carbs: temp.nf_total_carbohydrate,
-//             fiber: temp.nf_dietary_fiber,
-//             sugar: temp.nf_sugars,
-//             protiens: temp.nf_protein,
-//         }
-//         //console.log(a);
-//         res.render("charts/charts", {
-//             data: a
-//         });
-//     }).catch(function (error) {
-//         alert("Field should not be empty")
-//     }).finally(function () {
-
-//     })
-// });
 module.exports = router;
-// //!macronutrient targets
-// router.get("/macroNutrientTarget/:date", middleware.isLoggedIn, async (req, res) => {
-//     try {
-//         let findedMealId;
-//         let findedMeal = await userType.findOne({
-//             username: req.user.username
-//         }).populate("mealinfo");
-//         //console.log("000000000" + findedMeal)
-//         findedMeal.mealinfo.forEach(function (meal) {
-//             // console.log(meal.date + "-----------" + mealmillisecToDate);
-//             // console.log(typeof (meal.date) + "-----------" + typeof (mealmillisecToDate));
-//             console.log(JSON.stringify(meal.createdAt.toLocaleDateString()) + "-------------------" + JSON.stringify((new Date(+req.params.date)).toLocaleDateString()));
-
-//             if (JSON.stringify(meal.createdAt.toLocaleDateString()) === JSON.stringify((new Date(+req.params.date)).toLocaleDateString())) {
-
-//                 console.log("ddddddddddddddddddddddddddddddddddddddddddddd" + JSON.stringify(req.params.date));
-//                 var query = {},
-//                     update = {
-//                         expire: new Date()
-//                     },
-//                     options = {
-//                         upsert: true,
-//                         new: true,
-//                         setDefaultsOnInsert: true
-//                     };
-
-//                 // Find the document
-//                 Model.findOneAndUpdate(query, update, options, function (error, result) {
-//                     if (error) return;
-
-//                     // do something with the document
-//                 });
-//             }
-//         })
-
-//     } catch (err) {
-//         console.log(err);
-//     }
-// });

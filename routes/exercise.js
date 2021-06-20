@@ -69,7 +69,7 @@ router.get("/addExercise", middleware.isLoggedIn, async (req, res) => {
 
 //!call nutrient api  add details to db
 router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
-    console.log("asmmdksadkn")
+    
     let usum = 0;
     let uExerciseName = [];
     let uDuration = [];
@@ -87,7 +87,7 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
                 if (err) {
                     console.log(err)
                 } else {
-                    // console.log("&&&&&&&&&&&&&&&&&&" + exercise)
+                   
                     triggered(exercise);
                 }
 
@@ -104,11 +104,7 @@ router.post("/addExercise", middleware.isLoggedIn, function (req, res) {
                 uMet.push(exercise.met);
                 uDuration.push(userDuration[i]);
                 uExerciseName.push(userExercise[i]);
-                // console.log("0000000" + usum);
-                // console.log("000000" + uCaloriesBurned);
-                // console.log("0000000" + uMet);
-                // console.log("000000000" + uDuration);
-                // console.log("000000000" + uExerciseName);
+               
             }
 
         }
@@ -526,7 +522,6 @@ router.get("/suggestion", middleware.isLoggedIn, async (req, res) => {
             duration_obj.running_duration = Math.round((calories * response.data.exercises[1].duration_min) / response.data.exercises[1].nf_calories);
             duration_obj.cycling_duration = Math.round((calories * response.data.exercises[2].duration_min) / response.data.exercises[2].nf_calories);
 
-            // console.log(JSON.stringify(duration_obj) + "000000000000000000000 " + duration_obj);
             res.render("exercise/suggestions", {
                 duration: duration_obj,
                 calories: calories

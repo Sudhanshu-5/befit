@@ -42,7 +42,7 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
 //!mongo atlas connection String
-mongoose.connect("mongodb://sudhanshu:sudhanshu@cluster0-shard-00-00-7nbwd.mongodb.net:27017,cluster0-shard-00-01-7nbwd.mongodb.net:27017,cluster0-shard-00-02-7nbwd.mongodb.net:27017/healthapp?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority", {
+mongoose.connect("mongodb://sudhanshu:"+process.env.password+"@cluster0-shard-00-00-7nbwd.mongodb.net:27017,cluster0-shard-00-01-7nbwd.mongodb.net:27017,cluster0-shard-00-02-7nbwd.mongodb.net:27017/healthapp?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useCreateIndex: true
 }).then(() => {
@@ -121,25 +121,7 @@ app.get("/", middleware.counterLoggedIn, function (req, res) {
     res.render("others/index");
 });
 
-// app.get("/demo", function (req, res) {
-//     res.render("demo");
-// })
-//! get ID for post to/:id/addMeal
-// app.get("/dashboard", middleware.isLoggedIn,
-//     function (req, res) {
-//         //!find  returns array so in that case accesss using findedByName[0]
 
-//         userType.find({
-//             username: req.user.username
-//         }, function (err, findedByName) {
-//             if (err) {
-//                 console.log(err);
-//             } else {
-//                 //console.log("findedByName[0]:" + findedByName[0]);
-//                 res.render("others/dashboard");
-//             }
-//         });
-//     });
 async function user(req, res) {
     try {
         var extractUser = await userType.findOne({

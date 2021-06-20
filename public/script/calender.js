@@ -1,6 +1,5 @@
 function getCalendar(k) {
 
-    console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkk" + k)
     date1 = new Date();
     let date2 = new Date();
     let date3 = new Date();

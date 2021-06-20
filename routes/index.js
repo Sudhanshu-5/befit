@@ -73,10 +73,10 @@ router.post("/register", async (req, res) => {
             goal = "Lose"
        else if (Number(req.body.goal) > 0)
             goal = "Gain"
-       else if (Number(req.body.goal) = 0)
+       else if (Number(req.body.goal) == 0)
             goal = "Maintain"
         
-        let goal_calories
+        let goal_calories 
         let goal_number = Number(req.body.goal);
         // console.log("sakndkasksakdsalkmdmsa"+req.body.goal+typeof(req.body.goal)+typeof(Number(req.body.goal)))
         if (req.body.password == process.env.secret) {
@@ -234,7 +234,7 @@ router.post("/register", async (req, res) => {
 })
 //!instant validate
 router.get("/validate", async (req, res) => {
-    // console.log("1111111111111111111111111111111111111 " + req.query.Username + "111111111" + req.query.Email)
+    
     let exists
     try {
         if (req.query.Username.length > 0) {

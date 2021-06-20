@@ -272,37 +272,3 @@ router.put("/editRatios", middleware.isLoggedIn, async (req, res) => {
 
 module.exports = router;
 
-// (async () => {
-//     try {
-
-//         const response = await axios({
-//             method: 'get',
-//             url: 'https://trackapi.nutritionix.com/v2/search/item?nix_item_id=' + req.body.nixItemId,
-//             headers: {
-//                 "x-app-id": "4b34a3d8",
-//                 "x-app-key": "6943cb151e2c8fb6a042ca0f342347da",
-//                 "x-remote-user-id": "0"
-//             }
-//         });
-//         console.log("1qqqqqqqqqqqqqqqqqqqqq " + JSON.stringify(response.data));
-//         console.log("winwinwiwnwinwinwinwinwinwin " + response.data["foods"][0].nf_calories)
-//         calsum = calsum + response.data["foods"][0].nf_calories;
-//         fooditems.push(response.data["foods"][0].food_name);
-//         console.log("nameeeeeeeeeeeeeeeeeeeeeeeeeeeee " + fooditems)
-//         servingWeight.push(response.data["foods"][0].serving_weight_grams);
-//         calorie.push(response.data["foods"][0].nf_calories);
-//         fats.push(response.data["foods"][0].nf_total_fat);
-//         fatSum += response.data["foods"][0].nf_total_fat;
-//         carbs.push(response.data["foods"][0].nf_total_carbohydrate);
-//         carbSum += response.data["foods"][0].nf_total_carbohydrate;
-//         protiens.push(response.data["foods"][0].nf_protein);
-//         proSum += response.data["foods"][0].nf_protein;
-//         cholestrol.push(response.data["foods"][0].nf_cholesterol);
-//         fibres.push(response.data["foods"][0].nf_dietary_fiber);
-//         servingUnit.push(req.body.measure);
-//         qty.push(req.body.qty);
-//         console.log("fooooooooodItems" + fooditems.length)
-//     } catch (err) {
-//         console.log(err)
-//     }
-// })()
